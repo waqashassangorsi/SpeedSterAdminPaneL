@@ -34,6 +34,9 @@ import Addrole from "views/Addrole.js";
 import Editrole from "views/Editrole.js";
 import Deliveryrequestdetail from "views/Deliveryrequestdetail.js";
 import Enduserdetail from "views/Enduserdetail.js";
+import Claim from "views/Claim.js";
+import Calimdetail from "views/Calimdetail.js";
+import UpdateRecord from "views/UpdateRecord.js";
 const dashboardRoutes = [
 	{
 		path: "/dashboard",
@@ -164,7 +167,28 @@ const dashboardRoutes = [
 		layout: "/admin",
 	},
 	{
-		path: "/login",
+		path: "/claim",
+		name: "Claim",
+		icon: "nc-icon nc-circle-09",
+		component: Claim,
+		layout: "/admin",
+	},
+	{
+		path: "/claimdetail",
+		name: "Claim Detail",
+		icon: "nc-icon nc-circle-09",
+		component: Calimdetail,
+		layout: "/admin",
+	},
+	{
+		path: "/updaterecord",
+		name: "Update Record",
+		icon: "nc-icon nc-circle-09",
+		component: UpdateRecord,
+		layout: "/admin",
+	},
+	{
+		path: "/login/login",
 		name: "Logout",
 		icon: "nc-icon nc-pin-3",
 		id: "logout",

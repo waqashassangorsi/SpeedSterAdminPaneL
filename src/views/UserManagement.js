@@ -19,6 +19,7 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
 function UserManagement() {
 	const [users, setusers] = useState([]);
+	//const [allusers, setallusers] = useState([]);
 	//const [userblock, setuserblock] = useState("");
 
 	const history = useHistory();
@@ -33,7 +34,7 @@ function UserManagement() {
 
 	useEffect(() => {
 		async function totaluser() {
-			let table5 = $("#newexample5").DataTable();
+			//let table5 = $("#newexample5").DataTable();
 			try {
 				const response = await fetch(
 					"http://speedster.book2say.com/Authentication/admin_getalluser",
@@ -43,51 +44,49 @@ function UserManagement() {
 				);
 				const data = await response.json();
 
-				console.log("apiresponse", data);
+				//console.log("apiresponse", data);
 				if (data.status == true) {
 					setusers(data.data);
-					//setuserblock(data.data.user_privilidge);
-					var userdetail = data.data;
 
-					//var content_html='';
-					var j = 1;
-					for (var i = 0; i < userdetail.length; i++) {
-						if (userdetail[j].user_status == 0) {
-							var userstatus = "User";
-						} else if (userdetail[j].user_status == 1) {
-							var userstatus = "Admin";
-						} else if (userdetail[j].user_status == 2) {
-							var userstatus = "Employee";
-						} else if (userdetail[j].user_status == 3) {
-							var userstatus = "Driver";
-						}
-						var action =
-							'<span class="eye_font"><i class="fa fa-pencil pencile_fontawesome edit_newuser" data-id=' +
-							userdetail[j].u_id +
-							' aria-hidden="true"></i></span>';
-						if (userdetail[j].user_privilidge == 1) {
-							action +=
-								'<span class="tick_span"><i class="fa fa-check mynewtick" data-id=' +
-								userdetail[j].u_id +
-								' aria-hidden="true"></i></span>';
-						} else if (userdetail[j].user_privilidge == 0) {
-							action +=
-								'<span class="tick_span_red"><i class="fa fa-check mynewtick" data-id=' +
-								userdetail[j].u_id +
-								' aria-hidden="true"></i></span>';
-						}
-						//content_html+='<tr><td>'+j+'</td><td>'+userdetail[i].name+'</td><td>'+userdetail[i].email+'</td><td>'+status+'</td><td>'+userdetail[i].joining_date+'</td></tr>';
-						table5.row.add([
-							j,
-							userdetail[j].name,
-							userdetail[j].email,
-							userdetail[j].phone_no,
-							userstatus,
-							action,
-						]);
-						// table2.row.add([j,userdetail[i].name,userdetail[i].email,status,userdetail[i].joining_date]);
-						j++;
-					}
+					// var userdetail = data.data;
+					// var j = 1;
+					// for (var i = 0; i < userdetail.length; i++) {
+					// 	if (userdetail[j].user_status == 0) {
+					// 		var userstatus = "User";
+					// 	} else if (userdetail[j].user_status == 1) {
+					// 		var userstatus = "Admin";
+					// 	} else if (userdetail[j].user_status == 2) {
+					// 		var userstatus = "Employee";
+					// 	} else if (userdetail[j].user_status == 3) {
+					// 		var userstatus = "Driver";
+					// 	}
+					// 	var action =
+					// 		'<span class="eye_font"><i class="fa fa-pencil pencile_fontawesome edit_newuser" data-id=' +
+					// 		userdetail[j].u_id +
+					// 		' aria-hidden="true"></i></span>';
+					// 	if (userdetail[j].user_privilidge == 1) {
+					// 		action +=
+					// 			'<span class="tick_span_red"><i class="fa fa-check mynewtick" data-id=' +
+					// 			userdetail[j].u_id +
+					// 			' aria-hidden="true"></i></span>';
+					// 	} else if (userdetail[j].user_privilidge == 0) {
+					// 		action +=
+					// 			'<span class="tick_span"><i class="fa fa-check mynewtick" data-id=' +
+					// 			userdetail[j].u_id +
+					// 			' aria-hidden="true"></i></span>';
+					// 	}
+					// 	//content_html+='<tr><td>'+j+'</td><td>'+userdetail[i].name+'</td><td>'+userdetail[i].email+'</td><td>'+status+'</td><td>'+userdetail[i].joining_date+'</td></tr>';
+					// 	table5.row.add([
+					// 		j,
+					// 		userdetail[j].name,
+					// 		userdetail[j].email,
+					// 		userdetail[j].phone_no,
+					// 		userstatus,
+					// 		action,
+					// 	]);
+					// 	// table2.row.add([j,userdetail[i].name,userdetail[i].email,status,userdetail[i].joining_date]);
+					// 	j++;
+					// }
 					//$('#displaydata2').prepend(content_html);
 				}
 			} catch (error) {
@@ -96,47 +95,16 @@ function UserManagement() {
 			table5.draw();
 		}
 
-		$(document).ready(function () {
-			totaluser();
+		totaluser();
+		if (users.length > 0) {
 			$("#newexample5").DataTable();
-			//  let table5 = $('#newexample5').DataTable();
-			//  table5.draw();
-			// // $('#newexample5').DataTable();
-			//     $.ajax({
-			//            url:'http://speedster.book2say.com/Authentication/admin_getalluser',
-			//            type:"GET",
-			//            dataType:'json',
-			//            success:function(html){
-			//               var getdata=html.data;
-			//               var i=1;
-			//               //var contenthtml='';
-			//                if(getdata.length>0){
-			//                   for(var j=0;j<getdata.length;j++){
-			//                      if(getdata[j].user_status==0){
-			//                        var userstatus='User';
-			//                      }
-			//                      else if(getdata[j].user_status==1){
-			//                        var userstatus='Admin';
-			//                      }
-			//                      else if(getdata[j].user_status==2){
-			//                        var userstatus='Employee';
-			//                      }
-			//                      else if(getdata[j].user_status==3){
-			//                        var userstatus='Driver';
-			//                      }
-			//                      var action='<span class="eye_font"><i class="fa fa-pencil pencile_fontawesome edit_newuser" data-id='+getdata[j].u_id+' aria-hidden="true"></i></span><span class="tick_span"><i class="fa fa-check mynewtick" data-id='+getdata[j].u_id+' aria-hidden="true"></i></span>';
-			//                    //contenthtml+='<tr><td>'+i+'</td><td>'+getdata[j].name+'</td><td>'+getdata[j].email+'</td><td>'+getdata[j].phone_no+'</td><td>'+userstatus+'</td><td><span class="eye_font"><i class="fa fa-pencil pencile_fontawesome edit_newuser" data-id='+getdata[j].u_id+' aria-hidden="true"></i></span><span class="tick_span"><i class="fa fa-check mynewtick" data-id='+getdata[j].u_id+' aria-hidden="true"></i></span></td></tr>';
-			//                     table5.row.add([i,getdata[j].name,getdata[j].email,getdata[j].phone_no,userstatus,action]);
-			//                     i++;
-			//                   }
-			//                }
-			//                //$('#displaydata33').prepend(contenthtml);
-			//            }
-			//     });
-		});
-	}, []);
+		}
 
-	//console.log("users", userblock);
+		// $(document).ready(function () {
+		// 	totaluser();
+		// 	$("#newexample5").DataTable();
+		// });
+	}, [users]);
 
 	return (
 		<>
@@ -169,51 +137,41 @@ function UserManagement() {
 										</tr>
 									</thead>
 									<tbody id="displaydata33">
-										{/* {users &&
-											users.map((user, index) => (
-												<tr
-													key={index}
-													className={index % 2 === 0 ? "evene" : "oded"}
-												>
-													<td className="sorting_1">{index + 1}</td>
-													<td>{user.name}</td>
-													<td>{user.email}</td>
-													<td>{user.phone_no}</td>
-													<td>user</td>
-													<td>
-														<span className="eye_font">
+										{users.map((item, index) => (
+											<tr>
+												<td className="border-0">{index + 1}</td>
+												<td className="border-0">{item.name}</td>
+												<td className="border-0">{item.email}</td>
+												<td className="border-0">{item.phone_no}</td>
+												<td className="border-0">
+													{item.user_status === 0
+														? "User"
+														: item.user_status === 1
+														? "Admin"
+														: item.user_status === 2
+														? "Employee"
+														: "Driver"}
+												</td>
+
+												<td className="border-0">
+													{item.user_privilidge === 0 ? (
+														<span class="tick_span">
 															<i
-																className="fa fa-pencil pencile_fontawesome edit_newuser"
-																data-id={user.u_id}
-																aria-hidden="true"
+																class="fa fa-check mynewtick"
+																data-id={item.u_id}
 															></i>
 														</span>
-														{user.user_privilidge == 1 && (
-															<>
-																<span className="tick_span">
-																	<i
-																		className="fa fa-check mynewtick"
-																		data-id={user.u_id}
-																		aria-hidden="true"
-																	></i>
-																</span>
-															</>
-														)}
-
-														{user.user_privilidge == 0 && (
-															<>
-																<span className="tick_span_red">
-																	<i
-																		className="fa fa-check mynewtick"
-																		data-id={user.u_id}
-																		aria-hidden="true"
-																	></i>
-																</span>
-															</>
-														)}
-													</td>
-												</tr>
-											))} */}
+													) : (
+														<span class="tick_span_red">
+															<i
+																class="fa fa-check mynewtick"
+																data-id={item.u_id}
+															></i>
+														</span>
+													)}
+												</td>
+											</tr>
+										))}
 									</tbody>
 								</Table>
 							</Card.Body>

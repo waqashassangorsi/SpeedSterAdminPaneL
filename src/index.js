@@ -27,26 +27,68 @@ import "./assets/css/demo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import AdminLayout from "layouts/Admin.js";
 import Login from "layouts/Login.js";
+import { Provider } from "react-redux";
+import { store } from "state/store";
 
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "state/index";
+
+const App = () => {
+	const amount1 = useSelector((state) => state.amount1);
+	const dispatch = useDispatch();
+	const { loginData } = bindActionCreators(actionCreators, dispatch);
+
+	let element;
+
+	//if (amount1 !== 0) {
+	//console.log("amount1", amount1);
+	element = (
+		<BrowserRouter>
+			<Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+			<Redirect from="/" to="/admin/dashboard" />
+			<Route path="/login" render={(props) => <Login {...props} />} />
+			<Redirect from="/" to="/login/login" />
+		</BrowserRouter>
+	);
+	//} else {
+	//console.log("amount1", amount1);
+	// element = (
+	// 	<BrowserRouter>
+	// 		<Route path="/login" render={(props) => <Login {...props} />} />
+	// 		<Redirect from="/" to="/login/login" />
+	// 	</BrowserRouter>
+	// );
+	//	}
+
+	return <>{element}</>;
+};
 const root = ReactDOM.createRoot(document.getElementById("root"));
 //const getlocalstorage=localStorage.getItem("userid");
 
- //if(getlocalstorage!=null){
-   const element= (
-    <BrowserRouter>
-      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/dashboard" /> 
-      <Route path="/login" render={(props) => <Login {...props} />} />
-      <Redirect from="/" to="/login/login" />
-    </BrowserRouter>
-   );
-     root.render(element);
- //}else{
-  //   const element=  ( 
-  //   <BrowserRouter>
-  //     <Route path="/login" render={(props) => <Login {...props} />} />
-  //     <Redirect from="/" to="/login/login" />
-  // </BrowserRouter>
-  //   );
-  //   root.render(element);
- //}
+//if(getlocalstorage!=null){
+// const element = (
+// 	<Provider store={store}>
+// 		<BrowserRouter>
+// 			<Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+// 			<Redirect from="/" to="/admin/dashboard" />
+// 			<Route path="/login" render={(props) => <Login {...props} />} />
+// 			<Redirect from="/" to="/login/login" />
+// 		</BrowserRouter>
+// 	</Provider>
+// );
+root.render(
+	<Provider store={store}>
+		<App />
+	</Provider>
+);
+//}else{
+//   const element=  (
+//   <BrowserRouter>
+//     <Route path="/login" render={(props) => <Login {...props} />} />
+//     <Redirect from="/" to="/login/login" />
+// </BrowserRouter>
+//   );
+//   root.render(element);
+//}

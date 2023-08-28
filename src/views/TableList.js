@@ -26,9 +26,11 @@ function TableList() {
 		history.push("/admin/driverdetail/?id=" + id);
 	});
 
+	const [alldrivers, setalldrivers] = useState([]);
+
 	useEffect(() => {
 		async function totaluser(event) {
-			let table = $("#example").DataTable();
+			//let table = $("#example").DataTable();
 			try {
 				const response = await fetch(
 					"http://speedster.book2say.com/Authentication/admin_showalldriver",
@@ -38,69 +40,60 @@ function TableList() {
 				);
 				const data = await response.json();
 				if (data.status == true) {
-					var userdetail = data.data;
-					var content_html = "";
-					var j = 1;
-					if (userdetail.length > 0) {
-						for (var i = 0; i < userdetail.length; i++) {
-							// if (userdetail[i].user_privilidge == "2") {
-							// 	var status =
-							// 		'<button type="button" class="btn btn-secondary btn_status" data-id=' +
-							// 		userdetail[i].u_id +
-							// 		">Active</button>";
-							// } else if (userdetail[i].user_privilidge == "0") {
-							// 	var status =
-							// 		'<button type="button" class="btn btn-danger btn_status" data-id=' +
-							// 		userdetail[i].u_id +
-							// 		">Inactive</button>";
-							// }
+					setalldrivers(data.data);
+					// var userdetail = data.data;
+					// var content_html = "";
+					// var j = 1;
+					// if (userdetail.length > 0) {
+					// 	for (var i = 0; i < userdetail.length; i++) {
+					// 		var action_btn =
+					// 			'<i class="fa fa-eye driver_detail" data-id=' +
+					// 			userdetail[i].u_id +
+					// 			"></i>";
 
-							// var action_btn =
-							// 	'<button type="button" class="btn btn-primary driver_detail" data-id=' +
-							// 	userdetail[i].u_id +
-							// 	">View Detail</button>";
-							var action_btn =
-								'<i class="fa fa-eye driver_detail" data-id=' +
-								userdetail[i].u_id +
-								"></i>";
-
-							if (userdetail[i].user_privilidge == 1) {
-								action_btn +=
-									'<span class="tick_span"><i class="fa fa-check mynewtick" data-id=' +
-									userdetail[i].u_id +
-									' aria-hidden="true"></i></span>';
-							} else if (userdetail[i].user_privilidge == 0) {
-								action_btn +=
-									'<span class="tick_span_red"><i class="fa fa-check mynewtick" data-id=' +
-									userdetail[i].u_id +
-									' aria-hidden="true"></i></span>';
-							}
-							table.row.add([
-								j,
-								userdetail[i].name,
-								userdetail[i].email,
-								userdetail[i].phone_no,
-								userdetail[i].joining_date,
-								action_btn,
-							]);
-							//content_html+='<tr><td>'+j+'</td><td>'+userdetail[i].name+'</td><td>'+userdetail[i].email+'</td><td>'+status+'</td><td>'+userdetail[i].joining_date+'</td><td><button type="button" class="btn btn-primary driver_detail" data-id='+userdetail[i].u_id+'>View Detail</button></td></tr>';
-							j++;
-						}
-						//$("#displaydata").prepend(content_html);
-						//console.log('content_html',content_html);
-					}
+					// 		if (userdetail[i].user_privilidge == 1) {
+					// 			action_btn +=
+					// 				'<span class="tick_span_red"><i class="fa fa-check mynewtick" data-id=' +
+					// 				userdetail[i].u_id +
+					// 				' aria-hidden="true"></i></span>';
+					// 		} else if (userdetail[i].user_privilidge == 0) {
+					// 			action_btn +=
+					// 				'<span class="tick_span"><i class="fa fa-check mynewtick" data-id=' +
+					// 				userdetail[i].u_id +
+					// 				' aria-hidden="true"></i></span>';
+					// 		}
+					// 		table.row.add([
+					// 			j,
+					// 			userdetail[i].name,
+					// 			userdetail[i].email,
+					// 			userdetail[i].phone_no,
+					// 			userdetail[i].joining_date,
+					// 			action_btn,
+					// 		]);
+					// 		//content_html+='<tr><td>'+j+'</td><td>'+userdetail[i].name+'</td><td>'+userdetail[i].email+'</td><td>'+status+'</td><td>'+userdetail[i].joining_date+'</td><td><button type="button" class="btn btn-primary driver_detail" data-id='+userdetail[i].u_id+'>View Detail</button></td></tr>';
+					// 		j++;
+					// 	}
+					// 	//$("#displaydata").prepend(content_html);
+					// 	//console.log('content_html',content_html);
+					// }
 				}
 			} catch (error) {
 				console.log(error);
 			}
 			table.draw();
 		}
+		totaluser();
 
-		$(document).ready(function () {
-			totaluser();
-			$("#example").DataTable();
-		});
-	}, []);
+		if (alldrivers.length > 0) {
+			let table = $("#example").DataTable();
+			table.draw();
+		}
+
+		// $(document).ready(function () {
+		// 	totaluser();
+		// 	$("#example").DataTable();
+		// });
+	}, [alldrivers]);
 
 	return (
 		<>
@@ -123,7 +116,38 @@ function TableList() {
 											<th className="border-0">Action</th>
 										</tr>
 									</thead>
-									<tbody id="displaydata"></tbody>
+									<tbody id="displaydata">
+										{alldrivers.map((item, index) => (
+											<tr>
+												<td className="border-0">{index + 1}</td>
+												<td className="border-0">{item.name}</td>
+												<td className="border-0">{item.email}</td>
+												<td className="border-0">{item.phone_no}</td>
+												<td className="border-0">{item.joining_date}</td>
+												<td className="border-0">
+													<i
+														class="fa fa-eye driver_detail"
+														data-id={item.u_id}
+													></i>
+													{item.user_privilidge === 0 ? (
+														<span class="tick_span">
+															<i
+																class="fa fa-check mynewtick"
+																data-id={item.u_id}
+															></i>
+														</span>
+													) : (
+														<span class="tick_span_red">
+															<i
+																class="fa fa-check mynewtick"
+																data-id={item.u_id}
+															></i>
+														</span>
+													)}
+												</td>
+											</tr>
+										))}
+									</tbody>
 								</Table>
 							</Card.Body>
 						</Card>

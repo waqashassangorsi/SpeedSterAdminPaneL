@@ -41,6 +41,30 @@ $(document).ready(function () {
 		});
 	});
 
+	$(document).on("click", ".update_record", function () {
+		const new_useremail = $("#new_useremail").val();
+		const new_userpass = $("#new_userpass").val();
+		const new_userid = $("#new_userid").val();
+		$.ajax({
+			url: "http://speedster.book2say.com/Authentication/admin_updatesetting",
+			type: "POST",
+			data: {
+				new_useremail: new_useremail,
+				new_userpass: new_userpass,
+				new_userid: new_userid,
+			},
+			dataType: "json",
+			success: function (html) {
+				if (html.status == true) {
+					alert(html.message);
+				} else {
+					alert(html.message);
+					//alert("Setting not Updated");
+				}
+			},
+		});
+	});
+
 	$(document).on("click", ".settingdata", function () {
 		if ($(".submenu_setting").hasClass("open")) {
 			$(".submenu_setting").removeClass("open");

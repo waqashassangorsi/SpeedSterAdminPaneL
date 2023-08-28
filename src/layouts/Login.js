@@ -3,6 +3,10 @@ import $ from "jquery";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import App from "../components/App/App";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../state/index";
 // react-bootstrap components
 import {
 	Badge,
@@ -34,9 +38,19 @@ const initialState = {
 // const birds=store.getState();
 
 function Login(props) {
-	console.log("logingetlocalstorage", localStorage.getItem("userid"));
+	const amount1 = useSelector((state) => state.amount1);
+	const dispatch = useDispatch();
+	const { loginData } = bindActionCreators(actionCreators, dispatch);
+	//const newsdata = loginData();
+	console.log("loginData", amount1);
+	//if (amount1 !== 0) {
+	// 	//alert("123");
+	//	props.history.push("/admin/Dashboard");
+	//}
+	//console.log("logingetlocalstorage", localStorage.getItem("userid"));
 	async function handleSubmit(event) {
 		event.preventDefault();
+
 		try {
 			const email = $("#email").val();
 			const pass = $("#pass").val();
@@ -53,8 +67,14 @@ function Login(props) {
 				);
 				const data = await response.json();
 				if (data.status == true) {
-					localStorage.setItem("userid", data.data.u_id);
-					props.history.push("/admin/Dashboard");
+					if (data.data.u_id != "") {
+						//loginData(parseInt(data.data.u_id));
+						loginData(data.data);
+						localStorage.setItem("userid", data.data.u_id);
+						props.history.push("/admin/Dashboard");
+					} else {
+						alert("No Record Found");
+					}
 				} else {
 					alert("No Record Found");
 				}
@@ -66,6 +86,7 @@ function Login(props) {
 			console.log(error);
 		}
 	}
+	function onchangefunction() {}
 	return (
 		<>
 			{/* <Provider store={store}>
@@ -74,33 +95,35 @@ function Login(props) {
 			<Container fluid>
 				<Row>
 					<Col md="12">
-						<form class="loginform" onSubmit={handleSubmit}>
+						<form className="loginform" onSubmit={handleSubmit}>
 							<div className="login_img">
 								<img src={require("assets/img/speedster.png")} alt="..." />
 							</div>
 
-							<div class="col-sm-12 signin_heading">
+							<div className="col-sm-12 signin_heading">
 								<h4>Sign In</h4>
 							</div>
-							<div class="form-group">
-								<label for="exampleInputEmail1">Email address</label>
+							<div className="form-group">
+								<label htmlFor="exampleInputEmail1">Email address</label>
 								<input
 									type="text"
-									class="form-control"
+									className="form-control"
 									id="email"
-									value="waqashassan100@gmail.com"
+									value="hamzanoor77@gmail.com"
+									onChange={onchangefunction}
 								/>
 							</div>
-							<div class="form-group login_password">
-								<label for="exampleInputPassword1">Password</label>
+							<div className="form-group login_password">
+								<label htmlFor="exampleInputPassword1">Password</label>
 								<input
 									type="password"
-									class="form-control"
+									className="form-control"
 									id="pass"
 									value="123"
+									onChange={onchangefunction}
 								/>
 							</div>
-							<button type="submit" class="btn btn-primary login_submitbtn">
+							<button type="submit" className="btn btn-primary login_submitbtn">
 								Sign In
 							</button>
 						</form>

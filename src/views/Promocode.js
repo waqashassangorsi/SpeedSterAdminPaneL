@@ -21,10 +21,9 @@ function Promocode() {
 	function handleClick() {
 		history.push("/admin/addpromocode");
 	}
-
+	const [showpromocode, setshowpromocode] = useState([]);
 	useEffect(() => {
 		async function totaluser() {
-			let table4 = $("#newexample4").DataTable();
 			try {
 				const response = await fetch(
 					"http://speedster.book2say.com/Authentication/admin_showpromocode",
@@ -34,31 +33,36 @@ function Promocode() {
 				);
 				const data = await response.json();
 				if (data.status == true) {
-					var userdetail = data.data;
-
-					var j = 1;
-					for (var i = 0; i < userdetail.length; i++) {
-						//table10.row.add([j, userdetail[i].name, detail_new]);
-						table4.row.add([j, userdetail[i].banner]);
-						j++;
-					}
+					setshowpromocode(data.data);
+					//var userdetail = data.data;
+					//var j = 1;
+					//for (var i = 0; i < userdetail.length; i++) {
+					//table10.row.add([j, userdetail[i].name, detail_new]);
+					//	table4.row.add([j, userdetail[i].banner]);
+					//	j++;
+					//}
 					//$('#displaydata2').prepend(content_html);
 				}
 			} catch (error) {
 				console.log(error);
 			}
+		}
+		totaluser();
+		if (showpromocode.length > 0) {
+			let table4 = $("#newexample4").DataTable();
 			table4.draw();
 		}
-
-		$(document).ready(function () {
-			totaluser();
-			$("#newexample4").DataTable();
-		});
+		//let table4 = $("#newexample4").DataTable();
+		//table4.draw();
+		// $(document).ready(function () {
+		// 	totaluser();
+		// 	$("#newexample4").DataTable();
+		// });
 		// $(document).ready(function () {
 		// 	totaluser();
 		// 	$("#myTable").DataTable();
 		// });
-	}, []);
+	}, [showpromocode]);
 
 	return (
 		<>
@@ -87,10 +91,12 @@ function Promocode() {
 										</tr>
 									</thead>
 									<tbody id="displaydata3">
-										{/* <tr>
-											<td>1</td>
-											<td>123</td>
-										</tr> */}
+										{showpromocode.map((term, index) => (
+											<tr>
+												<td>{index + 1}</td>
+												<td>{term.banner}</td>
+											</tr>
+										))}
 									</tbody>
 								</Table>
 							</Card.Body>

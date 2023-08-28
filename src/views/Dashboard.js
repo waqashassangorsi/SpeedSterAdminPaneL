@@ -3,6 +3,10 @@ import ChartistGraph from "react-chartist";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actionCreators } from "../state/index";
+
 import App from "../components/App/App";
 // react-bootstrap components
 import {
@@ -35,12 +39,16 @@ const store = createStore(() => ({
 }));
 
 function Dashboard(props) {
+	const amount = useSelector((state) => state.amount);
+	//const amount1 = useSelector((state) => state.amount1);
+	const dispatch = useDispatch();
+	const { withdrawMoney, depositMoney, multiplyMoney, loginData } =
+		bindActionCreators(actionCreators, dispatch);
 	const [totaldrivers, settotaldrivers] = useState("");
 	const [totaluser, settotalusers] = useState("");
 	const [totalrides, settotalrides] = useState("");
-
-	console.log("getlocalstorage", localStorage.getItem("userid"));
-	//console.log('store',store);
+	//console.log("getlocalstorage", localStorage.getItem("userid"));
+	//console.log("loginData1", amount1);
 	async function totalrecord(event) {
 		try {
 			const response = await fetch(
@@ -96,6 +104,7 @@ function Dashboard(props) {
 
 									<Col xs="7">
 										<div className="numbers">
+											{/* <a href="http://localhost:3000/login/login">Login</a> */}
 											<p className="card-category">Total Drivers</p>
 											<Card.Title as="h4" id="totaldriver">
 												{totaldrivers}
@@ -168,6 +177,57 @@ function Dashboard(props) {
                 </div> */}
 							</Card.Footer>
 						</Card>
+						{/* <button
+							type="button"
+							onClick={() => {
+								dispatch(actionCreators.depositMoney(100));
+							}}
+						>
+							Add
+						</button>
+						<button
+							type="button"
+							onClick={() => {
+								dispatch(actionCreators.withdrawMoney(100));
+							}}
+						>
+							Subtract
+						</button> */}
+						{/* 
+						<button
+							type="button"
+							onClick={() => {
+								depositMoney(100);
+							}}
+						>
+							Add
+						</button>
+						<button
+							type="button"
+							onClick={() => {
+								withdrawMoney(100);
+							}}
+						>
+							Subtract
+						</button>
+
+						<button
+							type="button"
+							onClick={() => {
+								multiplyMoney(100);
+							}}
+						>
+							Multiply
+						</button> */}
+
+						{/* <button
+							type="button"
+							onClick={() => {
+								loginData(100);
+							}}
+						>
+							Add ride
+						</button> */}
 					</Col>
 					{/* <Col lg="3" sm="6">
             <Card className="card-stats">

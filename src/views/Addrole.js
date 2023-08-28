@@ -14,7 +14,16 @@ import {
 } from "react-bootstrap";
 import "assets/js/custom.js";
 import $ from "jquery";
+// import { useSelector } from "react-redux";
+// import { useDispatch } from "react-redux";
+// import { bindActionCreators } from "redux";
+// import { actionCreators } from "../state/index";
 function Addrole() {
+	//const amount = useSelector((state) => state.amount2);
+	//const amount1 = useSelector((state) => state.amount1);
+	//	const dispatch = useDispatch();
+	//	const { roleData } = bindActionCreators(actionCreators, dispatch);
+
 	const [showdashboardchild, setshowdashboardchild] = useState(false);
 	const [showdashboardchildtwo, setshowdashboardchildtwo] = useState(false);
 	const [showdashboardchildthree, setshowdashboardchildthree] = useState(false);
@@ -26,10 +35,12 @@ function Addrole() {
 
 	const handleClick = () => {
 		setshowdashboardchild(!showdashboardchild);
+		//roleData("dashboard");
 	};
 
 	const handleClicktwo = () => {
 		setshowdashboardchildtwo(!showdashboardchildtwo);
+		//roleData("delivery_request");
 	};
 	const handleClickthree = () => {
 		setshowdashboardchildthree(!showdashboardchildthree);
@@ -50,6 +61,17 @@ function Addrole() {
 	const handleClickeight = () => {
 		setshowdashboardchildeight(!showdashboardchildeight);
 	};
+
+	// const handleValues = () => {
+	// 	var privilages = [];
+	// 	var checkboxes = document.querySelectorAll(".checkbox_newval:checked");
+
+	// 	checkboxes.forEach(function (checkbox) {
+	// 		privilages.push(checkbox.value);
+	// 	});
+	// 	roleData(privilages);
+	// };
+	// console.log("wqeqwe", amount);
 
 	return (
 		<>
@@ -826,6 +848,14 @@ function Addrole() {
 											>
 												Submit
 											</button>
+
+											{/* <button
+												type="button"
+												class="btn btn-success"
+												onClick={handleValues}
+											>
+												Add values
+											</button> */}
 										</div>
 									</div>
 								</form>

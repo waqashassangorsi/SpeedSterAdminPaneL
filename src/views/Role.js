@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 // react-bootstrap components
 import {
@@ -19,12 +19,14 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
 function Role() {
 	const history = useHistory();
+	const [userrole, setuserrole] = useState([]);
 	function handleClick() {
 		history.push("/admin/addrole");
 	}
 
 	$(document).on("click", ".eye_fontnew", function () {
 		var id = $(this).attr("data-id");
+		alert(id);
 		//history.push("/admin/editrole/" + id);
 		history.push({
 			pathname: "/admin/editrole/",
@@ -35,7 +37,7 @@ function Role() {
 
 	useEffect(() => {
 		async function totaluser() {
-			let table10 = $("#newexample8").DataTable();
+			//let table10 = $("#newexample8").DataTable();
 			try {
 				const response = await fetch(
 					"http://speedster.book2say.com/Authentication/admin_getallrole",
@@ -45,19 +47,19 @@ function Role() {
 				);
 				const data = await response.json();
 				if (data.status == true) {
-					var userdetail = data.data;
-
-					var j = 1;
-					for (var i = 0; i < userdetail.length; i++) {
-						var detail_new =
-							'<i class="fa fa-pencil eye_fontawesome eye_fontnew tick_icon" data-id="' +
-							userdetail[i].Id +
-							'"></i>';
-						detail_new +=
-							'<i class="fa fa-eye eye_fontawesome eye_fontnew"></i>';
-						table10.row.add([j, userdetail[i].name, detail_new]);
-						j++;
-					}
+					setuserrole(data.data);
+					//var userdetail = data.data;
+					//var j = 1;
+					//for (var i = 0; i < userdetail.length; i++) {
+					//	var detail_new =
+					//		'<i class="fa fa-pencil eye_fontawesome eye_fontnew tick_icon" data-id="' +
+					//		userdetail[i].Id +
+					//		'"></i>';
+					//	detail_new +=
+					//		'<i class="fa fa-eye eye_fontawesome eye_fontnew"></i>';
+					//	table10.row.add([j, userdetail[i].name, detail_new]);
+					//	j++;
+					//}
 					//$('#displaydata2').prepend(content_html);
 				}
 			} catch (error) {
@@ -65,12 +67,17 @@ function Role() {
 			}
 			table10.draw();
 		}
+		totaluser();
+		//$("#newexample8").DataTable();
+		// $(document).ready(function () {
+		// 	totaluser();
+		// 	$("#newexample8").DataTable();
+		// });
 
-		$(document).ready(function () {
-			totaluser();
+		if (userrole.length > 0) {
 			$("#newexample8").DataTable();
-		});
-	}, []);
+		}
+	}, [userrole]);
 
 	return (
 		<>
@@ -100,10 +107,18 @@ function Role() {
 										</tr>
 									</thead>
 									<tbody id="displaydata3">
-										{/* <tr>
-                          <td>1</td>
-                          <td>Admin</td>
-                    </tr> */}
+										{userrole.map((item, index) => (
+											<tr>
+												<td>{index + 1}</td>
+												<td>{item.name}</td>
+												<td>
+													<i
+														class="fa fa-pencil eye_fontawesome eye_fontnew tick_icon"
+														data-id={item.Id}
+													></i>
+												</td>
+											</tr>
+										))}
 									</tbody>
 								</Table>
 							</Card.Body>
