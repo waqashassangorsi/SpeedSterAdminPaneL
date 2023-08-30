@@ -47,7 +47,7 @@ function Claim() {
 
 	useEffect(() => {
 		async function totaluser() {
-			let table5 = $("#newexample5").DataTable();
+			//let table5 = $("#newexample5").DataTable();
 			try {
 				const response = await fetch(
 					"http://speedster.book2say.com/Authentication/adminclaim",
@@ -84,14 +84,19 @@ function Claim() {
 			} catch (error) {
 				console.log(error);
 			}
-			table5.draw();
+			//table5.draw();
 		}
 
-		$(document).ready(function () {
-			totaluser();
-			$("#newexample5").DataTable();
-		});
-	}, []);
+		// $(document).ready(function () {
+		// 	totaluser();
+		// 	$("#newexample5").DataTable();
+		// });
+		totaluser();
+		if (claimrecord.length > 0) {
+			let table3 = $("#newexample5").DataTable();
+			table3.draw();
+		}
+	}, [claimrecord]);
 
 	//console.log("users", userblock);
 
@@ -126,7 +131,7 @@ function Claim() {
 											claimrecord.map((claimrecord, index) => {
 												const concatenatedImageUrls = claimrecord.calimimages
 													.map((image) => image.file)
-													.join(",");
+													;
 												return (
 													<tr key={index}>
 														<td>{index + 1}</td>

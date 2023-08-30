@@ -300,7 +300,7 @@ function Sidebar({ color, image, routes }) {
 							activeClassName="active"
 							id={dashboard_id}
 						>
-							<i className="nc-icon nc-chart-pie-35" />
+							<i className="nc-icon nc-bullet-list-67" />
 							<p>Dashboard</p>
 						</NavLink>
 					</li>
@@ -312,7 +312,7 @@ function Sidebar({ color, image, routes }) {
 							activeClassName="active"
 							id={delivery_details}
 						>
-							<i className="nc-icon nc-circle-09" />
+							<i className="nc-icon nc-bus-front-12" />
 							<p>Delivery Request</p>
 						</NavLink>
 					</li>
@@ -334,7 +334,7 @@ function Sidebar({ color, image, routes }) {
 							activeClassName="active"
 							id={enduser}
 						>
-							<i className="nc-icon nc-circle-09" />
+							<i className="nc-icon nc-single-02" />
 							<p>Enduser</p>
 						</NavLink>
 					</li>
@@ -356,18 +356,18 @@ function Sidebar({ color, image, routes }) {
 							activeClassName="active"
 							id={promocode}
 						>
-							<i className="nc-icon nc-delivery-fast" />
+							<i className="nc-icon nc-notes" />
 							<p>Promocode</p>
 						</NavLink>
 					</li>
 					<li>
 						<NavLink
-							to="#"
+							to="/admin/usermanagement"
 							className="nav-link user_management"
 							activeClassName="active"
 							id={usermanagement}
 						>
-							<i className="nc-icon nc-delivery-fast" />
+							<i className="nc-icon nc-preferences-circle-rotate" />
 							<p>User Management</p>
 						</NavLink>
 
@@ -378,12 +378,12 @@ function Sidebar({ color, image, routes }) {
 					</li>
 					<li>
 						<NavLink
-							to="#"
+							to="/admin/pricing"
 							className="nav-link settingdata"
 							activeClassName="active"
 							id={setting}
 						>
-							<i className="nc-icon nc-delivery-fast" />
+							<i className="nc-icon nc-settings-gear-64" />
 							<p>Setting</p>
 						</NavLink>
 						<ul class="submenu_setting close">
@@ -397,7 +397,7 @@ function Sidebar({ color, image, routes }) {
 							className="nav-link"
 							activeClassName="active"
 						>
-							<i className="nc-icon nc-pin-3" />
+							<i className="nc-icon nc-single-copy-04" />
 							<p>Claim</p>
 						</NavLink>
 					</li>
@@ -407,7 +407,7 @@ function Sidebar({ color, image, routes }) {
 							className="nav-link"
 							activeClassName="active"
 						>
-							<i className="nc-icon nc-pin-3" />
+							<i className="nc-icon nc-button-power" />
 							<p>Logout</p>
 						</NavLink>
 					</li>

@@ -65,7 +65,7 @@ function Role() {
 			} catch (error) {
 				console.log(error);
 			}
-			table10.draw();
+			//table10.draw();
 		}
 		totaluser();
 		//$("#newexample8").DataTable();

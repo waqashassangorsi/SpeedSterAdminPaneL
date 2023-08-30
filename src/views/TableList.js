@@ -80,7 +80,7 @@ function TableList() {
 			} catch (error) {
 				console.log(error);
 			}
-			table.draw();
+			//table.draw();
 		}
 		totaluser();
 

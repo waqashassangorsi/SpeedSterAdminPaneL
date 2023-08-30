@@ -92,7 +92,7 @@ function UserManagement() {
 			} catch (error) {
 				console.log(error);
 			}
-			table5.draw();
+			//table5.draw();
 		}
 
 		totaluser();

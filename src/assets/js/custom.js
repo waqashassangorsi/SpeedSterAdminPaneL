@@ -26,10 +26,24 @@ $(document).ready(function () {
 
 	$(document).on("click", ".add_promocode", function () {
 		const new_promocode = $("#new_promocode").val();
+		const no_promocode = $("#no_promocode").val();
+		const discount_promocode = $("#discount_promocode").val();
+		const promo_img = $("#promo_img").val();
+       
+		var formData = new FormData();
+		formData.append('new_promocode',new_promocode);
+		formData.append('no_promocode',no_promocode);
+		formData.append('discount_promocode',discount_promocode);
+		// Attach file
+		formData.append('promo_img[]', $("#promo_img")[0].files[0]); 
+        console.log($("#promo_img")[0].files[0]);
 		$.ajax({
 			url: "http://speedster.book2say.com/Authentication/admin_addpromocode",
 			type: "POST",
-			data: { new_promocode: new_promocode },
+			enctype:"multipart/form-data",
+			data:formData ,
+			contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+			processData: false, // NEEDED, DON'T OMIT THIS
 			dataType: "json",
 			success: function (html) {
 				if (html.status == true) {
