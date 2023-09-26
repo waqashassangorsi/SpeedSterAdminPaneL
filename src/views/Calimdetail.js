@@ -30,8 +30,53 @@ function Calimdetail() {
 	const claimfrom = history.location.claimfrom.claim_from;
 	const claimto = history.location.claimto.claim_to;
 	const dataimages = history.location.dataimages.data_images;
+	const dataid = history.location.dataid.data_id;
+	const datastatus = history.location.datastatus.data_status;
 	const separatedArray = dataimages.split(",");
 	console.log("separatedArray", separatedArray);
+	function approveclaim() {
+		var response = confirm("Are you sure you want to change the status?");
+		if (response == true) {
+			const claim_id = $("#approvebtnnew").attr("data-id");
+
+			const status = "Approved";
+			$.ajax({
+				url: "http://speedster.book2say.com/Authentication/adminclaimstatus",
+				type: "POST",
+				data: { claim_id: claim_id, status: status },
+				dataType: "json",
+				success: function (html) {
+					if (html.status == true) {
+						alert(html.message);
+					} else {
+						alert("Claim not Changed");
+					}
+				},
+			});
+		}
+	}
+
+	function disapproveclaim() {
+		var response = confirm("Are you sure you want to change the status?");
+		if (response == true) {
+			const claim_id = $("#disapprovebtnnew").attr("data-id");
+
+			const status = "Rejected";
+			$.ajax({
+				url: "http://speedster.book2say.com/Authentication/adminclaimstatus",
+				type: "POST",
+				data: { claim_id: claim_id, status: status },
+				dataType: "json",
+				success: function (html) {
+					if (html.status == true) {
+						alert(html.message);
+					} else {
+						alert("Claim not Changed");
+					}
+				},
+			});
+		}
+	}
 	return (
 		<>
 			<Container fluid>
@@ -96,26 +141,61 @@ function Calimdetail() {
 
 										<div class="mb-3">
 											<p>Picture Uploaded by driver</p>
-											<img
+											{/* <img
 												src={require("assets/img/speedster.png")}
 												alt="..."
 												class="side_barlogo"
-											/>
+											/> */}
+											{separatedArray &&
+												separatedArray.map((separatedArray, index) => (
+													<img
+														src={separatedArray}
+														alt="..."
+														class="side_barlogo"
+														style={myimage}
+													/>
+												))}
 										</div>
 
 										<div>
 											<p>Picture Uploaded by agent</p>
-											<img
+											{/* <img
 												src={require("assets/img/speedster.png")}
 												alt="..."
 												class="side_barlogo"
-											/>
+											/> */}
+
+											{separatedArray &&
+												separatedArray.map((separatedArray, index) => (
+													<img
+														src={separatedArray}
+														alt="..."
+														class="side_barlogo"
+														style={myimage}
+													/>
+												))}
 										</div>
 
-										<div class="text-center">
-											<button class="btn btn-primary mr-2">Approve</button>
-											<button class="btn btn-danger">Disapprove</button>
-										</div>
+										{datastatus === "Pending" && (
+											<div class="text-center mt-2">
+												<button
+													class="btn btn-primary mr-2"
+													onClick={approveclaim}
+													data-id={dataid}
+													id="approvebtnnew"
+												>
+													Approve
+												</button>
+												<button
+													class="btn btn-danger"
+													id="disapprovebtnnew"
+													data-id={dataid}
+													onClick={disapproveclaim}
+												>
+													Disapprove
+												</button>
+											</div>
+										)}
 									</Col>
 								</Row>
 							</Card.Body>

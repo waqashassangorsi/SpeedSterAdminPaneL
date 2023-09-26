@@ -33,6 +33,8 @@ function Claim() {
 		var claimfrom = $(this).attr("data-claimfrom");
 		var claimto = $(this).attr("data-claimto");
 		var dataimages = $(this).attr("data-images");
+		var dataid = $(this).attr("data-id");
+		var datastatus = $(this).attr("data-status");
 
 		history.push({
 			pathname: "/admin/claimdetail",
@@ -42,6 +44,8 @@ function Claim() {
 			claimfrom: { claim_from: claimfrom },
 			claimto: { claim_to: claimto },
 			dataimages: { data_images: dataimages },
+			dataid: { data_id: dataid },
+			datastatus: { data_status: datastatus },
 		});
 	});
 
@@ -129,16 +133,15 @@ function Claim() {
 									<tbody>
 										{claimrecord &&
 											claimrecord.map((claimrecord, index) => {
-												const concatenatedImageUrls = claimrecord.calimimages
-													.map((image) => image.file)
-													;
+												const concatenatedImageUrls =
+													claimrecord.calimimages.map((image) => image.file);
 												return (
 													<tr key={index}>
 														<td>{index + 1}</td>
 														<td>{claimrecord.customerdata.name}</td>
 														<td>{claimrecord.driverdata.name}</td>
 														<td>${claimrecord.price}</td>
-														<td>{claimrecord.status}</td>
+														<td>{claimrecord.claim_status}</td>
 														<td>
 															<button
 																type="button"
@@ -151,6 +154,8 @@ function Claim() {
 																data-claimfrom={claimrecord.pickup_location}
 																data-claimto={claimrecord.drop_location}
 																data-images={concatenatedImageUrls}
+																data-id={claimrecord.claim_id}
+																data-status={claimrecord.claim_status}
 															>
 																View
 															</button>
