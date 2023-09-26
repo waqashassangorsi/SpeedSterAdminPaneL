@@ -100,7 +100,7 @@ function Typography() {
 		totaluser();
 		if (endusers.length > 0) {
 			let table2 = $("#newexample").DataTable();
-			table2.draw();
+			//table2.draw();
 		}
 		//$("#newexample").DataTable();
 		// $(document).ready(function () {
@@ -147,7 +147,7 @@ function Typography() {
 														data-phoneno={item.phone_no}
 													></i>
 
-													{item.user_privilidge === 0 ? (
+													{item.user_privilidge === "0" ? (
 														<span class="tick_span">
 															<i
 																class="fa fa-check mynewtick"

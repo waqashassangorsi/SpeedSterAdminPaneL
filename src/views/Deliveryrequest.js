@@ -19,6 +19,7 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import { useHistory } from "react-router-dom";
 function Deliveryrequest() {
 	const [allrecord, setallrecord] = useState([]);
+	const [drivername, setdrivername] = useState(" ");
 	const dropdwn_div = {
 		padding: "10px",
 	};
@@ -84,6 +85,7 @@ function Deliveryrequest() {
 				);
 				const data = await response.json();
 				if (data.status == true) {
+					
 					setallrecord(data.data);
 				}
 			} catch (error) {
@@ -94,10 +96,15 @@ function Deliveryrequest() {
 		totaluser();
 		if (allrecord.length > 0) {
 			let table3 = $("#myTable").DataTable();
-			table3.draw();
+			//table3.draw();
+			// for (let i = 0; i < allrecord.length; i++) {
+			// 	if(allrecord[i].driverdetail.length>0){
+			// 	console.log("record",allrecord[i].driverdetail)
+			// 	}
+			//   }
 		}
 	}, [allrecord]);
-
+	console.log("record",allrecord)
 	return (
 		<>
 			<Container fluid>
@@ -107,6 +114,8 @@ function Deliveryrequest() {
 							{/* <Card.Header>
                 <Card.Title as="h4">Delivery Request</Card.Title>
               </Card.Header> */}
+							
+							{/*
 							<div style={dropdwn_div}>
 								<label style={delivery_statuslabel}>Delivery Status</label>
 								<select
@@ -120,6 +129,7 @@ function Deliveryrequest() {
 									<option value="Inprogress">Inprogress</option>
 								</select>
 							</div>
+							*/}
 
 							<Card.Body className="table-full-width table-responsive px-0">
 								<Table className="table-hover table-striped" id="myTable">
@@ -129,7 +139,7 @@ function Deliveryrequest() {
 											<th className="border-0">Customer Name</th>
 											<th className="border-0">Mobile Number</th>
 											<th className="border-0">Pickup Location</th>
-											<th className="border-0">Delivery Location</th>
+											
 											<th className="border-0">Date & Time</th>
 											<th className="border-0">Delivery Status</th>
 											<th className="border-0">Action</th>
@@ -137,14 +147,25 @@ function Deliveryrequest() {
 									</thead>
 									<tbody>
 										{allrecord.map((item, index) => (
-											<tr>
+								              
+								
+											<tr key={index}>
+													{/* {item.driverdetail !== null ? (
+														 (item.driverdetail).map((item2, innerIndex) => (
+															<p key={innerIndex}>{item2}</p>
+														  ))
+													) : (
+														<p>No</p>
+														)} */}
+											
 												<td>{index + 1}</td>
 												<td>{item.name}</td>
 												<td>{item.phone_no}</td>
 												<td>{item.pickup_location}</td>
-												<td>{item.drop_location}</td>
+												
 												<td>{item.delivery_Date}</td>
 												<td>{item.status}</td>
+
 												<td>
 													<span className="eye_font">
 														<i
@@ -153,16 +174,20 @@ function Deliveryrequest() {
 															data-senderphone={item.phone_no}
 															data-receivername={item.receiver_name}
 															data-receivercontact={item.receiver_contact_no}
-															data-drivername={item.driver_name}
-															data-driverphoneno={item.driver_phonenone}
-															data-driveremail={item.driver_email}
+															
+															{...(item.driverdetail !=='null'
+															? { 'data-drivername': item.driverdetail.name}
+															: { 'data-drivername': " "})}
+
+															data-driverphoneno={item.driverdetail.phone_no}
+															data-driveremail={item.driverdetail.email}
 															data-tracking_no={item.tracking_no}
 															data-deliverystatus={item.status}
-															data-cancelreson={item.cancel_reason}
-															data-paymentmode={item.payment_mode}
-															data-pickuplocation={item.newpickup}
-															data-droplocation={item.newdroplocation}
-															data-deliverydate={item.newdeliverdate}
+															// data-cancelreson={item.cancel_reason}
+															// data-paymentmode={item.payment_mode}
+															data-pickuplocation={item.pickup_location}
+															data-droplocation={item.drop_location}
+															data-deliverydate={item.delivery_Date}
 															data-packageprice={item.price}
 														></i>
 													</span>

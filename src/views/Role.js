@@ -26,7 +26,7 @@ function Role() {
 
 	$(document).on("click", ".eye_fontnew", function () {
 		var id = $(this).attr("data-id");
-		alert(id);
+		//alert(id);
 		//history.push("/admin/editrole/" + id);
 		history.push({
 			pathname: "/admin/editrole/",

@@ -86,7 +86,7 @@ function TableList() {
 
 		if (alldrivers.length > 0) {
 			let table = $("#example").DataTable();
-			table.draw();
+			//table.draw();
 		}
 
 		// $(document).ready(function () {
@@ -129,7 +129,7 @@ function TableList() {
 														class="fa fa-eye driver_detail"
 														data-id={item.u_id}
 													></i>
-													{item.user_privilidge === 0 ? (
+													{item.user_privilidge === "0" ? (
 														<span class="tick_span">
 															<i
 																class="fa fa-check mynewtick"

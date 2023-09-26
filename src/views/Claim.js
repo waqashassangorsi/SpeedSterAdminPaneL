@@ -94,7 +94,7 @@ function Claim() {
 		totaluser();
 		if (claimrecord.length > 0) {
 			let table3 = $("#newexample5").DataTable();
-			table3.draw();
+			//table3.draw();
 		}
 	}, [claimrecord]);
 

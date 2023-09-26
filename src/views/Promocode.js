@@ -50,7 +50,7 @@ function Promocode() {
 		totaluser();
 		if (showpromocode.length > 0) {
 			let table4 = $("#newexample4").DataTable();
-			table4.draw();
+			//table4.draw();
 		}
 		//let table4 = $("#newexample4").DataTable();
 		//table4.draw();

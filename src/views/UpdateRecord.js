@@ -48,6 +48,7 @@ function AddPromocode() {
 											id="new_useremail"
 											value={amount.email}
 											onChange={handleEmailChange}
+											readOnly
 										/>
 									</div>
 

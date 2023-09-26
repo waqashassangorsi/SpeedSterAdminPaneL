@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import $ from "jquery";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
@@ -26,6 +26,7 @@ const initialState = {
 	count: 0,
 };
 
+
 // const store = createStore(() => ({
 //   birds: [
 //     {
@@ -38,6 +39,8 @@ const initialState = {
 // const birds=store.getState();
 
 function Login(props) {
+	const [mypass,setmypass]=useState("");
+	const [myemail,setmyemail]=useState("");
 	const amount1 = useSelector((state) => state.amount1);
 	const dispatch = useDispatch();
 	const { loginData } = bindActionCreators(actionCreators, dispatch);
@@ -86,7 +89,14 @@ function Login(props) {
 			console.log(error);
 		}
 	}
-	function onchangefunction() {}
+
+	function onchangefunctionpass(event) {
+     setmypass(event.target.value);
+	}
+
+	function onchangefunctionemail(event){
+	  setmyemail(event.target.value);
+	}
 	return (
 		<>
 			{/* <Provider store={store}>
@@ -109,8 +119,9 @@ function Login(props) {
 									type="text"
 									className="form-control"
 									id="email"
-									value="hamzanoor77@gmail.com"
-									onChange={onchangefunction}
+									value={myemail}
+									onChange={onchangefunctionemail}
+									
 								/>
 							</div>
 							<div className="form-group login_password">
@@ -119,8 +130,8 @@ function Login(props) {
 									type="password"
 									className="form-control"
 									id="pass"
-									value="123"
-									onChange={onchangefunction}
+									value={mypass}
+									onChange={onchangefunctionpass}
 								/>
 							</div>
 							<button type="submit" className="btn btn-primary login_submitbtn">

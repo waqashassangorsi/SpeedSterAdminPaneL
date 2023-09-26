@@ -48,7 +48,7 @@ function Deliveryrequestdetail() {
 								<Row>
 									<Col md="6" className="p-4">
 										<div className="mb-3">
-											<h6>SENDER DETAILS</h6>
+											<h6>CUSTOMER DETAILS</h6>
 										</div>
 
 										<p>Name : {username}</p>
@@ -56,15 +56,6 @@ function Deliveryrequestdetail() {
 									</Col>
 
 									<Col md="6" className="p-4">
-										<div className="mb-3">
-											<h6>RECEIVER DETAILS</h6>
-										</div>
-
-										<p>Name : {recivername}</p>
-										<p>Mobile : {receivercontact}</p>
-									</Col>
-
-									<Col md="12" className="p-4">
 										<div className="mb-3">
 											<h6>DRIVER DETAILS</h6>
 										</div>
@@ -83,6 +74,26 @@ function Deliveryrequestdetail() {
 											</>
 										)}
 									</Col>
+
+									{/* <Col md="12" className="p-4">
+										<div className="mb-3">
+											<h6>DRIVER DETAILS</h6>
+										</div>
+
+										{drivername == 0 && (
+											<>
+												<p>Driver not assigned.</p>
+											</>
+										)}
+
+										{drivername != 0 && (
+											<>
+												<p>Name : {drivername}</p>
+												<p>Email : {driveremail}</p>
+												<p>Mobile : {driverphone}</p>
+											</>
+										)}
+									</Col> */}
 
 									<Col md="12" className="p-4">
 										<div className="mb-3">
@@ -112,20 +123,20 @@ function Deliveryrequestdetail() {
 													<td>{deliverystatus}</td>
 												</tr>
 
-												<tr>
+												{/* <tr>
 													<td>Cancellation Reason :</td>
 													<td>{cancelreson}</td>
-												</tr>
+												</tr> */}
 
 												{/* <tr>
 													<td>Cancellation Comment :</td>
 													<td>Blabls</td>
 												</tr> */}
 
-												<tr>
+												{/* <tr>
 													<td>Payment Mode :</td>
 													<td>{paymentmode}</td>
-												</tr>
+												</tr> */}
 
 												<tr>
 													<td>Pickup Location :</td>

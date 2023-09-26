@@ -172,7 +172,7 @@ function Driverdetail() {
 											))}
 										</div>
 									)}
-									<div class="form-group">
+									{/* <div class="form-group">
 										<label class="driver_imagelabel">
 											Front Image of License
 										</label>
@@ -180,22 +180,15 @@ function Driverdetail() {
 										{driverfrontlicense.length > 0 && (
 											<div class="col-sm-12">
 												{driverfrontlicense.map((url, index) => (
-													//console.log('url',url);
-													//<p>{url}</p>
+													
 													<img src={url} class="driver_licenceimg"></img>
 												))}
-												{/* {driverfrontlicense !== "" && (
-												<img
-													src={driverfrontlicense}
-													class="driver_licenceimg"
-												></img>
-											)}
-											{driverfrontlicense == "" && <p>No Image Found</p>} */}
+												
 											</div>
 										)}
 										{driverfrontlicense == "" && <p>No Image Found</p>}
-									</div>
-
+									</div> */}
+{/* 
 									<div class="form-group">
 										<label class="driver_imagelabel">
 											Back Image of License
@@ -203,92 +196,62 @@ function Driverdetail() {
 										{driverbacklicense.length > 0 && (
 											<div class="col-sm-12">
 												{driverbacklicense.map((url, index) => (
-													//console.log('url',url);
-													//<p>{url}</p>
+												
 													<img src={url} class="driver_licenceimg"></img>
 												))}
-												{/* {driverbacklicense !== "" && (
-												<img
-													src={driverbacklicense}
-													class="driver_licenceimg"
-												></img>
-											)}
-											{driverbacklicense == "" && <p>No Image Found</p>} */}
+												
 											</div>
 										)}
 										{driverbacklicense == "" && <p>No Image Found</p>}
-									</div>
+									</div> */}
 
-									<div class="form-group">
+									{/* <div class="form-group">
 										<label class="driver_imagelabel">
 											Regristration Document
 										</label>
 										{driverregistrationdocument.length > 0 && (
 											<div class="col-sm-12">
 												{driverregistrationdocument.map((url, index) => (
-													//console.log('url',url);
-													//<p>{url}</p>
+												
 													<img src={url} class="driver_licenceimg"></img>
 												))}
-												{/* {driverbacklicense !== "" && (
-												<img
-													src={driverregistrationdocument}
-													class="driver_licenceimg"
-												></img>
-											)}
-											{driverregistrationdocument == "" && (
-												<p>No Image Found</p>
-											)} */}
+												
 											</div>
 										)}
 										{driverregistrationdocument == "" && <p>No Image Found</p>}
-									</div>
+									</div> */}
 
-									<div class="form-group">
+									{/* <div class="form-group">
 										<label class="driver_imagelabel">
 											Front Image of Id Card
 										</label>
 										{driveridcardfront.length > 0 && (
 											<div class="col-sm-12">
 												{driveridcardfront.map((url, index) => (
-													//console.log('url',url);
-													//<p>{url}</p>
+												
 													<img src={url} class="driver_licenceimg"></img>
 												))}
-												{/* {driveridcardfront !== "" && (
-												<img
-													src={driveridcardfront}
-													class="driver_licenceimg"
-												></img>
-											)}
-											{driveridcardfront == "" && <p>No Image Found</p>} */}
+												
 											</div>
 										)}
 										{driveridcardfront == "" && <p>No Image Found</p>}
-									</div>
+									</div> */}
 
-									<div class="form-group">
+									{/* <div class="form-group">
 										<label class="driver_imagelabel">
 											Back Image of Id Card
 										</label>
 										{driveridcardback.length > 0 && (
 											<div class="col-sm-12">
 												{driveridcardback.map((url, index) => (
-													//console.log('url',url);
-													//<p>{url}</p>
+												
 													<img src={url} class="driver_licenceimg"></img>
 												))}
-												{/* {driveridcardback !== "" && (
-												<img
-													src={driveridcardback}
-													class="driver_licenceimg"
-												></img>
-											)}
-											{driveridcardback == "" && <p>No Image Found</p>} */}
+												
 											</div>
 										)}
 										{driveridcardback == "" && <p>No Image Found</p>}
-									</div>
+									</div> */}
 								</form>
 							</Card.Body>
 						</Card>

@@ -115,11 +115,11 @@ function Sidebar({ color, image, routes }) {
 					enduser = "hide_enduser";
 				}
 
-				if (newdata.some((item) => item.privilages === "rides")) {
-					rides = "show_rides";
-				} else {
-					rides = "hide_rides";
-				}
+				// if (newdata.some((item) => item.privilages === "rides")) {
+				// 	rides = "show_rides";
+				// } else {
+				// 	rides = "hide_rides";
+				// }
 
 				if (newdata.some((item) => item.privilages === "promocode")) {
 					promocode = "show_promocode";
@@ -338,17 +338,7 @@ function Sidebar({ color, image, routes }) {
 							<p>Enduser</p>
 						</NavLink>
 					</li>
-					<li>
-						<NavLink
-							to="/admin/icons"
-							className="nav-link"
-							activeClassName="active"
-							id={rides}
-						>
-							<i className="nc-icon nc-delivery-fast" />
-							<p>Rides</p>
-						</NavLink>
-					</li>
+					
 					<li>
 						<NavLink
 							to="/admin/promocode"
