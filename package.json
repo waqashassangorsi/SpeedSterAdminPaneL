@@ -1,6 +1,6 @@
 {
 	"name": "Speedster",
-	"homepage": "http://54.201.251.251/admin",
+	"homepage": "https://speedsteradmin.book2say.com/",
 	"version": "2.0.1",
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "5.15.2",

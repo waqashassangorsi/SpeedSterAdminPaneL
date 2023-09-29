@@ -825,6 +825,8 @@
 #hide_rides,
 #hide_usermanagement,
 #hide_setting,
-#hide_promocode {
+#hide_promocode,
+#hide_claim
+{
 	display: none;
 }
