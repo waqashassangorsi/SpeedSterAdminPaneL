@@ -17,7 +17,7 @@ import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
-function Claim() {
+function Transaction() {
   const [claimrecord, setclaimrecord] = useState([]);
   const history = useHistory();
   function handleClick() {
@@ -124,63 +124,23 @@ function Claim() {
 						</div> */}
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
-                <Card.Title as="h4">Claim</Card.Title>
+                <Card.Title as="h4">Transaction</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
                 <Table className="table-hover table-striped" id="newexample5">
                   <thead>
                     <tr>
                       <th className="border-0">ID</th>
-                      <th className="border-0">Customer Name</th>
-                      <th className="border-0">Driver Name</th>
-                      <th className="border-0">Tracking No</th>
-                      {/* <th className="border-0">Trip Cost</th> */}
-                      <th className="border-0">Status</th>
-                      <th className="border-0">Action</th>
+                      <th className="border-0">Amount</th>
+                      <th className="border-0">Date</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {claimrecord &&
-                      claimrecord.map((claimrecord, index) => {
-                        const concatenatedImageUrls =
-                          claimrecord.calimimages.map((image) => image.file);
-                        return (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{claimrecord.customerdata.name}</td>
-                            <td>{claimrecord.driverdata.name}</td>
-                            <td>{claimrecord.tracking_no}</td>
-                            {/* <td>${claimrecord.price}</td> */}
-                            <td>{claimrecord.claim_status}</td>
-                            <td>
-                              <button
-                                type="button"
-                                class="btn btn-primary mynewtick23"
-                                data-customername={
-                                  claimrecord.customerdata.name
-                                }
-                                data-customerphone={
-                                  claimrecord.customerdata.phone_no
-                                }
-                                data-drivername={claimrecord.driverdata.name}
-                                data-driverphone={
-                                  claimrecord.driverdata.phone_no
-                                }
-                                data-price={claimrecord.price}
-                                data-claimfrom={claimrecord.pickup_location}
-                                data-claimto={claimrecord.drop_location}
-                                data-images={concatenatedImageUrls}
-                                data-id={claimrecord.claim_id}
-                                data-status={claimrecord.claim_status}
-                                data-subject={claimrecord.subject}
-                                data-message={claimrecord.message}
-                              >
-                                View Claim
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
+                    {/* <tr>
+                      <td>1</td>
+                      <td>20</td>
+                      <td>20-07-2023</td>
+                    </tr> */}
                   </tbody>
                 </Table>
               </Card.Body>
@@ -192,4 +152,4 @@ function Claim() {
   );
 }
 
-export default Claim;
+export default Transaction;

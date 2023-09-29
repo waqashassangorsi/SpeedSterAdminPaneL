@@ -76,6 +76,7 @@ function Sidebar({ color, image, routes }) {
   var usermanagement = "";
   var setting = "";
   var calim = "";
+  var transaction = "";
 
   if (amount1 !== 0) {
     console.log("amount123123", amount1.u_id);
@@ -144,6 +145,12 @@ function Sidebar({ color, image, routes }) {
           calim = "show_claim";
         } else {
           calim = "hide_claim";
+        }
+
+        if (newdata.some((item) => item.privilages === "transaction")) {
+          transaction = "show_transaction";
+        } else {
+          transaction = "hide_transaction";
         }
 
         // if (newdata.includes("dashboard")) {
@@ -399,6 +406,19 @@ function Sidebar({ color, image, routes }) {
               <p>Claim</p>
             </NavLink>
           </li>
+
+          <li>
+            <NavLink
+              to="/admin/transaction"
+              className="nav-link"
+              activeClassName="active"
+              id={transaction}
+            >
+              <i className="nc-icon nc-single-copy-04" />
+              <p>Transaction</p>
+            </NavLink>
+          </li>
+
           <li onClick={handleLogout}>
             <NavLink
               to="/login/login"

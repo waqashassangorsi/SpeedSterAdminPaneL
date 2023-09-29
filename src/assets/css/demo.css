@@ -826,7 +826,8 @@
 #hide_usermanagement,
 #hide_setting,
 #hide_promocode,
-#hide_claim
+#hide_claim,
+#hide_transaction
 {
 	display: none;
 }

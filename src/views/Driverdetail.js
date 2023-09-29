@@ -39,10 +39,8 @@ function Driverdetail() {
     success: function (html) {
       console.log("driverdetail", html);
       if (html.status == true) {
-        setdrivername(html.data.name);
-        setdriveremail(html.data.email);
-        if (html.vehicaldata.length > 0) {
-          var newdatamy = html.vehicaldata;
+        if (html.data.length > 0) {
+          var newdatamy = html.data;
           var privilagesArray = [];
           var backlicenseArray = [];
           var registrationdocumentArray = [];
@@ -61,6 +59,8 @@ function Driverdetail() {
             vehicalinfoArray.push(checkbox.vehicle_info);
             drivermodel_yearArray.push(checkbox.model_year);
             plate_noArray.push(checkbox.plate_no);
+            setdrivername(checkbox.name);
+            setdriveremail(checkbox.email);
             //console.log("amount1231232323", checkbox.driving_license_back);
             //setdriverfrontlicense(checkbox.driving_license_front);
             //setdriverbacklicense(checkbox.driving_license_back);
@@ -172,39 +172,45 @@ function Driverdetail() {
                       ))}
                     </div>
                   )}
-                  {/* <div class="form-group">
-										<label class="driver_imagelabel">
-											Front Image of License
-										</label>
 
-										{driverfrontlicense.length > 0 && (
-											<div class="col-sm-12">
-												{driverfrontlicense.map((url, index) => (
-													
-													<img src={url} class="driver_licenceimg"></img>
-												))}
-												
-											</div>
-										)}
-										{driverfrontlicense == "" && <p>No Image Found</p>}
-									</div> */}
-                  {/* 
-									<div class="form-group">
-										<label class="driver_imagelabel">
-											Back Image of License
-										</label>
-										{driverbacklicense.length > 0 && (
-											<div class="col-sm-12">
-												{driverbacklicense.map((url, index) => (
-												
-													<img src={url} class="driver_licenceimg"></img>
-												))}
-												
-											</div>
-										)}
-										{driverbacklicense == "" && <p>No Image Found</p>}
-									</div> */}
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="driver_imagelabel">
+                          Front Image of License
+                        </label>
 
+                        {driverfrontlicense.length > 0 && (
+                          <div class="col-sm-12">
+                            {driverfrontlicense.map((url, index) => (
+                              <a href={url} target="_blank">
+                                <img src={url} class="driver_licenceimg"></img>
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                        {driverfrontlicense == "" && <p>No Image Found</p>}
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="driver_imagelabel">
+                          Back Image of License
+                        </label>
+                        {driverbacklicense.length > 0 && (
+                          <div class="col-sm-12">
+                            {driverbacklicense.map((url, index) => (
+                              <a href={url} target="_blank">
+                                <img src={url} class="driver_licenceimg"></img>
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                        {driverbacklicense == "" && <p>No Image Found</p>}
+                      </div>
+                    </div>
+                  </div>
                   {/* <div class="form-group">
 										<label class="driver_imagelabel">
 											Regristration Document
@@ -221,37 +227,56 @@ function Driverdetail() {
 										{driverregistrationdocument == "" && <p>No Image Found</p>}
 									</div> */}
 
-                  {/* <div class="form-group">
-										<label class="driver_imagelabel">
-											Front Image of Id Card
-										</label>
-										{driveridcardfront.length > 0 && (
-											<div class="col-sm-12">
-												{driveridcardfront.map((url, index) => (
-												
-													<img src={url} class="driver_licenceimg"></img>
-												))}
-												
-											</div>
-										)}
-										{driveridcardfront == "" && <p>No Image Found</p>}
-									</div> */}
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="driver_imagelabel">
+                          Front Image of Id Card
+                        </label>
+                        {driveridcardfront.length > 0 && (
+                          <div class="col-sm-12">
+                            {driveridcardfront.map((url, index) => (
+                              <a href={url} target="_blank">
+                                <img src={url} class="driver_licenceimg"></img>
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                        {driveridcardfront == "" && <p>No Image Found</p>}
+                      </div>
+                    </div>
 
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="driver_imagelabel">
+                          Back Image of Id Card
+                        </label>
+                        {driveridcardback.length > 0 && (
+                          <div class="col-sm-12">
+                            {driveridcardback.map((url, index) => (
+                              <a href={url} target="_blank">
+                                <img src={url} class="driver_licenceimg"></img>
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                        {driveridcardback == "" && <p>No Image Found</p>}
+                      </div>
+                    </div>
+                  </div>
                   {/* <div class="form-group">
-										<label class="driver_imagelabel">
-											Back Image of Id Card
-										</label>
-										{driveridcardback.length > 0 && (
-											<div class="col-sm-12">
-												{driveridcardback.map((url, index) => (
-												
-													<img src={url} class="driver_licenceimg"></img>
-												))}
-												
-											</div>
-										)}
-										{driveridcardback == "" && <p>No Image Found</p>}
-									</div> */}
+                    <label class="driver_imagelabel">
+                      Back Image of Id Card
+                    </label>
+                    {driveridcardback.length > 0 && (
+                      <div class="col-sm-12">
+                        {driveridcardback.map((url, index) => (
+                          <img src={url} class="driver_licenceimg"></img>
+                        ))}
+                      </div>
+                    )}
+                    {driveridcardback == "" && <p>No Image Found</p>}
+                  </div> */}
                 </form>
               </Card.Body>
             </Card>

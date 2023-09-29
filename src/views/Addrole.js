@@ -33,6 +33,7 @@ function Addrole() {
   const [showdashboardchildseven, setshowdashboardchildseven] = useState(false);
   const [showdashboardchildeight, setshowdashboardchildeight] = useState(false);
   const [showdashboardchildnine, setshowdashboardchildnine] = useState(false);
+  const [showdashboardchildten, setshowdashboardchildten] = useState(false);
 
   const handleClick = () => {
     setshowdashboardchild(!showdashboardchild);
@@ -65,6 +66,10 @@ function Addrole() {
 
   const handleClicknine = () => {
     setshowdashboardchildnine(!showdashboardchildnine);
+  };
+
+  const handleClickten = () => {
+    setshowdashboardchildten(!showdashboardchildten);
   };
 
   // const handleValues = () => {
@@ -914,6 +919,54 @@ function Addrole() {
                         </>
                       )}
                       {/****** ten row ends *****/}
+
+                      {/****** eleven row start *****/}
+
+                      <tr>
+                        <td class="dashboard_td5 table_hover">
+                          <div onClick={handleClickten}>
+                            <span>
+                              <i
+                                id="arrow_dashboard"
+                                class="fa fa-arrow-circle-right right_arrow5"
+                                aria-hidden="true"
+                              ></i>
+                              <i
+                                id="arrow_dashboard"
+                                class="fa fa-arrow-circle-down down_arrow5"
+                                aria-hidden="true"
+                              ></i>
+                            </span>{" "}
+                            <span>Transaction</span>
+                          </div>
+                        </td>
+                        <td>
+                          <input
+                            type="checkbox"
+                            id="dashboard4"
+                            class="parentcheckbox_newval"
+                          ></input>
+                        </td>
+                      </tr>
+                      {showdashboardchildten == true && (
+                        <>
+                          <tr class="dashboard_collapse5 close6">
+                            <td>
+                              <div>
+                                <span>View Transaction</span>
+                              </div>
+                            </td>
+                            <td>
+                              <input
+                                type="checkbox"
+                                class="chk4 checkbox_newval"
+                                value="claim"
+                              ></input>
+                            </td>
+                          </tr>
+                        </>
+                      )}
+                      {/****** eleven row ends *****/}
                     </tbody>
                   </Table>
 

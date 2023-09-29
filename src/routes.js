@@ -38,6 +38,7 @@ import Enduserdetail from "views/Enduserdetail.js";
 import Claim from "views/Claim.js";
 import Calimdetail from "views/Calimdetail.js";
 import UpdateRecord from "views/UpdateRecord.js";
+import Transaction from "views/Transaction.js";
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -179,6 +180,13 @@ const dashboardRoutes = [
     name: "Claim",
     icon: "nc-icon nc-circle-09",
     component: Claim,
+    layout: "/admin",
+  },
+  {
+    path: "/transaction",
+    name: "Transaction",
+    icon: "nc-icon nc-circle-09",
+    component: Transaction,
     layout: "/admin",
   },
   {

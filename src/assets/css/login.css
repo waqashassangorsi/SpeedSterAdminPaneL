@@ -4,6 +4,7 @@
 	margin-top: 20%;
 	background: #fff;
 	padding: 18px;
+	margin-bottom: 24px;
 	/* border-radius: 10px; */
 }
 body {
@@ -35,7 +36,8 @@ body {
 	display: none;
 }
 .driver_licenceimg {
-	width: 20%;
+	width: 90px;
+	height: 90px;
 }
 .driver_imagelabel {
 	width: 100%;
@@ -191,3 +193,9 @@ body {
 .tick_icon {
 	margin-right: 10px;
 }
+@media screen and (max-width: 425px) and (min-width:320px){
+    .loginform{
+		width: 100%;
+		
+	}
+  }
