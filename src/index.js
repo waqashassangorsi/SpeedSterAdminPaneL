@@ -36,33 +36,39 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "state/index";
 
 const App = () => {
-	const amount1 = useSelector((state) => state.amount1);
-	const dispatch = useDispatch();
-	const { loginData } = bindActionCreators(actionCreators, dispatch);
+  const amount1 = useSelector((state) => state.amount1);
+  const dispatch = useDispatch();
+  const { loginData } = bindActionCreators(actionCreators, dispatch);
 
-	let element;
+  window.addEventListener("unload", function (event) {
+    const currentUrl = window.location.href;
+    console.log("indextes", currentUrl);
+    window.location.href(currentUrl);
+  });
 
-	//if (amount1 !== 0) {
-	//console.log("amount1", amount1);
-	element = (
-		<BrowserRouter>
-			<Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-			<Redirect from="/" to="/admin/dashboard" />
-			<Route path="/login" render={(props) => <Login {...props} />} />
-			<Redirect from="/" to="/login/login" />
-		</BrowserRouter>
-	);
-	//} else {
-	//console.log("amount1", amount1);
-	// element = (
-	// 	<BrowserRouter>
-	// 		<Route path="/login" render={(props) => <Login {...props} />} />
-	// 		<Redirect from="/" to="/login/login" />
-	// 	</BrowserRouter>
-	// );
-	//	}
+  let element;
 
-	return <>{element}</>;
+  //if (amount1 !== 0) {
+  //console.log("amount1", amount1);
+  element = (
+    <BrowserRouter>
+      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+      <Redirect from="/" to="/admin/dashboard" />
+      <Route path="/login" render={(props) => <Login {...props} />} />
+      <Redirect from="/" to="/login/login" />
+    </BrowserRouter>
+  );
+  //} else {
+  //console.log("amount1", amount1);
+  // element = (
+  // 	<BrowserRouter>
+  // 		<Route path="/login" render={(props) => <Login {...props} />} />
+  // 		<Redirect from="/" to="/login/login" />
+  // 	</BrowserRouter>
+  // );
+  //	}
+
+  return <>{element}</>;
 };
 const root = ReactDOM.createRoot(document.getElementById("root"));
 //const getlocalstorage=localStorage.getItem("userid");
@@ -79,9 +85,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 // 	</Provider>
 // );
 root.render(
-	<Provider store={store}>
-		<App />
-	</Provider>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
 //}else{
 //   const element=  (

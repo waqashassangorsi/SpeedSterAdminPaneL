@@ -97,7 +97,7 @@ function UserManagement() {
 
     totaluser();
     if (users.length > 0) {
-      $("#newexample5").DataTable();
+      $("#myTable").DataTable();
     }
 
     // $(document).ready(function () {
@@ -114,6 +114,13 @@ function UserManagement() {
             <div class="col-sm-12 promocode_btn">
               <button
                 type="button"
+                class="btn btn-primary tablelistaddcsv_btn mr-1"
+              >
+                Export to CSV
+              </button>
+
+              <button
+                type="button"
                 class="btn btn-primary addpromocode_btn"
                 onClick={handleClick}
               >
@@ -125,7 +132,7 @@ function UserManagement() {
                 <Card.Title as="h4">User Management</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
-                <Table className="table-hover table-striped" id="newexample5">
+                <Table className="table-hover table-striped" id="myTable">
                   <thead>
                     <tr>
                       <th className="border-0">ID</th>

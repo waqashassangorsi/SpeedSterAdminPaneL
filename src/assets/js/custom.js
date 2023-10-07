@@ -303,6 +303,10 @@ $(document).ready(function () {
     }
   });
 
+  $(document).on("click", ".driver_detailbtn", function () {
+    var id = $(this).attr("data-id");
+    $(".change_driver").attr("data-id", id);
+  });
   $(document).on("click", ".mynewtick", function () {
     var result = confirm("Are you sure you want to change status?");
     if (result == true) {
@@ -317,6 +321,20 @@ $(document).ready(function () {
         },
       });
     }
+  });
+
+  $(document).on("click", ".change_driver", function () {
+    var id = $(this).attr("data-id");
+    var selectedValue = $(".select_driver").val();
+    $.ajax({
+      url: "http://speedster.book2say.com/Authentication/adminupdatedriver",
+      type: "POST",
+      data: { id: id, selectedValue: selectedValue },
+      dataType: "json",
+      success: function (html) {
+        alert(html.message);
+      },
+    });
   });
 
   $(document).on("click", ".edit_price", function () {
@@ -335,5 +353,177 @@ $(document).ready(function () {
         }
       },
     });
+  });
+
+  $(document).on("click", ".addcsv_btn", function () {
+    var table = document.getElementById("myTable");
+
+    // Create an empty CSV string
+    var csvString = "";
+
+    // Loop through the rows
+    for (var i = 0; i < table.rows.length; i++) {
+      var rowData = [];
+      // Loop through the cells
+      for (var j = 0; j < table.rows[i].cells.length - 1; j++) {
+        // Enclose cell content in double quotes to handle commas
+        // rowData.push('"' + table.rows[i].cells[j].innerText + '"');
+        var cellContent = table.rows[i].cells[j].innerText.replace(/,/g, " ");
+        if (j === 2 && cellContent.trim() !== "") {
+          cellContent = "'" + cellContent;
+        }
+        rowData.push(cellContent);
+      }
+      // Join the row data and add a newline character
+      csvString += rowData.join(",") + "\n";
+    }
+
+    // Create a Blob containing the CSV data
+    var blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+
+    // Create a link element
+    var link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+
+    // Set the filename for the CSV file
+    link.download = "table_data.csv";
+
+    // Append the link to the body
+    document.body.appendChild(link);
+
+    // Trigger a click on the link to start the download
+    link.click();
+
+    // Remove the link from the body
+    document.body.removeChild(link);
+  });
+
+  $(document).on("click", ".tablelistaddcsv_btn", function () {
+    var table = document.getElementById("myTable");
+
+    // Create an empty CSV string
+    var csvString = "";
+
+    // Loop through the rows
+    for (var i = 0; i < table.rows.length; i++) {
+      var rowData = [];
+      // Loop through the cells
+      for (var j = 0; j < table.rows[i].cells.length - 1; j++) {
+        // Enclose cell content in double quotes to handle commas
+        // rowData.push('"' + table.rows[i].cells[j].innerText + '"');
+        var cellContent = table.rows[i].cells[j].innerText.replace(/,/g, " ");
+        if (j === 3 && cellContent.trim() !== "") {
+          cellContent = "'" + cellContent;
+        }
+        rowData.push(cellContent);
+      }
+      // Join the row data and add a newline character
+      csvString += rowData.join(",") + "\n";
+    }
+
+    // Create a Blob containing the CSV data
+    var blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+
+    // Create a link element
+    var link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+
+    // Set the filename for the CSV file
+    link.download = "table_data.csv";
+
+    // Append the link to the body
+    document.body.appendChild(link);
+
+    // Trigger a click on the link to start the download
+    link.click();
+
+    // Remove the link from the body
+    document.body.removeChild(link);
+  });
+
+  $(document).on("click", ".promocodeaddcsv_btn", function () {
+    var table = document.getElementById("newexample4");
+
+    // Create an empty CSV string
+    var csvString = "";
+
+    // Loop through the rows
+    for (var i = 0; i < table.rows.length; i++) {
+      var rowData = [];
+      // Loop through the cells
+      for (var j = 0; j < table.rows[i].cells.length; j++) {
+        // Enclose cell content in double quotes to handle commas
+        // rowData.push('"' + table.rows[i].cells[j].innerText + '"');
+        var cellContent = table.rows[i].cells[j].innerText.replace(/,/g, " ");
+        // if (j === 3 && cellContent.trim() !== "") {
+        //   cellContent = "'" + cellContent;
+        // }
+        rowData.push(cellContent);
+      }
+      // Join the row data and add a newline character
+      csvString += rowData.join(",") + "\n";
+    }
+
+    // Create a Blob containing the CSV data
+    var blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+
+    // Create a link element
+    var link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+
+    // Set the filename for the CSV file
+    link.download = "table_data.csv";
+
+    // Append the link to the body
+    document.body.appendChild(link);
+
+    // Trigger a click on the link to start the download
+    link.click();
+
+    // Remove the link from the body
+    document.body.removeChild(link);
+  });
+
+  $(document).on("click", ".settingaddcsv_btn", function () {
+    var table = document.getElementById("newexample9");
+
+    // Create an empty CSV string
+    var csvString = "";
+
+    // Loop through the rows
+    for (var i = 0; i < table.rows.length; i++) {
+      var rowData = [];
+      // Loop through the cells
+      for (var j = 0; j < table.rows[i].cells.length - 1; j++) {
+        // Enclose cell content in double quotes to handle commas
+        // rowData.push('"' + table.rows[i].cells[j].innerText + '"');
+        var cellContent = table.rows[i].cells[j].innerText.replace(/,/g, " ");
+        // if (j === 3 && cellContent.trim() !== "") {
+        //   cellContent = "'" + cellContent;
+        // }
+        rowData.push(cellContent);
+      }
+      // Join the row data and add a newline character
+      csvString += rowData.join(",") + "\n";
+    }
+
+    // Create a Blob containing the CSV data
+    var blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+
+    // Create a link element
+    var link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+
+    // Set the filename for the CSV file
+    link.download = "table_data.csv";
+
+    // Append the link to the body
+    document.body.appendChild(link);
+
+    // Trigger a click on the link to start the download
+    link.click();
+
+    // Remove the link from the body
+    document.body.removeChild(link);
   });
 });

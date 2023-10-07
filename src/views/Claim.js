@@ -105,7 +105,7 @@ function Claim() {
     // });
     totaluser();
     if (claimrecord.length > 0) {
-      let table3 = $("#newexample5").DataTable();
+      let table3 = $("#newexample9").DataTable();
       //table3.draw();
     }
   }, [claimrecord]);
@@ -117,6 +117,11 @@ function Claim() {
       <Container fluid>
         <Row>
           <Col md="12">
+            <div class="col-sm-12 csv_btn">
+              <button type="button" class="btn btn-primary settingaddcsv_btn">
+                Export to CSV
+              </button>
+            </div>
             {/* <div class="col-sm-12 promocode_btn">
 							<button type="button" class="btn btn-primary addpromocode_btn">
 								Add User
@@ -127,7 +132,7 @@ function Claim() {
                 <Card.Title as="h4">Claim</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
-                <Table className="table-hover table-striped" id="newexample5">
+                <Table className="table-hover table-striped" id="newexample9">
                   <thead>
                     <tr>
                       <th className="border-0">ID</th>

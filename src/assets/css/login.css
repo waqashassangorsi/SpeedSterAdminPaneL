@@ -28,6 +28,73 @@ body {
 	border: none;
 	color: #fff;
 }
+
+.csv_btn {
+	text-align: right;
+	margin-bottom: 11px;
+}
+.driver_detailbtn{
+	background-color: #036003;
+	border: none;
+	color: #fff;
+	width: 50px;
+    font-size: 11px;
+    margin-right: 3px;
+	padding:8px
+}
+.driver_detailbtn:hover{
+	background-color: #036003;
+	border: none;
+	color: #fff;
+}
+.addcsv_btn {
+	background-color: #036003;
+	border: none;
+	color: #fff;
+}
+.addcsv_btn:hover {
+	background-color: #036003;
+	border: none;
+	color: #fff;
+}
+
+.tablelistaddcsv_btn{
+	background-color: #036003;
+	border: none;
+	color: #fff;
+}
+
+.tablelistaddcsv_btn:hover {
+	background-color: #036003;
+	border: none;
+	color: #fff;
+}
+
+.promocodeaddcsv_btn{
+	background-color: #036003;
+	border: none;
+	color: #fff;
+	margin-right: 10px;
+}
+
+
+.promocodeaddcsv_btn:hover{
+	background-color: #036003;
+	border: none;
+	color: #fff;
+}
+
+.settingaddcsv_btn{
+	background-color: #036003;
+	border: none;
+	color: #fff;
+}
+.settingaddcsv_btn:hover{
+	background-color: #036003;
+	border: none;
+	color: #fff;
+}
+
 .addprpromoform {
 	padding: 18px;
 }
@@ -193,6 +260,7 @@ body {
 .tick_icon {
 	margin-right: 10px;
 }
+
 @media screen and (max-width: 425px) and (min-width:320px){
     .loginform{
 		width: 100%;

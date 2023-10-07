@@ -85,7 +85,7 @@ function TableList() {
     totaluser();
 
     if (alldrivers.length > 0) {
-      let table = $("#example").DataTable();
+      let table = $("#myTable").DataTable();
       //table.draw();
     }
 
@@ -100,12 +100,17 @@ function TableList() {
       <Container fluid>
         <Row>
           <Col md="12">
+            <div class="col-sm-12 csv_btn">
+              <button type="button" class="btn btn-primary tablelistaddcsv_btn">
+                Export to CSV
+              </button>
+            </div>
             <Card className="strpied-tabled-with-hover">
               {/* <Card.Header>
                 <Card.Title as="h4">All Drivers</Card.Title>
               </Card.Header> */}
               <Card.Body className="table-full-width table-responsive px-0">
-                <Table className="table-hover table-striped" id="example">
+                <Table className="table-hover table-striped" id="myTable">
                   <thead>
                     <tr>
                       <th className="border-0">ID</th>

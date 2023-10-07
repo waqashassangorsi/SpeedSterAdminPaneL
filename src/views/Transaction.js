@@ -18,7 +18,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
 function Transaction() {
-  const [claimrecord, setclaimrecord] = useState([]);
+  const [transactionrecord, settransactionrecord] = useState([]);
   const history = useHistory();
   function handleClick() {
     history.push("/admin/claimdetail");
@@ -62,7 +62,7 @@ function Transaction() {
       //let table5 = $("#newexample5").DataTable();
       try {
         const response = await fetch(
-          "http://speedster.book2say.com/Authentication/adminclaim",
+          "http://speedster.book2say.com/Authentication/showtransaction",
           {
             method: "GET",
           }
@@ -70,7 +70,7 @@ function Transaction() {
         const data = await response.json();
         if (data.status == true) {
           var userdetail = data.data;
-          setclaimrecord(userdetail);
+          settransactionrecord(userdetail);
           // var content_html = "";
           // var j = 1;
           // for (var i = 0; i < userdetail.length; i++) {
@@ -104,11 +104,11 @@ function Transaction() {
     // 	$("#newexample5").DataTable();
     // });
     totaluser();
-    if (claimrecord.length > 0) {
-      let table3 = $("#newexample5").DataTable();
+    if (transactionrecord.length > 0) {
+      let table3 = $("#newexample4").DataTable();
       //table3.draw();
     }
-  }, [claimrecord]);
+  }, [transactionrecord]);
 
   //console.log("users", userblock);
 
@@ -117,6 +117,11 @@ function Transaction() {
       <Container fluid>
         <Row>
           <Col md="12">
+            <div class="col-sm-12 promocode_btn">
+              <button type="button" class="btn btn-primary promocodeaddcsv_btn">
+                Export to CSV
+              </button>
+            </div>
             {/* <div class="col-sm-12 promocode_btn">
 							<button type="button" class="btn btn-primary addpromocode_btn">
 								Add User
@@ -127,20 +132,26 @@ function Transaction() {
                 <Card.Title as="h4">Transaction</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
-                <Table className="table-hover table-striped" id="newexample5">
+                <Table className="table-hover table-striped" id="newexample4">
                   <thead>
                     <tr>
                       <th className="border-0">ID</th>
-                      <th className="border-0">Amount</th>
+                      <th className="border-0">Camount</th>
+                      <th className="border-0">Damount</th>
+                      <th className="border-0">Status</th>
                       <th className="border-0">Date</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {/* <tr>
-                      <td>1</td>
-                      <td>20</td>
-                      <td>20-07-2023</td>
-                    </tr> */}
+                    {transactionrecord.map((item, index) => (
+                      <tr>
+                        <td>{index + 1}</td>
+                        <td>${item.camount}</td>
+                        <td>${item.damount}</td>
+                        <td>{item.transaction_status}</td>
+                        <td>{item.transaction_date}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </Table>
               </Card.Body>

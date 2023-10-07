@@ -70,6 +70,9 @@ function Promocode() {
         <Row>
           <Col md="12">
             <div class="col-sm-12 promocode_btn">
+              <button type="button" class="btn btn-primary promocodeaddcsv_btn">
+                Export to CSV
+              </button>
               <button
                 type="button"
                 class="btn btn-primary addpromocode_btn"

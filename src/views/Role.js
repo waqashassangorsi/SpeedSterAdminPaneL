@@ -75,7 +75,7 @@ function Role() {
     // });
 
     if (userrole.length > 0) {
-      $("#newexample8").DataTable();
+      $("#newexample4").DataTable();
     }
   }, [userrole]);
 
@@ -85,6 +85,12 @@ function Role() {
         <Row>
           <Col md="12">
             <div class="col-sm-12 promocode_btn">
+              <button
+                type="button"
+                class="btn btn-primary promocodeaddcsv_btn mr-1"
+              >
+                Export to CSV
+              </button>
               <button
                 type="button"
                 class="btn btn-primary addpromocode_btn"
@@ -98,7 +104,7 @@ function Role() {
                 <Card.Title as="h4">Role</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
-                <Table className="table-hover table-striped" id="newexample8">
+                <Table className="table-hover table-striped" id="newexample4">
                   <thead>
                     <tr>
                       <th className="border-0">ID</th>

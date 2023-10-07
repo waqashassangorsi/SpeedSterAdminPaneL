@@ -19,7 +19,10 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import { useHistory } from "react-router-dom";
 function Deliveryrequest() {
   const [allrecord, setallrecord] = useState([]);
+  const [alldriver, setalldriver] = useState([]);
   const [drivername, setdrivername] = useState(" ");
+  //const [visible, setVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const dropdwn_div = {
     padding: "10px",
   };
@@ -92,7 +95,25 @@ function Deliveryrequest() {
       }
     }
 
+    async function totaldriver() {
+      try {
+        const driver_response = await fetch(
+          "http://speedster.book2say.com/Authentication/admin_showalldriver",
+          {
+            method: "GET",
+          }
+        );
+        const data = await driver_response.json();
+        if (data.status == true) {
+          setalldriver(data.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     totaluser();
+    totaldriver();
     if (allrecord.length > 0) {
       let table3 = $("#myTable").DataTable();
       //table3.draw();
@@ -109,6 +130,11 @@ function Deliveryrequest() {
       <Container fluid>
         <Row>
           <Col md="12">
+            <div class="col-sm-12 csv_btn">
+              <button type="button" class="btn btn-primary addcsv_btn">
+                Export to CSV
+              </button>
+            </div>
             <Card className="strpied-tabled-with-hover">
               {/* <Card.Header>
                 <Card.Title as="h4">Delivery Request</Card.Title>
@@ -164,6 +190,69 @@ function Deliveryrequest() {
                         <td>{item.status}</td>
 
                         <td>
+                          <span>
+                            <Button
+                              className="driver_detailbtn"
+                              onClick={() => setShowModal(true)}
+                              data-id={item.trip_id}
+                            >
+                              Driver
+                            </Button>
+
+                            <Modal
+                              show={showModal}
+                              onClose={() => setShowModal(false)}
+                              aria-labelledby="LiveDemoExampleLabel"
+                            >
+                              <Modal.Header onClose={() => setShowModal(false)}>
+                                <Modal.Title id="LiveDemoExampleLabel">
+                                  Drivers
+                                </Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <label>Select Driver</label>
+                                <select class="form-control select_driver">
+                                  {alldriver &&
+                                    alldriver.map((mydrivers, index) => (
+                                      <option
+                                        key={index}
+                                        value={mydrivers.u_id}
+                                      >
+                                        {mydrivers.name}
+                                      </option>
+                                    ))}
+                                </select>
+                              </Modal.Body>
+                              <Modal.Footer>
+                                <Button
+                                  color="secondary"
+                                  onClick={() => setShowModal(false)}
+                                >
+                                  Close
+                                </Button>
+                                <Button
+                                  color="success"
+                                  className="change_driver"
+                                >
+                                  Save changes
+                                </Button>
+                              </Modal.Footer>
+                            </Modal>
+                            {/* <button
+                              type="button"
+                              class="btn btn-primary driver_detailbtn"
+                              data-coreui-toggle="modal"
+                              data-coreui-target="#exampleModal"
+                            >
+                              Driver
+                            </button> */}
+                            {/* <button
+                              type="button"
+                              className="btn btn-success driver_detailbtn"
+                            >
+                              Driver
+                            </button> */}
+                          </span>
                           <span className="eye_font">
                             <i
                               className="fa fa-eye driver_detail"
@@ -196,6 +285,43 @@ function Deliveryrequest() {
           </Col>
         </Row>
       </Container>
+      {/* 
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Modal title
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-coreui-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-coreui-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> */}
     </>
   );
 }

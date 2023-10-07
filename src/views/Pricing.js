@@ -75,6 +75,11 @@ function Pricing() {
       <Container fluid>
         <Row>
           <Col md="12">
+            <div class="col-sm-12 csv_btn">
+              <button type="button" class="btn btn-primary settingaddcsv_btn">
+                Export to CSV
+              </button>
+            </div>
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
                 <Card.Title as="h4">Package Pricing</Card.Title>
