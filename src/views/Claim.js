@@ -17,6 +17,7 @@ import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import { storeurl } from "components/App/storeurl";
 function Claim() {
   const [claimrecord, setclaimrecord] = useState([]);
   const history = useHistory();
@@ -59,14 +60,11 @@ function Claim() {
 
   useEffect(() => {
     async function totaluser() {
-      //let table5 = $("#newexample5").DataTable();
+      //let table5 = $("#newexample5").DataTable();adminclaim
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/adminclaim",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}adminclaim`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           var userdetail = data.data;

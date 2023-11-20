@@ -12,18 +12,16 @@ import {
   Col,
   Table,
 } from "react-bootstrap";
+import { storeurl } from "components/App/storeurl";
 import $ from "jquery";
 function Adduser() {
   const [useroles, setuseroles] = useState([]);
   useEffect(() => {
     async function totaluser() {
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_getallrole",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_getallrole`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           setuseroles(data.data);

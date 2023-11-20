@@ -17,6 +17,7 @@ import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import { storeurl } from "components/App/storeurl";
 function Role() {
   const history = useHistory();
   const [userrole, setuserrole] = useState([]);
@@ -39,12 +40,9 @@ function Role() {
     async function totaluser() {
       //let table10 = $("#newexample8").DataTable();
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_getallrole",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_getallrole`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           setuserrole(data.data);

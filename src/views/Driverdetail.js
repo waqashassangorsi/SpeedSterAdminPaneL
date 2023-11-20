@@ -13,6 +13,7 @@ import {
   Table,
 } from "react-bootstrap";
 import $ from "jquery";
+import { storeurl } from "components/App/storeurl";
 function Driverdetail() {
   const [drivername, setdrivername] = useState("");
   const [driveremail, setdriveremail] = useState("");
@@ -32,7 +33,7 @@ function Driverdetail() {
   var id = pair[1];
   console.log(id);
   $.ajax({
-    url: "http://speedster.book2say.com/Authentication/admin_singledriverdetail",
+    url: `${storeurl}admin_singledriverdetail`,
     type: "POST",
     data: { id: id },
     dataType: "json",

@@ -17,6 +17,7 @@ import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import { storeurl } from "components/App/storeurl";
 function Transaction() {
   const [transactionrecord, settransactionrecord] = useState([]);
   const history = useHistory();
@@ -61,12 +62,9 @@ function Transaction() {
     async function totaluser() {
       //let table5 = $("#newexample5").DataTable();
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/showtransaction",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}showtransaction`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           var userdetail = data.data;

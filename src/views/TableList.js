@@ -13,6 +13,7 @@ import {
   Col,
   Modal,
 } from "react-bootstrap";
+import { storeurl } from "components/App/storeurl";
 import $ from "jquery";
 import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -32,12 +33,9 @@ function TableList() {
     async function totaluser(event) {
       //let table = $("#example").DataTable();
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_showalldriver",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_showalldriver`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           setalldrivers(data.data);

@@ -17,6 +17,7 @@ import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import { storeurl } from "components/App/storeurl";
 function UserManagement() {
   const [users, setusers] = useState([]);
   //const [allusers, setallusers] = useState([]);
@@ -36,12 +37,9 @@ function UserManagement() {
     async function totaluser() {
       //let table5 = $("#newexample5").DataTable();
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_getalluser",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_getalluser`, {
+          method: "GET",
+        });
         const data = await response.json();
 
         //console.log("apiresponse", data);

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
+import { storeurl } from "components/App/storeurl";
 // react-bootstrap components
 import {
   Badge,
@@ -60,20 +61,17 @@ function Login(props) {
         const formData = new FormData();
         formData.append("email", email);
         formData.append("password", pass);
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_login",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
+        const response = await fetch(`${storeurl}admin_login`, {
+          method: "POST",
+          body: formData,
+        });
         const data = await response.json();
         if (data.status == true) {
           if (data.data.u_id != "") {
             //loginData(parseInt(data.data.u_id));
             loginData(data.data);
             localStorage.setItem("userid", data.data.u_id);
-            props.history.push("/admin/Claim");
+            props.history.push("/admin/Dashboard");
           } else {
             alert("No Record Found");
           }

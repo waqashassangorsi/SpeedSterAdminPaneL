@@ -16,6 +16,7 @@ import $ from "jquery";
 import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import { storeurl } from "components/App/storeurl";
 function Promocode() {
   const history = useHistory();
   function handleClick() {
@@ -25,12 +26,9 @@ function Promocode() {
   useEffect(() => {
     async function totaluser() {
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_showpromocode",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_showpromocode`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           setshowpromocode(data.data);

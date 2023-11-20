@@ -17,6 +17,7 @@ import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import { storeurl } from "components/App/storeurl";
 function Pricing() {
   const history = useHistory();
   $(document).on("click", ".editeye_pencile", function () {
@@ -34,12 +35,9 @@ function Pricing() {
   useEffect(() => {
     async function totaluser() {
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_showpackages",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_showpackages`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           setshowpricing(data.data);

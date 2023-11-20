@@ -41,12 +41,9 @@ function Typography() {
     async function totaluser() {
       //let table2 = $("#newexample").DataTable();
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_showalluser",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_showalluser`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           setendusers(data.data);

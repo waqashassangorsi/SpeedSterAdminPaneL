@@ -17,6 +17,7 @@ import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import { useHistory } from "react-router-dom";
+import { storeurl } from "components/App/storeurl";
 function Deliveryrequest() {
   const [allrecord, setallrecord] = useState([]);
   const [alldriver, setalldriver] = useState([]);
@@ -80,12 +81,9 @@ function Deliveryrequest() {
   useEffect(() => {
     async function totaluser() {
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_gettripdeliveries",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_gettripdeliveries`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           setallrecord(data.data);
@@ -97,12 +95,9 @@ function Deliveryrequest() {
 
     async function totaldriver() {
       try {
-        const driver_response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_showalldriver",
-          {
-            method: "GET",
-          }
-        );
+        const driver_response = await fetch(`${storeurl}admin_showalldriver`, {
+          method: "GET",
+        });
         const data = await driver_response.json();
         if (data.status == true) {
           setalldriver(data.data);
