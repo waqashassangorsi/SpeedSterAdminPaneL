@@ -73,7 +73,7 @@ function Login(props) {
             //loginData(parseInt(data.data.u_id));
             loginData(data.data);
             localStorage.setItem("userid", data.data.u_id);
-            props.history.push("/admin/Dashboard");
+            props.history.push("/admin/Claim");
           } else {
             alert("No Record Found");
           }
