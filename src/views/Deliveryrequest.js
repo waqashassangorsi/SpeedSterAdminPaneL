@@ -1,11 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
-// react-bootstrap components
+import React, { useEffect, useState } from "react";
 import {
   Badge,
   Button,
   Card,
-  Navbar,
-  Nav,
   Table,
   Container,
   Row,
@@ -18,65 +15,35 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import { useHistory } from "react-router-dom";
 import { storeurl } from "components/App/storeurl";
+
 function Deliveryrequest() {
   const [allrecord, setallrecord] = useState([]);
   const [alldriver, setalldriver] = useState([]);
-  const [drivername, setdrivername] = useState(" ");
-  //const [visible, setVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const dropdwn_div = {
-    padding: "10px",
-  };
-
-  const dropdown_status = {
-    width: "24%",
-  };
-
-  const delivery_statuslabel = {
-    marginLeft: "5px",
-  };
-
   const history = useHistory();
 
-  $(document).on("click", ".driver_detail", function () {
-    var sendername = $(this).attr("data-sendername");
-    var senderphone = $(this).attr("data-senderphone");
-    var recivername = $(this).attr("data-receivername");
-    var receivercontact = $(this).attr("data-receivercontact");
-    var drivername = $(this).attr("data-drivername");
-    var driverphoneno = $(this).attr("data-driverphoneno");
-    var driveremail = $(this).attr("data-driveremail");
-    var trackingno = $(this).attr("data-tracking_no");
-    var deliverystatus = $(this).attr("data-deliverystatus");
-    var cancelreson = $(this).attr("data-cancelreson");
-    var paymentmode = $(this).attr("data-paymentmode");
-    var pickuplocation = $(this).attr("data-pickuplocation");
-    //var newlocation = pickuplocation.replace(/,/g, " ");
-    var droplocation = $(this).attr("data-droplocation");
-    var deliverydate = $(this).attr("data-deliverydate");
-    var packageprice = $(this).attr("data-packageprice");
-
+  const handleShowModal = (item) => {
     history.push({
       pathname: "/admin/deliverrequestdetail",
-      // search: '?the=search',
-      sendername: { name: sendername },
-      senderphone: { phone: senderphone },
-      recivername: { reciver_name: recivername },
-      receivercontact: { reciver_contact: receivercontact },
-      drivername: { driver_name: drivername },
-      driverphone: { driver_phoneno: driverphoneno },
-      driveremail: { driver_email: driveremail },
-      trackingno: { tracking_no: trackingno },
-      deliverystatus: { delivery_status: deliverystatus },
-      cancelreson: { cancel_reson: cancelreson },
-      paymentmode: { payment_mode: paymentmode },
-      pickuplocation: { pickup_location: pickuplocation },
-      droplocation: { drop_location: droplocation },
-      deliverydate: { delivery_date: deliverydate },
-      packageprice: { package_price: packageprice },
+      state: {
+        sendername: { name: item.name },
+        senderphone: { phone: item.phone_no },
+        recivername: { reciver_name: item.receiver_name },
+        receivercontact: { reciver_contact: item.receiver_contact_no },
+        drivername: { driver_name: item?.driverdetail?.name || " " },
+        driverphone: { driver_phoneno: item?.driverdetail?.phone_no },
+        driveremail: { driver_email: item?.driverdetail?.email },
+        trackingno: { tracking_no: item.tracking_no },
+        deliverystatus: { delivery_status: item.status },
+        cancelreson: { cancel_reson: item.cancelreson },
+        paymentmode: { payment_mode: item.paymentmode },
+        pickuplocation: { pickup_location: item.pickup_location },
+        droplocation: { drop_location: item.drop_location },
+        deliverydate: { delivery_date: item.delivery_Date },
+        packageprice: { package_price: item.price },
+      },
     });
-    //history.push("/admin/deliverrequestdetail");
-  });
+  };
 
   useEffect(() => {
     async function totaluser() {
@@ -85,7 +52,7 @@ function Deliveryrequest() {
           method: "GET",
         });
         const data = await response.json();
-        if (data.status == true) {
+        if (data.status === true) {
           setallrecord(data.data);
         }
       } catch (error) {
@@ -99,7 +66,7 @@ function Deliveryrequest() {
           method: "GET",
         });
         const data = await driver_response.json();
-        if (data.status == true) {
+        if (data.status === true) {
           setalldriver(data.data);
         }
       } catch (error) {
@@ -110,16 +77,9 @@ function Deliveryrequest() {
     totaluser();
     totaldriver();
     if (allrecord.length > 0) {
-      let table3 = $("#myTable").DataTable();
-      //table3.draw();
-      // for (let i = 0; i < allrecord.length; i++) {
-      // 	if(allrecord[i].driverdetail.length>0){
-      // 	console.log("record",allrecord[i].driverdetail)
-      // 	}
-      //   }
+      $("#myTable").DataTable();
     }
   }, [allrecord]);
-  console.log("record", allrecord);
   return (
     <>
       <Container fluid>
@@ -131,26 +91,6 @@ function Deliveryrequest() {
               </button>
             </div>
             <Card className="strpied-tabled-with-hover">
-              {/* <Card.Header>
-                <Card.Title as="h4">Delivery Request</Card.Title>
-              </Card.Header> */}
-
-              {/*
-							<div style={dropdwn_div}>
-								<label style={delivery_statuslabel}>Delivery Status</label>
-								<select
-									id="dropdown"
-									className="form-control"
-									style={dropdown_status}
-								>
-									<option value="All">All</option>
-									<option value="Completed">Completed</option>
-									<option value="Cancelled">Cancelled</option>
-									<option value="Inprogress">Inprogress</option>
-								</select>
-							</div>
-							*/}
-
               <Card.Body className="table-full-width table-responsive px-0">
                 <Table className="table-hover table-striped" id="myTable">
                   <thead>
@@ -233,41 +173,11 @@ function Deliveryrequest() {
                                 </Button>
                               </Modal.Footer>
                             </Modal>
-                            {/* <button
-                              type="button"
-                              class="btn btn-primary driver_detailbtn"
-                              data-coreui-toggle="modal"
-                              data-coreui-target="#exampleModal"
-                            >
-                              Driver
-                            </button> */}
-                            {/* <button
-                              type="button"
-                              className="btn btn-success driver_detailbtn"
-                            >
-                              Driver
-                            </button> */}
                           </span>
                           <span className="eye_font">
                             <i
                               className="fa fa-eye driver_detail"
-                              data-sendername={item.name}
-                              data-senderphone={item.phone_no}
-                              data-receivername={item.receiver_name}
-                              data-receivercontact={item.receiver_contact_no}
-                              {...(item.driverdetail !== "null"
-                                ? { "data-drivername": item.driverdetail.name }
-                                : { "data-drivername": " " })}
-                              data-driverphoneno={item.driverdetail.phone_no}
-                              data-driveremail={item.driverdetail.email}
-                              data-tracking_no={item.tracking_no}
-                              data-deliverystatus={item.status}
-                              // data-cancelreson={item.cancel_reason}
-                              // data-paymentmode={item.payment_mode}
-                              data-pickuplocation={item.pickup_location}
-                              data-droplocation={item.drop_location}
-                              data-deliverydate={item.delivery_Date}
-                              data-packageprice={item.price}
+                              onClick={() => handleShowModal(item)}
                             ></i>
                           </span>
                         </td>
@@ -280,43 +190,6 @@ function Deliveryrequest() {
           </Col>
         </Row>
       </Container>
-      {/* 
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Modal title
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-coreui-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-coreui-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 }

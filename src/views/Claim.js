@@ -69,27 +69,6 @@ function Claim() {
         if (data.status == true) {
           var userdetail = data.data;
           setclaimrecord(userdetail);
-          // var content_html = "";
-          // var j = 1;
-          // for (var i = 0; i < userdetail.length; i++) {
-          // 	var detail_new = "";
-
-          // 	detail_new +=
-          // 		'<span class="tick_span"><i class="fa fa-check mynewtick23" data-id=' +
-          // 		userdetail[i].claim_id +
-          // 		' aria-hidden="true"></i></span>';
-          // 	//content_html+='<tr><td>'+j+'</td><td>'+userdetail[i].name+'</td><td>'+userdetail[i].email+'</td><td>'+status+'</td><td>'+userdetail[i].joining_date+'</td></tr>';
-          // 	table5.row.add([
-          // 		j,
-          // 		userdetail[i].name,
-          // 		userdetail[i].email,
-          // 		userdetail[i].price,
-          // 		userdetail[i].status,
-          // 		detail_new,
-          // 	]);
-          // 	j++;
-          // }
-          // $("#displaydata2").prepend(content_html);
         }
       } catch (error) {
         console.log(error);

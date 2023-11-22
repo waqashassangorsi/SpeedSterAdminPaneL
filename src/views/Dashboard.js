@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
-
+import { storeurl } from "components/App/storeurl";
 import App from "../components/App/App";
 // react-bootstrap components
 import {
@@ -55,6 +55,7 @@ function Dashboard(props) {
         method: "GET",
       });
       const data = await response.json();
+      console.log("checkdata", data);
       if (data.status == true) {
         settotaldrivers(data.total_driver);
         settotalusers(data.total_user);
