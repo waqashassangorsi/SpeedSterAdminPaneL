@@ -18,7 +18,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import { storeurl } from "components/App/storeurl";
-function UserManagement() {
+function UserManagement(props) {
   const [users, setusers] = useState([]);
   //const [allusers, setallusers] = useState([]);
   //const [userblock, setuserblock] = useState("");
@@ -103,7 +103,13 @@ function UserManagement() {
     // 	$("#newexample5").DataTable();
     // });
   }, [users]);
-
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/usermanagement");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>

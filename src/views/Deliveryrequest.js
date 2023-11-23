@@ -16,7 +16,7 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import { useHistory } from "react-router-dom";
 import { storeurl } from "components/App/storeurl";
 
-function Deliveryrequest() {
+function Deliveryrequest(props) {
   const [allrecord, setallrecord] = useState([]);
   const [alldriver, setalldriver] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -80,6 +80,13 @@ function Deliveryrequest() {
       $("#myTable").DataTable();
     }
   }, [allrecord]);
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/deliverrequest");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>

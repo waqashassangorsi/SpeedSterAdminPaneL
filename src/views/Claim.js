@@ -18,7 +18,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import { storeurl } from "components/App/storeurl";
-function Claim() {
+function Claim(props) {
   const [claimrecord, setclaimrecord] = useState([]);
   const history = useHistory();
   function handleClick() {
@@ -88,7 +88,13 @@ function Claim() {
   }, [claimrecord]);
 
   //console.log("users", userblock);
-
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/claim");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-// react-bootstrap components
 import {
   Badge,
   Button,
@@ -14,7 +13,7 @@ import {
 } from "react-bootstrap";
 import $ from "jquery";
 import { storeurl } from "components/App/storeurl";
-function Driverdetail() {
+function Driverdetail(props) {
   const [drivername, setdrivername] = useState("");
   const [driveremail, setdriveremail] = useState("");
   const [driverfrontlicense, setdriverfrontlicense] = useState([]);
@@ -27,7 +26,6 @@ function Driverdetail() {
   const [plate_no, setplate_no] = useState([]);
 
   const [privilages, setPrivilages] = useState([]);
-  //var privilages = new Array();
   const params = window.location.search.substring(1);
   var pair = params.split("=");
   var id = pair[1];
@@ -62,18 +60,6 @@ function Driverdetail() {
             plate_noArray.push(checkbox.plate_no);
             setdrivername(checkbox.name);
             setdriveremail(checkbox.email);
-            //console.log("amount1231232323", checkbox.driving_license_back);
-            //setdriverfrontlicense(checkbox.driving_license_front);
-            //setdriverbacklicense(checkbox.driving_license_back);
-            //setregistrationdocument(checkbox.registration_document);
-            //setdriveridcardfront(checkbox.id_card_front);
-            //setdriveridcardback(checkbox.id_card_back);
-            // if (checkbox === "dashboard") {
-            // 	dashboard_id = "show_dashboard";
-            // } else {
-            // 	dashboard_id = "hide_dashboard";
-            // }
-            // privilages.push(checkbox.value);
           });
           setdriverfrontlicense(privilagesArray);
           setdriverbacklicense(backlicenseArray);
@@ -84,18 +70,19 @@ function Driverdetail() {
           setmodel_year(drivermodel_yearArray);
           setplate_no(plate_noArray);
         }
-        // setdriverfrontlicense(html.data.driving_license_front);
-        // setdriverbacklicense(html.data.driving_license_back);
-        // setregistrationdocument(html.data.registration_document);
-        // setdriveridcardfront(html.data.id_card_front);
-        // setdriveridcardback(html.data.id_card_back);
       } else {
         alert("Record not exists");
       }
       //console.log("asdasd234234", privilages);
     },
   });
-  //console.log("asdasd2342341", driverfrontlicense);
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/driverdetail");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>
@@ -212,21 +199,6 @@ function Driverdetail() {
                       </div>
                     </div>
                   </div>
-                  {/* <div class="form-group">
-										<label class="driver_imagelabel">
-											Regristration Document
-										</label>
-										{driverregistrationdocument.length > 0 && (
-											<div class="col-sm-12">
-												{driverregistrationdocument.map((url, index) => (
-												
-													<img src={url} class="driver_licenceimg"></img>
-												))}
-												
-											</div>
-										)}
-										{driverregistrationdocument == "" && <p>No Image Found</p>}
-									</div> */}
 
                   <div class="row">
                     <div class="col-sm-6">
@@ -265,19 +237,6 @@ function Driverdetail() {
                       </div>
                     </div>
                   </div>
-                  {/* <div class="form-group">
-                    <label class="driver_imagelabel">
-                      Back Image of Id Card
-                    </label>
-                    {driveridcardback.length > 0 && (
-                      <div class="col-sm-12">
-                        {driveridcardback.map((url, index) => (
-                          <img src={url} class="driver_licenceimg"></img>
-                        ))}
-                      </div>
-                    )}
-                    {driveridcardback == "" && <p>No Image Found</p>}
-                  </div> */}
                 </form>
               </Card.Body>
             </Card>

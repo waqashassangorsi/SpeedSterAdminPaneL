@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
-// react-bootstrap components
 import {
   Badge,
   Button,
@@ -16,20 +15,17 @@ import $ from "jquery";
 import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
-function Typography() {
+function Typography(props) {
   const [endusers, setendusers] = useState([]);
   const history = useHistory();
   $(document).on("click", ".newdetail", function () {
-    //  var id=$(this).attr('data-id');
     var customername = $(this).attr("data-customername");
     var dp = $(this).attr("data-dp");
     var email = $(this).attr("data-email");
     var phoneno = $(this).attr("data-phoneno");
-    //alert(customername);
-    //history.push("/admin/typographydetail");
+
     history.push({
       pathname: "/admin/typographydetail",
-      // search: '?the=search',
       customername: { name: customername },
       dp: { user_dp: dp },
       email: { user_email: email },
@@ -39,7 +35,6 @@ function Typography() {
 
   useEffect(() => {
     async function totaluser() {
-      //let table2 = $("#newexample").DataTable();
       try {
         const response = await fetch(`${storeurl}admin_showalluser`, {
           method: "GET",
@@ -47,65 +42,24 @@ function Typography() {
         const data = await response.json();
         if (data.status == true) {
           setendusers(data.data);
-          // var userdetail = data.data;
-          // var content_html = "";
-          // var j = 1;
-          // for (var i = 0; i < userdetail.length; i++) {
-          // 	var newusername = userdetail[i].name.replace(/\s/g, "");
-          // 	var detail_new = "";
-          // 	detail_new +=
-          // 		'<i class="fa fa-eye eye_fontawesome eye_fontnew newdetail tick_icon" data-customername=' +
-          // 		newusername +
-          // 		" data-dp=" +
-          // 		userdetail[i].dp +
-          // 		" data-email=" +
-          // 		userdetail[i].email +
-          // 		" data-phoneno=" +
-          // 		userdetail[i].phone_no +
-          // 		"></i>";
-
-          // 	if (userdetail[i].user_privilidge == 1) {
-          // 		detail_new +=
-          // 			'<span class="tick_span_red"><i class="fa fa-check mynewtick" data-id=' +
-          // 			userdetail[i].u_id +
-          // 			' aria-hidden="true"></i></span>';
-          // 	} else if (userdetail[i].user_privilidge == 0) {
-          // 		detail_new +=
-          // 			'<span class="tick_span"><i class="fa fa-check mynewtick" data-id=' +
-          // 			userdetail[i].u_id +
-          // 			' aria-hidden="true"></i></span>';
-          // 	}
-          // 	//content_html+='<tr><td>'+j+'</td><td>'+userdetail[i].name+'</td><td>'+userdetail[i].email+'</td><td>'+status+'</td><td>'+userdetail[i].joining_date+'</td></tr>';
-          // 	table2.row.add([
-          // 		j,
-          // 		userdetail[i].name,
-          // 		userdetail[i].email,
-          // 		userdetail[i].phone_no,
-          // 		userdetail[i].joining_date,
-          // 		detail_new,
-          // 	]);
-          // 	j++;
-          // }
-          // $("#displaydata2").prepend(content_html);
         }
       } catch (error) {
         console.log(error);
       }
-      //table2.draw();
     }
 
     totaluser();
     if (endusers.length > 0) {
       let table2 = $("#myTable").DataTable();
-      //table2.draw();
     }
-    //$("#newexample").DataTable();
-    // $(document).ready(function () {
-    // 	totaluser();
-    // 	$("#newexample").DataTable();
-    // });
   }, [endusers]);
-
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/typography");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>

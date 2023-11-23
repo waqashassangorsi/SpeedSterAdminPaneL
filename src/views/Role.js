@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-// react-bootstrap components
 import {
   Badge,
   Button,
@@ -18,7 +17,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import { storeurl } from "components/App/storeurl";
-function Role() {
+function Role(props) {
   const history = useHistory();
   const [userrole, setuserrole] = useState([]);
   function handleClick() {
@@ -27,18 +26,15 @@ function Role() {
 
   $(document).on("click", ".eye_fontnew", function () {
     var id = $(this).attr("data-id");
-    //alert(id);
-    //history.push("/admin/editrole/" + id);
+
     history.push({
       pathname: "/admin/editrole/",
-      // search: '?the=search',
       userid: { id: id },
     });
   });
 
   useEffect(() => {
     async function totaluser() {
-      //let table10 = $("#newexample8").DataTable();
       try {
         const response = await fetch(`${storeurl}admin_getallrole`, {
           method: "GET",
@@ -46,37 +42,24 @@ function Role() {
         const data = await response.json();
         if (data.status == true) {
           setuserrole(data.data);
-          //var userdetail = data.data;
-          //var j = 1;
-          //for (var i = 0; i < userdetail.length; i++) {
-          //	var detail_new =
-          //		'<i class="fa fa-pencil eye_fontawesome eye_fontnew tick_icon" data-id="' +
-          //		userdetail[i].Id +
-          //		'"></i>';
-          //	detail_new +=
-          //		'<i class="fa fa-eye eye_fontawesome eye_fontnew"></i>';
-          //	table10.row.add([j, userdetail[i].name, detail_new]);
-          //	j++;
-          //}
-          //$('#displaydata2').prepend(content_html);
         }
       } catch (error) {
         console.log(error);
       }
-      //table10.draw();
     }
     totaluser();
-    //$("#newexample8").DataTable();
-    // $(document).ready(function () {
-    // 	totaluser();
-    // 	$("#newexample8").DataTable();
-    // });
 
     if (userrole.length > 0) {
       $("#newexample4").DataTable();
     }
   }, [userrole]);
-
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/role");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>
@@ -107,7 +90,6 @@ function Role() {
                     <tr>
                       <th className="border-0">ID</th>
                       <th className="border-0">Role Name</th>
-                      {/* <th className="border-0">Action</th> */}
                     </tr>
                   </thead>
                   <tbody id="displaydata3">
@@ -115,12 +97,6 @@ function Role() {
                       <tr>
                         <td>{index + 1}</td>
                         <td>{item.name}</td>
-                        {/* <td>
-                          <i
-                            class="fa fa-pencil eye_fontawesome eye_fontnew tick_icon"
-                            data-id={item.Id}
-                          ></i>
-                        </td> */}
                       </tr>
                     ))}
                   </tbody>

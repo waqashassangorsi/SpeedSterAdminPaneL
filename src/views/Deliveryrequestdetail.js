@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
-function Deliveryrequestdetail() {
+function Deliveryrequestdetail(props) {
   const history = useHistory();
   const { state } = history.location;
   console.log("state", state);
@@ -22,7 +22,13 @@ function Deliveryrequestdetail() {
   const droplocation = state?.droplocation?.drop_location;
   const delivery_date = state?.deliverydate?.delivery_date;
   const package_price = state?.packageprice?.package_price;
-
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/deliverrequestdetail");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <Container fluid>
       <Row>

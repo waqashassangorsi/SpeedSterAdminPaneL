@@ -14,7 +14,7 @@ import {
 } from "react-bootstrap";
 import { storeurl } from "components/App/storeurl";
 import $ from "jquery";
-function Adduser() {
+function Adduser(props) {
   const [useroles, setuseroles] = useState([]);
   useEffect(() => {
     async function totaluser() {
@@ -25,15 +25,19 @@ function Adduser() {
         const data = await response.json();
         if (data.status == true) {
           setuseroles(data.data);
-          // settotaldrivers(data.total_driver);
-          // settotalusers(data.total_user);
-          // settotalrides(data.total_rides);
         }
       } catch (error) {
         console.log(error);
       }
     }
     totaluser();
+  }, []);
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/adduser");
+    if (!authToken) {
+      props.history.push("/login");
+    }
   }, []);
   return (
     <>

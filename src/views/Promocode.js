@@ -17,7 +17,7 @@ import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import { storeurl } from "components/App/storeurl";
-function Promocode() {
+function Promocode(props) {
   const history = useHistory();
   function handleClick() {
     history.push("/admin/addpromocode");
@@ -61,7 +61,13 @@ function Promocode() {
     // 	$("#myTable").DataTable();
     // });
   }, [showpromocode]);
-
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/promocode");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>
