@@ -1,5 +1,5 @@
 import $ from "jquery";
-
+import { storeurl } from "components/App/storeurl";
 $(document).ready(function () {
   //  $(document).on('click','.eye_fontnew',function(){
   //           handleClick();
@@ -8,8 +8,9 @@ $(document).ready(function () {
     var response = confirm("Are you sure you want to change the status?");
     if (response == true) {
       const id = $(this).attr("data-id");
+
       $.ajax({
-        url: "http://speedster.book2say.com/Authentication/admin_updatestatus",
+        url: `${storeurl}admin_updatestatus`,
         type: "POST",
         data: { id: id },
         dataType: "json",
@@ -38,7 +39,7 @@ $(document).ready(function () {
     formData.append("promo_img[]", $("#promo_img")[0].files[0]);
     console.log($("#promo_img")[0].files[0]);
     $.ajax({
-      url: "http://speedster.book2say.com/Authentication/admin_addpromocode",
+      url: `${storeurl}admin_addpromocode`,
       type: "POST",
       enctype: "multipart/form-data",
       data: formData,
@@ -63,7 +64,7 @@ $(document).ready(function () {
     const new_userpass = $("#new_userpass").val();
     const new_userid = $("#new_userid").val();
     $.ajax({
-      url: "http://speedster.book2say.com/Authentication/admin_updatesetting",
+      url: `${storeurl}admin_updatesetting`,
       type: "POST",
       data: {
         new_useremail: new_useremail,
@@ -180,7 +181,7 @@ $(document).ready(function () {
       email != ""
     ) {
       $.ajax({
-        url: "http://speedster.book2say.com/Authentication/admin_adduser",
+        url: `${storeurl}admin_adduser`,
         type: "POST",
         data: {
           select_role: select_role,
@@ -213,7 +214,7 @@ $(document).ready(function () {
 
     if (first_name != "" && mobile_no != "" && email != "") {
       $.ajax({
-        url: "http://speedster.book2say.com/Authentication/admin_edituser",
+        url: `${storeurl}admin_edituser`,
         type: "POST",
         data: {
           select_role: select_role,
@@ -242,7 +243,7 @@ $(document).ready(function () {
       });
 
       $.ajax({
-        url: "http://speedster.book2say.com/Authentication/admin_addrole",
+        url: `${storeurl}admin_addrole`,
         type: "POST",
         data: { role_name: role_name, privilages: privilages },
         dataType: "json",
@@ -312,7 +313,7 @@ $(document).ready(function () {
     if (result == true) {
       var id = $(this).attr("data-id");
       $.ajax({
-        url: "http://speedster.book2say.com/Authentication/admin_updateuserstatus",
+        url: `${storeurl}admin_updateuserstatus`,
         type: "POST",
         data: { id: id },
         dataType: "json",
@@ -327,7 +328,7 @@ $(document).ready(function () {
     var id = $(this).attr("data-id");
     var selectedValue = $(".select_driver").val();
     $.ajax({
-      url: "http://speedster.book2say.com/Authentication/adminupdatedriver",
+      url: `${storeurl}adminupdatedriver`,
       type: "POST",
       data: { id: id, selectedValue: selectedValue },
       dataType: "json",
@@ -341,7 +342,7 @@ $(document).ready(function () {
     var packageprice = $("#packageprice").val();
     var id = $(this).attr("data-id");
     $.ajax({
-      url: "http://speedster.book2say.com/Authentication/admin_updatepackagesprice",
+      url: `${storeurl}admin_updatepackagesprice`,
       type: "POST",
       data: { packageprice: packageprice, package_id: id },
       dataType: "json",

@@ -16,7 +16,8 @@ import $ from "jquery";
 import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
-function Promocode() {
+import { storeurl } from "components/App/storeurl";
+function Promocode(props) {
   const history = useHistory();
   function handleClick() {
     history.push("/admin/addpromocode");
@@ -25,12 +26,9 @@ function Promocode() {
   useEffect(() => {
     async function totaluser() {
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_showpromocode",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_showpromocode`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           setshowpromocode(data.data);
@@ -63,7 +61,13 @@ function Promocode() {
     // 	$("#myTable").DataTable();
     // });
   }, [showpromocode]);
-
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/promocode");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>

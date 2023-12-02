@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 //import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 // react-bootstrap components
+import { storeurl } from "components/App/storeurl";
 import {
   Badge,
   Button,
@@ -25,7 +26,7 @@ function Editpricing() {
   //console.log(userid);
   useEffect(() => {
     $.ajax({
-      url: "http://speedster.book2say.com/Authentication/admin_singleshowpackages",
+      url: `${storeurl}admin_singleshowpackages`,
       type: "POST",
       data: { mypackageid: mypackageid },
       dataType: "json",

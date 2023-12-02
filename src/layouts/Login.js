@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
-// react-bootstrap components
+import { storeurl } from "components/App/storeurl";
 import {
   Badge,
   Button,
@@ -22,34 +22,14 @@ import {
 import "assets/css/login.css";
 import "assets/js/custom.js";
 
-const initialState = {
-  count: 0,
-};
-
-// const store = createStore(() => ({
-//   birds: [
-//     {
-//       name: 'robin',
-//       views: 1
-//     }
-//   ]
-// }));
-// console.log('store',store.getState());
-// const birds=store.getState();
-
 function Login(props) {
   const [mypass, setmypass] = useState("");
   const [myemail, setmyemail] = useState("");
   const amount1 = useSelector((state) => state.amount1);
   const dispatch = useDispatch();
   const { loginData } = bindActionCreators(actionCreators, dispatch);
-  //const newsdata = loginData();
   console.log("loginData", amount1);
-  //if (amount1 !== 0) {
-  // 	//alert("123");
-  //	props.history.push("/admin/Dashboard");
-  //}
-  //console.log("logingetlocalstorage", localStorage.getItem("userid"));
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -60,17 +40,13 @@ function Login(props) {
         const formData = new FormData();
         formData.append("email", email);
         formData.append("password", pass);
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_login",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
+        const response = await fetch(`${storeurl}admin_login`, {
+          method: "POST",
+          body: formData,
+        });
         const data = await response.json();
         if (data.status == true) {
           if (data.data.u_id != "") {
-            //loginData(parseInt(data.data.u_id));
             loginData(data.data);
             localStorage.setItem("userid", data.data.u_id);
             props.history.push("/admin/Dashboard");
@@ -98,9 +74,6 @@ function Login(props) {
   }
   return (
     <>
-      {/* <Provider store={store}>
-      <App />
-    </Provider> */}
       <Container fluid>
         <Row>
           <Col md="12">

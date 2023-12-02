@@ -1,6 +1,4 @@
-import React from "react";
-
-// react-bootstrap components
+import React, { useEffect } from "react";
 import {
   Badge,
   Button,
@@ -17,7 +15,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
-function AddPromocode() {
+function AddPromocode(props) {
   const amount = useSelector((state) => state.amount1);
   const dispatch = useDispatch();
   const { loginData } = bindActionCreators(actionCreators, dispatch);
@@ -25,9 +23,14 @@ function AddPromocode() {
   const handleEmailChange = (event) => {
     const newAmount = { ...amount, email: event.target.value };
     loginData(newAmount);
-    // Call your other function here
-    //yourOtherFunction();
   };
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/updaterecord");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>

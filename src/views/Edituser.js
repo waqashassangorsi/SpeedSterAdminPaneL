@@ -13,6 +13,7 @@ import {
   Table,
 } from "react-bootstrap";
 import $ from "jquery";
+import { storeurl } from "components/App/storeurl";
 function Edituser() {
   const [username, setusername] = useState("");
   const [useremail, setuseremail] = useState("");
@@ -28,12 +29,9 @@ function Edituser() {
   useEffect(() => {
     async function totaluser() {
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_getallrole",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_getallrole`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           setuseroles(data.data);
@@ -48,7 +46,7 @@ function Edituser() {
     totaluser();
 
     $.ajax({
-      url: "http://speedster.book2say.com/Authentication/admin_getuserdetail",
+      url: `${storeurl}admin_getuserdetail`,
       type: "POST",
       data: { id: id },
       dataType: "json",

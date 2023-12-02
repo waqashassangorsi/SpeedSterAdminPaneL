@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 
-// react-bootstrap components
 import {
   Badge,
   Button,
@@ -14,16 +13,8 @@ import {
 } from "react-bootstrap";
 import "assets/js/custom.js";
 import $ from "jquery";
-// import { useSelector } from "react-redux";
-// import { useDispatch } from "react-redux";
-// import { bindActionCreators } from "redux";
-// import { actionCreators } from "../state/index";
-function Addrole() {
-  //const amount = useSelector((state) => state.amount2);
-  //const amount1 = useSelector((state) => state.amount1);
-  //	const dispatch = useDispatch();
-  //	const { roleData } = bindActionCreators(actionCreators, dispatch);
 
+function Addrole(props) {
   const [showdashboardchild, setshowdashboardchild] = useState(false);
   const [showdashboardchildtwo, setshowdashboardchildtwo] = useState(false);
   const [showdashboardchildthree, setshowdashboardchildthree] = useState(false);
@@ -37,12 +28,10 @@ function Addrole() {
 
   const handleClick = () => {
     setshowdashboardchild(!showdashboardchild);
-    //roleData("dashboard");
   };
 
   const handleClicktwo = () => {
     setshowdashboardchildtwo(!showdashboardchildtwo);
-    //roleData("delivery_request");
   };
   const handleClickthree = () => {
     setshowdashboardchildthree(!showdashboardchildthree);
@@ -71,18 +60,13 @@ function Addrole() {
   const handleClickten = () => {
     setshowdashboardchildten(!showdashboardchildten);
   };
-
-  // const handleValues = () => {
-  // 	var privilages = [];
-  // 	var checkboxes = document.querySelectorAll(".checkbox_newval:checked");
-
-  // 	checkboxes.forEach(function (checkbox) {
-  // 		privilages.push(checkbox.value);
-  // 	});
-  // 	roleData(privilages);
-  // };
-  // console.log("wqeqwe", amount);
-
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/addrole");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>
@@ -156,21 +140,6 @@ function Addrole() {
                               ></input>
                             </td>
                           </tr>
-
-                          {/* <tr class="dashboard_collapse close2">
-														<td>
-															<div>
-																<span>View Delivery, Vehicle, Agent Count</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk checkbox_newval"
-																value="view_delivery_vehicle_agentcount"
-															></input>
-														</td>
-													</tr> */}
                         </>
                       )}
 
@@ -205,36 +174,6 @@ function Addrole() {
 
                       {showdashboardchildtwo == true && (
                         <>
-                          {/* <tr class="dashboard_collapse2 close3">
-														<td>
-															<div>
-																<span>Update Delivery Status</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk2 checkbox_newval"
-																value="update_delivery_status"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse2 close3">
-														<td>
-															<div>
-																<span>Assign Driver On Delivery</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk2 checkbox_newval"
-																value="assign_driver_on_delivery"
-															></input>
-														</td>
-													</tr> */}
-
                           <tr class="dashboard_collapse2 close3">
                             <td>
                               <div>
@@ -249,81 +188,6 @@ function Addrole() {
                               ></input>
                             </td>
                           </tr>
-                          {/* 
-													<tr class="dashboard_collapse2 close3">
-														<td>
-															<div>
-																<span>Export Delivery To Pdf</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk2 checkbox_newval"
-																value="export_delivery_to_pdf"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse2 close3">
-														<td>
-															<div>
-																<span>View Delivery Grid</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk2 checkbox_newval"
-																value="export_delivery_grid"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse2 close3">
-														<td>
-															<div>
-																<span>Export Delivery To Excel</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk2 checkbox_newval"
-																value="export_delivery_to_excel"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse2 close3">
-														<td>
-															<div>
-																<span>Add Delivery</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk2 checkbox_newval"
-																value="add_delivery"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse2 close3">
-														<td>
-															<div>
-																<span>Send Delivery Invoice Mail</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk2 checkbox_newval"
-																value="send_delivery_invoice_mail"
-															></input>
-														</td>
-													</tr> */}
                         </>
                       )}
                       {/****** Second row end *****/}
@@ -359,51 +223,6 @@ function Addrole() {
 
                       {showdashboardchildthree == true && (
                         <>
-                          {/* <tr class="dashboard_collapse4 close5">
-														<td>
-															<div>
-																<span>Update Driver</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk3 checkbox_newval"
-																value="update_driver"
-															></input>
-														</td>
-													</tr> */}
-                          {/* 
-													<tr class="dashboard_collapse4 close5">
-														<td>
-															<div>
-																<span>Export Driver Details To Excel</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk3 checkbox_newval"
-																value="export_driver_details_to_excel"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse4 close5">
-														<td>
-															<div>
-																<span>Export Driver Details To Pdf</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk3 checkbox_newval"
-																value="export_driver_details_to_pdf"
-															></input>
-														</td>
-													</tr> */}
-
                           <tr class="dashboard_collapse4 close5">
                             <td>
                               <div>
@@ -418,51 +237,6 @@ function Addrole() {
                               ></input>
                             </td>
                           </tr>
-                          {/* 
-													<tr class="dashboard_collapse4 close5">
-														<td>
-															<div>
-																<span>Update Driver Status</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk3 checkbox_newval"
-																value="update_driver_status"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse4 close5">
-														<td>
-															<div>
-																<span>View Driver Grid</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk3 checkbox_newval"
-																value="view_driver_grid"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse4 close5">
-														<td>
-															<div>
-																<span>Add Driver</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk3 checkbox_newval"
-																value="add_driver"
-															></input>
-														</td>
-													</tr> */}
                         </>
                       )}
                       {/****** fourth row ends *****/}
@@ -497,66 +271,6 @@ function Addrole() {
                       </tr>
                       {showdashboardchildfour == true && (
                         <>
-                          {/* <tr class="dashboard_collapse5 close6">
-														<td>
-															<div>
-																<span>Update Vehicle Status</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk4 checkbox_newval"
-																value="update_vehicle_status"
-															></input>
-														</td>
-													</tr> */}
-                          {/* 
-													<tr class="dashboard_collapse5 close6">
-														<td>
-															<div>
-																<span>Export Vehicle Details To Excel</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk4 checkbox_newval"
-																value="export_vehicle_details_to_excel"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse5 close6">
-														<td>
-															<div>
-																<span>View Vehicle Grid</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk4 checkbox_newval"
-																value="view_vehicle_grid"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse5 close6">
-														<td>
-															<div>
-																<span>Export Vehicle Details To Pdf</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk4 checkbox_newval"
-																value="export_vehicle_details_to_pdf"
-															></input>
-														</td>
-													</tr> */}
-
                           <tr class="dashboard_collapse5 close6">
                             <td>
                               <div>
@@ -571,51 +285,6 @@ function Addrole() {
                               ></input>
                             </td>
                           </tr>
-
-                          {/* <tr class="dashboard_collapse5 close6">
-														<td>
-															<div>
-																<span>Add Vehicle</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk4 checkbox_newval"
-																value="add_vehicle"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse5 close6">
-														<td>
-															<div>
-																<span>Update Vehicle</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk4 checkbox_newval"
-																value="update_vehicle"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse5 close6">
-														<td>
-															<div>
-																<span>Assign Agent On Vehicle</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk4 checkbox_newval"
-																value="assign_agent_on_vehicle"
-															></input>
-														</td>
-													</tr> */}
                         </>
                       )}
                       {/****** fifth row ends *****/}
@@ -698,21 +367,6 @@ function Addrole() {
                       </tr>
                       {showdashboardchildfive == true && (
                         <>
-                          {/* <tr class="dashboard_collapse7 close8">
-														<td>
-															<div>
-																<span>Export Promo Code Details To Pdf</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk5 checkbox_newval"
-																value="export_promocode_details_topdf"
-															></input>
-														</td>
-													</tr> */}
-
                           <tr class="dashboard_collapse7 close8">
                             <td>
                               <div>
@@ -727,51 +381,6 @@ function Addrole() {
                               ></input>
                             </td>
                           </tr>
-
-                          {/* <tr class="dashboard_collapse7 close8">
-														<td>
-															<div>
-																<span>Add Promo code</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk5 checkbox_newval"
-																value="add_promocode"
-															></input>
-														</td>
-													</tr> */}
-                          {/* 
-													<tr class="dashboard_collapse7 close8">
-														<td>
-															<div>
-																<span>Update Promo code Status</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk5 checkbox_newval"
-																value="update_promocode_status"
-															></input>
-														</td>
-													</tr> */}
-
-                          {/* <tr class="dashboard_collapse7 close8">
-														<td>
-															<div>
-																<span>Export Promo Code Details To Excel</span>
-															</div>
-														</td>
-														<td>
-															<input
-																type="checkbox"
-																class="chk5 checkbox_newval"
-																value="export_promocode_details_to_excel"
-															></input>
-														</td>
-													</tr> */}
                         </>
                       )}
                       {/****** seventh row ends *****/}
@@ -986,14 +595,6 @@ function Addrole() {
                       >
                         Submit
                       </button>
-
-                      {/* <button
-												type="button"
-												class="btn btn-success"
-												onClick={handleValues}
-											>
-												Add values
-											</button> */}
                     </div>
                   </div>
                 </form>
