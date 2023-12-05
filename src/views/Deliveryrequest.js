@@ -70,7 +70,6 @@ function Deliveryrequest(props) {
         });
         const data = await driver_response.json();
         if (data.status === true) {
-          console.log("datacheck", data.data)
           setalldriver(data.data);
           setSelectedDriverId(data.data[0].u_id)
         }
@@ -106,9 +105,12 @@ function Deliveryrequest(props) {
         body: formData,
       });
       const data = await response.json();
-      console.log("status", data)
       if (data.status == true) {
-
+        setallrecord((prevRecords) =>
+          prevRecords.map((record) =>
+            record.trip_id === tripid ? { ...record, status: "Accepted" } : record
+          )
+        );
         console.log('Data saved successfully');
         setShowModal(false)
       } else {
