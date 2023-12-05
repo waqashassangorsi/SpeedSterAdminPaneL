@@ -1,44 +1,63 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import { storeurl } from "components/App/storeurl";
 
 function Deliveryrequestdetail(props) {
   const history = useHistory();
   const { state } = history.location;
   console.log("state", state);
+  const [apidata, setapidata] = useState([]);
+
   // Check if state exists before accessing its properties
-  const username = state?.sendername?.name;
-  const userphone = state?.senderphone?.phone;
-  const recivername = state?.recivername?.reciver_name;
-  const receivercontact = state?.receivercontact?.reciver_contact;
-  const drivername = state?.drivername?.driver_name;
-  const driverphone = state?.driverphone?.driver_phoneno;
-  const driveremail = state?.driveremail?.driver_email;
-  const trackingno = state?.trackingno?.tracking_no;
-  const deliverystatus = state?.deliverystatus?.delivery_status;
-  const cancelreson = state?.cancelreson?.cancel_reson;
-  const paymentmode = state?.paymentmode?.payment_mode;
-  const pickuplocation = state?.pickuplocation?.pickup_location;
-  const droplocation = state?.droplocation?.drop_location;
-  const delivery_date = state?.deliverydate?.delivery_date;
-  const package_price = state?.packageprice?.package_price;
 
+  async function callapi(id) {
+    try {
+      const formData = new FormData();
+      formData.append("trip_id", id);
+      const response = await fetch(`${storeurl}admin_get_trip_details`, {
+        method: "POST",
+        body: formData,
+      });
 
-  const params = window.location.search.substring(1);
-  var pair = params.split("=");
-  var id = pair[1];
+      const data = await response.json();
+      console.log("apidata==>",data)
 
-  console.log("ourfirstid",id)
+      if (data.status == true) {
+        setapidata(data.data);
+      }
+      console.log("logindata123", data);
 
-
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
+
+    const params = window.location.search.substring(1);
+    var pair = params.split("=");
+    var id = pair[1];
+  
+    console.log("ourfirstid", id);
+
+
     const authToken = localStorage.getItem("userid");
-    // props.history.push("/admin/deliverrequestdetail/"+id);
-    // if (!authToken) {
-    //   props.history.push("/login");
-    // }
-  }, [id]);
+    if(id==undefined){
+
+    }else{
+      props.history.push("/admin/deliverrequestdetail/"+id);
+      if (!authToken) {
+        props.history.push("/login");
+      }
+  
+      callapi(id);
+    }
+
+  }, []);
+
+  console.log("apidata==>",apidata)
   return (
     <Container fluid>
       <Row>
@@ -51,8 +70,8 @@ function Deliveryrequestdetail(props) {
                     <h6>CUSTOMER DETAILS</h6>
                   </div>
 
-                  <p>Name : {username}</p>
-                  <p>Mobile : {userphone}</p>
+                  <p>Name : {apidata?.customer?.name}</p>
+                  <p>Mobile : {apidata?.customer?.phone_no}</p>
                 </Col>
 
                 <Col md="6" className="p-4">
@@ -60,19 +79,13 @@ function Deliveryrequestdetail(props) {
                     <h6>DRIVER DETAILS</h6>
                   </div>
 
-                  {drivername == 0 && (
-                    <>
-                      <p>Driver not assigned.</p>
-                    </>
-                  )}
+                
 
-                  {drivername != 0 && (
                     <>
-                      <p>Name : {drivername}</p>
-                      <p>Email : {driveremail}</p>
-                      <p>Mobile : {driverphone}</p>
+                      <p>Name : {apidata?.driver?.name}</p>
+                      <p>Email : {apidata?.driver?.email}</p>
+                      <p>Mobile : {apidata?.driver?.phone_no}</p>
                     </>
-                  )}
                 </Col>
 
                 <Col md="12" className="p-4">
@@ -85,32 +98,32 @@ function Deliveryrequestdetail(props) {
                     <tbody>
                       <tr>
                         <td>Tracking No :</td>
-                        <td>{trackingno}</td>
+                        <td>{apidata?.tracking_no}</td>
                       </tr>
 
                       <tr>
                         <td>Delivery Status :</td>
-                        <td>{deliverystatus}</td>
+                        <td>{apidata?.status}</td>
                       </tr>
 
                       <tr>
                         <td>Pickup Location :</td>
-                        <td>{pickuplocation} </td>
+                        <td>{apidata?.pickup_location} </td>
                       </tr>
 
-                      <tr>
+                      {/* <tr>
                         <td>Delivery Location :</td>
-                        <td>{droplocation}</td>
-                      </tr>
+                        <td>{apidata?.tracking_no}</td>
+                      </tr> */}
 
                       <tr>
                         <td>Pickup Date & Time :</td>
-                        <td>{delivery_date}</td>
+                        <td>{apidata?.delivery_Date}</td>
                       </tr>
 
                       <tr>
                         <td>Estimated Value Of Package :</td>
-                        <td>${package_price}</td>
+                        <td>${apidata?.price}</td>
                       </tr>
                     </tbody>
                   </table>
