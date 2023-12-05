@@ -10,6 +10,8 @@ import {
   Table,
   Row,
   Col,
+  Spinner,
+
 } from "react-bootstrap";
 import $ from "jquery";
 import "assets/js/custom.js";
@@ -21,6 +23,7 @@ function Typography(props) {
 
   const [endusers, setendusers] = useState([]);
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
 
   $(document).on("click", ".newdetail", function () {
     var customername = $(this).attr("data-customername");
@@ -51,6 +54,8 @@ function Typography(props) {
         }
       } catch (error) {
         console.log(error);
+      }finally {
+        setLoading(false); // Set loading to false after fetching data
       }
     }
 
@@ -86,6 +91,21 @@ function Typography(props) {
                 <Card.Title as="h4">All EndUser</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
+              {loading ? (
+                  // Show loader when loading is true
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100vh',
+                    }}
+                  >
+                    <Spinner animation="border"
+                      role="status"
+                      variant="danger" />
+                  </div>
+                ) : (
                 <Table className="table-hover table-striped" id="myTable">
                   <thead>
                     <tr>
@@ -134,6 +154,7 @@ function Typography(props) {
                     ))}
                   </tbody>
                 </Table>
+                )}
               </Card.Body>
             </Card>
           </Col>

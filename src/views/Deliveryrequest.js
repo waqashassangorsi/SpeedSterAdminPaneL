@@ -8,6 +8,7 @@ import {
   Row,
   Col,
   Modal,
+  Spinner
 } from "react-bootstrap";
 import $ from "jquery";
 import "assets/js/custom.js";
@@ -24,6 +25,8 @@ function Deliveryrequest(props) {
   const [selectedDriverId, setSelectedDriverId] = useState('');
   const [tripid, settripid] = useState('');
   const [randomno, setrandomno] = useState('');
+  const [loading, setLoading] = useState(true); // Add loading state
+
   console.log("allrecord", selectedDriverId)
   const handleShowModal = (item) => {
     console.log("checkitem", item.driverdetail.u_id)
@@ -61,7 +64,10 @@ function Deliveryrequest(props) {
         }
       } catch (error) {
         console.log(error);
+      }finally {
+        setLoading(false); 
       }
+
     }
 
     async function totaldriver() {
@@ -129,6 +135,25 @@ function Deliveryrequest(props) {
       <Container fluid>
         <Row>
           <Col md="12">
+          {loading && (
+              // Show loader when loading is true
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100vh',
+                }}
+              >
+                <Spinner
+                  animation="border"
+                  role="status"
+                  variant="danger" 
+                >
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </div>
+            )}
             <div class="col-sm-12 csv_btn">
               <button type="button" class="btn btn-primary addcsv_btn">
                 Export to CSV
@@ -164,7 +189,7 @@ function Deliveryrequest(props) {
 
                         <td>
                           <span>
-                            {/* {item.status == "Pending" && ( */}
+                           {item.status == "Pending" && ( 
                               <Button
                                 className="driver_detailbtn"
                                 onClick={() => openModal(item.trip_id)}
@@ -172,7 +197,7 @@ function Deliveryrequest(props) {
                               >
                                 Driver
                               </Button>
-                            {/* )} */}
+                             )}
                             <Modal
                               show={showModal}
                               onClose={() => setShowModal(false)}
