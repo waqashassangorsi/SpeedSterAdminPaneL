@@ -17,7 +17,8 @@ import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
-function Transaction() {
+import { storeurl } from "components/App/storeurl";
+function Transaction(props) {
   const [transactionrecord, settransactionrecord] = useState([]);
   const history = useHistory();
   function handleClick() {
@@ -61,57 +62,31 @@ function Transaction() {
     async function totaluser() {
       //let table5 = $("#newexample5").DataTable();
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/showtransaction",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}showtransaction`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           var userdetail = data.data;
           settransactionrecord(userdetail);
-          // var content_html = "";
-          // var j = 1;
-          // for (var i = 0; i < userdetail.length; i++) {
-          // 	var detail_new = "";
-
-          // 	detail_new +=
-          // 		'<span class="tick_span"><i class="fa fa-check mynewtick23" data-id=' +
-          // 		userdetail[i].claim_id +
-          // 		' aria-hidden="true"></i></span>';
-          // 	//content_html+='<tr><td>'+j+'</td><td>'+userdetail[i].name+'</td><td>'+userdetail[i].email+'</td><td>'+status+'</td><td>'+userdetail[i].joining_date+'</td></tr>';
-          // 	table5.row.add([
-          // 		j,
-          // 		userdetail[i].name,
-          // 		userdetail[i].email,
-          // 		userdetail[i].price,
-          // 		userdetail[i].status,
-          // 		detail_new,
-          // 	]);
-          // 	j++;
-          // }
-          // $("#displaydata2").prepend(content_html);
         }
       } catch (error) {
         console.log(error);
       }
-      //table5.draw();
     }
 
-    // $(document).ready(function () {
-    // 	totaluser();
-    // 	$("#newexample5").DataTable();
-    // });
     totaluser();
     if (transactionrecord.length > 0) {
       let table3 = $("#newexample4").DataTable();
-      //table3.draw();
     }
   }, [transactionrecord]);
-
-  //console.log("users", userblock);
-
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/transaction");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>

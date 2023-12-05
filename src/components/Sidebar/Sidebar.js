@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v2.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from "react";
 import { useLocation, NavLink, useHistory } from "react-router-dom";
 import { Nav } from "react-bootstrap";
@@ -27,12 +10,9 @@ import { actionCreators } from "../../state/index";
 import "../../assets/css/demo.css";
 
 function Sidebar({ color, image, routes }) {
-  //	const amount = useSelector((state) => state.amount2);
-
   const amount1 = useSelector((state) => state.amount1);
   const dispatch = useDispatch();
   const { loginData } = bindActionCreators(actionCreators, dispatch);
-  //console.log("sidebar", amount.length);
   const history = useHistory();
   const location = useLocation();
   const excludedRoutes = ["/addpromocode"];
@@ -44,8 +24,6 @@ function Sidebar({ color, image, routes }) {
   };
 
   const handleLogout = () => {
-    //setshowdashboardchild(!showdashboardchild);
-    //roleData("dashboard");
     loginData(0);
   };
 
@@ -84,14 +62,7 @@ function Sidebar({ color, image, routes }) {
       if (amount1.roles.length > 0) {
         console.log("amount1.roles", amount1.roles);
         var newdata = amount1.roles;
-        //newdata.forEach(function (checkbox) {
         console.log("amount123123", newdata);
-
-        // if (checkbox.privilages === "dashboard") {
-        // 	dashboard_id = "show_dashboard";
-        // } else {
-        // 	dashboard_id = "hide_dashboard";
-        // }
 
         if (newdata.some((item) => item.privilages === "dashboard")) {
           dashboard_id = "show_dashboard";
@@ -116,12 +87,6 @@ function Sidebar({ color, image, routes }) {
         } else {
           enduser = "hide_enduser";
         }
-
-        // if (newdata.some((item) => item.privilages === "rides")) {
-        // 	rides = "show_rides";
-        // } else {
-        // 	rides = "hide_rides";
-        // }
 
         if (newdata.some((item) => item.privilages === "promocode")) {
           promocode = "show_promocode";
@@ -152,106 +117,9 @@ function Sidebar({ color, image, routes }) {
         } else {
           transaction = "hide_transaction";
         }
-
-        // if (newdata.includes("dashboard")) {
-        // 	dashboard_id = "show_dashboard";
-        // } else {
-        // 	dashboard_id = "hide_dashboard";
-        // }
-        //});
-
-        // if (amount1.roles.includes("dashboard")) {
-        // 	dashboard_id = "show_dashboard";
-        // } else {
-        // 	dashboard_id = "hide_dashboard";
-        // }
       }
     }
-    // if (amount1.includes("dashboard")) {
-    // 	dashboard_id = "show_dashboard";
-    // } else {
-    // 	dashboard_id = "hide_dashboard";
-    // }
-    // amount1.forEach(function (checkbox) {
-    // 	console.log("amount123123", checkbox);
-    // 	if (checkbox === "dashboard") {
-    // 		dashboard_id = "show_dashboard";
-    // 	} else {
-    // 		dashboard_id = "hide_dashboard";
-    // 	}
-    // 	privilages.push(checkbox.value);
-    // });
   }
-
-  // 	if (amount.includes("delivery_details")) {
-  // 		delivery_details = "show_delivery_details";
-  // 	} else {
-  // 		delivery_details = "hide_delivery_details";
-  // 	}
-
-  // 	if (amount.includes("driver_details")) {
-  // 		driver_details = "show_driver_details";
-  // 	} else {
-  // 		driver_details = "hide_driver_details";
-  // 	}
-
-  // 	if (amount.includes("enduser")) {
-  // 		enduser = "show_enduser";
-  // 	} else {
-  // 		enduser = "hide_enduser";
-  // 	}
-
-  // 	if (amount.includes("rides")) {
-  // 		rides = "show_rides";
-  // 	} else {
-  // 		rides = "hide_rides";
-  // 	}
-
-  // 	if (amount.includes("promocode")) {
-  // 		promocode = "show_promocode";
-  // 	} else {
-  // 		promocode = "hide_promocode";
-  // 	}
-
-  // 	if (amount.includes("usermanagement")) {
-  // 		usermanagement = "show_usermanagement";
-  // 	} else {
-  // 		usermanagement = "hide_usermanagement";
-  // 	}
-
-  // 	if (amount.includes("setting")) {
-  // 		setting = "show_setting";
-  // 	} else {
-  // 		setting = "hide_setting";
-  // 	}
-
-  //amount.forEach(function (checkbox) {
-
-  // console.log("amount", checkbox);
-  // if (checkbox === "dashboard") {
-  // 	dashboard_id = "show_dashboard";
-  // } else {
-  // 	dashboard_id = "hide_dashboard";
-  // }
-  //privilages.push(checkbox.value);
-  //});
-  //}
-
-  // {
-  // 	amount.length > 0 && (
-  // 		<div>
-  // 			{amount.map((value, index) => {
-  // 				const className =
-  // 					value === "dashboard" ? "show_dashboard" : "hide_dashboard";
-  // 				// return (
-  // 				// 	<div key={index} className={className}>
-  // 				// 		{value}
-  // 				// 	</div>
-  // 				// );
-  // 			})}
-  // 		</div>
-  // 	);
-  // }
 
   return (
     <div className="sidebar" data-image={image} data-color={color}>
@@ -272,39 +140,7 @@ function Sidebar({ color, image, routes }) {
               />
             </div>
           </a>
-          {/* <a className="simple-text" href="http://www.creative-tim.com">
-           Speedster
-          </a> */}
         </div>
-        {/* <Nav>
-          {routes.map((prop, key) => {
-            if (!prop.redirect)
-              return (
-                <li
-                  className={
-                    prop.upgrade
-                      ? "active active-pro"
-                      : activeRoute(prop.layout + prop.path)
-                  }
-                  key={key} id={prop.id}
-                >
-                  <NavLink
-                    to={prop.layout + prop.path}
-                    className="nav-link"
-                    activeClassName="active"
-                  >
-                    <i className={prop.icon} />
-                    <p>{prop.name}</p>
-                  </NavLink>
-                </li>
-
-                
-              );
-            return null;
-          })}
-
-       
-        </Nav> */}
 
         <Nav>
           <li>

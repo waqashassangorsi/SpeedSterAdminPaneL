@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-// react-bootstrap components
 import {
   Badge,
   Button,
@@ -17,40 +16,27 @@ import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "font-awesome/css/font-awesome.min.css";
-function Pricing() {
+import { storeurl } from "components/App/storeurl";
+function Pricing(props) {
   const history = useHistory();
   $(document).on("click", ".editeye_pencile", function () {
     var id = $(this).attr("data-id");
-    //alert(id);
-    //history.push("/admin/editrole/" + id);
+
     history.push({
       pathname: "/admin/editprice/",
-      // search: '?the=search',
       packageid: { id: id },
     });
   });
-  //let table9 = $("#newexample9").DataTable();
   const [showpricing, setshowpricing] = useState([]);
   useEffect(() => {
     async function totaluser() {
       try {
-        const response = await fetch(
-          "http://speedster.book2say.com/Authentication/admin_showpackages",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${storeurl}admin_showpackages`, {
+          method: "GET",
+        });
         const data = await response.json();
         if (data.status == true) {
           setshowpricing(data.data);
-          //var userdetail = data.data;
-          //var j = 1;
-          //for (var i = 0; i < userdetail.length; i++) {
-          //table10.row.add([j, userdetail[i].name, detail_new]);
-          //	table4.row.add([j, userdetail[i].banner]);
-          //	j++;
-          //}
-          //$('#displaydata2').prepend(content_html);
         }
       } catch (error) {
         console.log(error);
@@ -59,17 +45,19 @@ function Pricing() {
     totaluser();
     if (showpricing.length > 0) {
       let table4 = $("#newexample9").DataTable();
-      //table4.draw();
     }
   }, [showpricing]);
-
-  //   $(document).ready(function () {
-  //     $("#newexample9").DataTable();
-  //   });
 
   const edit_pencil = {
     marginLeft: "10px",
   };
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/pricing");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>
@@ -103,10 +91,6 @@ function Pricing() {
                         <td>$ {element.amount_till}</td>
                         <td>{element.weight}</td>
                         <td>
-                          {/* <span class="eye_font">
-                            <i class="fa fa-eye eye_fontawesome"></i>
-                          </span> */}
-
                           <span class="eye_font" style={edit_pencil}>
                             <i
                               class="fa fa-pencil pencile_fontawesome editeye_pencile"
@@ -114,13 +98,6 @@ function Pricing() {
                               data-id={element.package_id}
                             ></i>
                           </span>
-
-                          {/* <span class="tick_span">
-                          <i
-                            class="fa fa-check mynewtick"
-                            aria-hidden="true"
-                          ></i>
-                        </span> */}
                         </td>
                       </tr>
                     ))}

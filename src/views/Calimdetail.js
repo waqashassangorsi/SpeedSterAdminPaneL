@@ -13,6 +13,7 @@ import {
   Col,
   Modal,
 } from "react-bootstrap";
+import { storeurl } from "components/App/storeurl";
 import $ from "jquery";
 import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
@@ -45,7 +46,7 @@ function Calimdetail() {
 
       const status = "Approved";
       $.ajax({
-        url: "http://speedster.book2say.com/Authentication/adminclaimstatus",
+        url: `${storeurl}adminclaimstatus`,
         type: "POST",
         data: { claim_id: claim_id, status: status },
         dataType: "json",
@@ -67,7 +68,7 @@ function Calimdetail() {
 
       const status = "Rejected";
       $.ajax({
-        url: "http://speedster.book2say.com/Authentication/adminclaimstatus",
+        url: `${storeurl}adminclaimstatus`,
         type: "POST",
         data: { claim_id: claim_id, status: status },
         dataType: "json",

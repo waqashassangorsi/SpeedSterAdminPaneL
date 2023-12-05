@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import {
@@ -13,7 +13,14 @@ import {
   Table,
 } from "react-bootstrap";
 import $ from "jquery";
-function AddPromocode() {
+function AddPromocode(props) {
+  useEffect(() => {
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/addpromocode");
+    if (!authToken) {
+      props.history.push("/login");
+    }
+  }, []);
   return (
     <>
       <Container fluid>
