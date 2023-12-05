@@ -44,7 +44,10 @@ function Login(props) {
           method: "POST",
           body: formData,
         });
+
         const data = await response.json();
+        console.log("logindata123",data)
+
         if (data.status == true) {
           if (data.data.u_id != "") {
             loginData(data.data);

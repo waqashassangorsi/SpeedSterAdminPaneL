@@ -21,10 +21,13 @@ function Deliveryrequest(props) {
   const [alldriver, setalldriver] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const history = useHistory();
-
+  const [selectedDriverId, setSelectedDriverId] = useState('');
+  const [tripid, settripid] = useState('');
+  console.log("allrecord", selectedDriverId)
   const handleShowModal = (item) => {
+    console.log("checkitem", item.driverdetail.u_id)
     history.push({
-      pathname: "/admin/deliverrequestdetail",
+      pathname: `/admin/deliverrequestdetail/3`,
       state: {
         sendername: { name: item.name },
         senderphone: { phone: item.phone_no },
@@ -67,7 +70,9 @@ function Deliveryrequest(props) {
         });
         const data = await driver_response.json();
         if (data.status === true) {
+          console.log("datacheck", data.data)
           setalldriver(data.data);
+          setSelectedDriverId(data.data[0].u_id)
         }
       } catch (error) {
         console.log(error);
@@ -79,7 +84,7 @@ function Deliveryrequest(props) {
     if (allrecord.length > 0) {
       $("#myTable").DataTable();
     }
-  }, [allrecord]);
+  }, []);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
     props.history.push("/admin/deliverrequest");
@@ -87,6 +92,38 @@ function Deliveryrequest(props) {
       props.history.push("/login");
     }
   }, []);
+  const handleSaveChanges = async () => {
+    const formData = new FormData();
+    formData.append('id', tripid);
+    formData.append("selectedValue", selectedDriverId);
+
+    console.log("checkformdata", formData);
+
+
+    try {
+      const response = await fetch(`${storeurl}adminupdatedriver`, {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      console.log("status", data)
+      if (data.status == true) {
+
+        console.log('Data saved successfully');
+        setShowModal(false)
+      } else {
+        console.error('Error saving data');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  const openModal = (id) => {
+    // alert(id)
+    setShowModal(true);
+    settripid(id)
+
+  }
   return (
     <>
       <Container fluid>
@@ -115,13 +152,7 @@ function Deliveryrequest(props) {
                   <tbody>
                     {allrecord.map((item, index) => (
                       <tr key={index}>
-                        {/* {item.driverdetail !== null ? (
-														 (item.driverdetail).map((item2, innerIndex) => (
-															<p key={innerIndex}>{item2}</p>
-														  ))
-													) : (
-														<p>No</p>
-														)} */}
+
 
                         <td>{index + 1}</td>
                         <td>{item.name}</td>
@@ -133,14 +164,15 @@ function Deliveryrequest(props) {
 
                         <td>
                           <span>
-                            <Button
-                              className="driver_detailbtn"
-                              onClick={() => setShowModal(true)}
-                              data-id={item.trip_id}
-                            >
-                              Driver
-                            </Button>
-
+                            {item.status == "Pending" && (
+                              <Button
+                                className="driver_detailbtn"
+                                onClick={() => openModal(item.trip_id)}
+                              //data-id={item.trip_id}
+                              >
+                                Driver
+                              </Button>
+                            )}
                             <Modal
                               show={showModal}
                               onClose={() => setShowModal(false)}
@@ -153,16 +185,16 @@ function Deliveryrequest(props) {
                               </Modal.Header>
                               <Modal.Body>
                                 <label>Select Driver</label>
-                                <select class="form-control select_driver">
+
+                                <select className="form-control select_driver" value={selectedDriverId} onChange={(e) => setSelectedDriverId(e.target.value)}>
                                   {alldriver &&
-                                    alldriver.map((mydrivers, index) => (
-                                      <option
-                                        key={index}
-                                        value={mydrivers.u_id}
-                                      >
-                                        {mydrivers.name}
-                                      </option>
-                                    ))}
+                                    alldriver.map((mydrivers, index) => {
+                                      return (
+                                        <option key={index} value={mydrivers.u_id}>
+                                          {mydrivers.name}
+                                        </option>
+                                      );
+                                    })}
                                 </select>
                               </Modal.Body>
                               <Modal.Footer>
@@ -174,7 +206,8 @@ function Deliveryrequest(props) {
                                 </Button>
                                 <Button
                                   color="success"
-                                  className="change_driver"
+                                  //className="change_driver"
+                                  onClick={() => handleSaveChanges()}
                                 >
                                   Save changes
                                 </Button>
