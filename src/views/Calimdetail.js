@@ -92,7 +92,7 @@ function Calimdetail() {
                 <Row>
                   <Col md="12" className="p-4">
                     <div className="mb-3">
-                      <h6>Calim Detail</h6>
+                      <h6>Claim Detail</h6>
                     </div>
 
                     <table class="table table-borderless">

@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 // react-bootstrap components
 import {
@@ -11,6 +11,7 @@ import {
   Table,
   Row,
   Col,
+  Spinner
 } from "react-bootstrap";
 import $ from "jquery";
 import "assets/js/custom.js";
@@ -22,6 +23,7 @@ function Enduserdetail(props) {
   const history = useHistory();
 
   const [apidata, setapidata] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const customername = history?.location?.customername?.name;
   const dp = history?.location?.dp?.user_dp;
@@ -32,29 +34,31 @@ function Enduserdetail(props) {
   var pair = params.split("=");
   var id = pair[1];
 
-  console.log("ourfirstid",id)
+  console.log("ourfirstid", id)
 
   async function callapi(event) {
 
     try {
 
-	  const formData = new FormData();
-        formData.append("u_id", id);
-        const response = await fetch(`${storeurl}admin_singleuserdetail`, {
-          method: "POST",
-          body: formData,
-        });
+      const formData = new FormData();
+      formData.append("u_id", id);
+      const response = await fetch(`${storeurl}admin_singleuserdetail`, {
+        method: "POST",
+        body: formData,
+      });
 
-        const data = await response.json();
-		if(data.status==true){
-			setapidata(data.data);
-		}
-        console.log("logindata123", data);
+      const data = await response.json();
+      if (data.status == true) {
+        setapidata(data.data);
+      }
+      console.log("logindata123", data);
 
-        console.log(data);
-      
+      console.log(data);
+
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false); // Set loading to false when the data is fetched
     }
   }
 
@@ -85,7 +89,7 @@ function Enduserdetail(props) {
     height: "121px",
   };
 
-  console.log("apidata",apidata)
+  console.log("apidata", apidata)
   return (
     <>
       <Container fluid>
@@ -96,6 +100,21 @@ function Enduserdetail(props) {
                 <Card.Title as="h4">EndUser Detail</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
+              {loading ? (
+                  // Show loader when loading is true
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100vh',
+                    }}
+                  >
+                    <Spinner animation="border"
+                      role="status"
+                      variant="danger" />
+                  </div>
+                ) : (
                 <Row>
                   <Col md="6" className="p-4">
                     <div style={styles}>
@@ -144,6 +163,7 @@ function Enduserdetail(props) {
                     </div>
                   </Col>
                 </Row>
+                )}
               </Card.Body>
             </Card>
           </Col>

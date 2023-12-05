@@ -10,6 +10,8 @@ import {
   Row,
   Col,
   Table,
+  Spinner,
+
 } from "react-bootstrap";
 import $ from "jquery";
 import { storeurl } from "components/App/storeurl";
@@ -25,6 +27,7 @@ function Driverdetail(props) {
   const [drivermodel_year, setmodel_year] = useState([]);
   const [plate_no, setplate_no] = useState([]);
   const [apidata, setapidata] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
 
   const [privilages, setPrivilages] = useState([]);
@@ -33,58 +36,110 @@ function Driverdetail(props) {
   var id = pair[1];
   console.log("paramvalue",id);
 
-  async function callapi(event) {
+  // async function callapi(event) {
 
-    console.log("hellpakistan")
-    $.ajax({
-      url: `${storeurl}admin_singledriverdetail`,
-      type: "POST",
-      data: { id: id },
-      dataType: "json",
-      success: function (html) {
-        console.log("driverdetail", html);
-        if (html.status == true) {
-          setapidata(html.data);
-          if (html.data.length > 0) {
-            var newdatamy = html.data;
-            var privilagesArray = [];
-            var backlicenseArray = [];
-            var registrationdocumentArray = [];
-            var driveridcardfrontArray = [];
-            var driveridcardbackArray = [];
-            var vehicalinfoArray = [];
-            var drivermodel_yearArray = [];
-            var plate_noArray = [];
+  //   console.log("hellpakistan")
+  //   $.ajax({
+  //     url: `${storeurl}admin_singledriverdetail`,
+  //     type: "POST",
+  //     data: { id: id },
+  //     dataType: "json",
+  //     success: function (html) {
+  //       console.log("driverdetail", html);
+  //       if (html.status == true) {
+  //         setapidata(html.data);
+  //         if (html.data.length > 0) {
+  //           var newdatamy = html.data;
+  //           var privilagesArray = [];
+  //           var backlicenseArray = [];
+  //           var registrationdocumentArray = [];
+  //           var driveridcardfrontArray = [];
+  //           var driveridcardbackArray = [];
+  //           var vehicalinfoArray = [];
+  //           var drivermodel_yearArray = [];
+  //           var plate_noArray = [];
   
-            newdatamy.forEach(function (checkbox) {
-              privilagesArray.push(checkbox.driving_license_front);
-              backlicenseArray.push(checkbox.driving_license_back);
-              registrationdocumentArray.push(checkbox.registration_document);
-              driveridcardfrontArray.push(checkbox.id_card_front);
-              driveridcardbackArray.push(checkbox.id_card_back);
-              vehicalinfoArray.push(checkbox.vehicle_info);
-              drivermodel_yearArray.push(checkbox.model_year);
-              plate_noArray.push(checkbox.plate_no);
-              setdrivername(checkbox.name);
-              setdriveremail(checkbox.email);
-            });
-            setdriverfrontlicense(privilagesArray);
-            setdriverbacklicense(backlicenseArray);
-            setregistrationdocument(registrationdocumentArray);
-            setdriveridcardfront(driveridcardfrontArray);
-            setdriveridcardback(driveridcardbackArray);
-            setvehicalinfo(vehicalinfoArray);
-            setmodel_year(drivermodel_yearArray);
-            setplate_no(plate_noArray);
-          }
-        } else {
-          // alert("Record not exists");
-        }
-        //console.log("asdasd234234", privilages);
-      },
-    });
-  }
+  //           newdatamy.forEach(function (checkbox) {
+  //             privilagesArray.push(checkbox.driving_license_front);
+  //             backlicenseArray.push(checkbox.driving_license_back);
+  //             registrationdocumentArray.push(checkbox.registration_document);
+  //             driveridcardfrontArray.push(checkbox.id_card_front);
+  //             driveridcardbackArray.push(checkbox.id_card_back);
+  //             vehicalinfoArray.push(checkbox.vehicle_info);
+  //             drivermodel_yearArray.push(checkbox.model_year);
+  //             plate_noArray.push(checkbox.plate_no);
+  //             setdrivername(checkbox.name);
+  //             setdriveremail(checkbox.email);
+  //           });
+  //           setdriverfrontlicense(privilagesArray);
+  //           setdriverbacklicense(backlicenseArray);
+  //           setregistrationdocument(registrationdocumentArray);
+  //           setdriveridcardfront(driveridcardfrontArray);
+  //           setdriveridcardback(driveridcardbackArray);
+  //           setvehicalinfo(vehicalinfoArray);
+  //           setmodel_year(drivermodel_yearArray);
+  //           setplate_no(plate_noArray);
+  //         }
+  //       } else {
+  //         // alert("Record not exists");
+  //       }
+  //       //console.log("asdasd234234", privilages);
+  //     },
+  //   });
+  // }
+  async function callapi(event) {
+    console.log("hellpakistan");
+    try {
+      const response = await fetch(`${storeurl}admin_singledriverdetail`, {
+        method: "POST",
+        data: { id: id },
+        dataType: "json",
+      });
 
+      const data = await response.json();
+      console.log("driverdetail", data);
+      if (data.status === true) {
+        var newdatamy = data.data;
+        var privilagesArray = [];
+        var backlicenseArray = [];
+        var registrationdocumentArray = [];
+        var driveridcardfrontArray = [];
+        var driveridcardbackArray = [];
+        var vehicalinfoArray = [];
+        var drivermodel_yearArray = [];
+        var plate_noArray = [];
+
+        newdatamy.forEach(function (checkbox) {
+          privilagesArray.push(checkbox.driving_license_front);
+          backlicenseArray.push(checkbox.driving_license_back);
+          registrationdocumentArray.push(checkbox.registration_document);
+          driveridcardfrontArray.push(checkbox.id_card_front);
+          driveridcardbackArray.push(checkbox.id_card_back);
+          vehicalinfoArray.push(checkbox.vehicle_info);
+          drivermodel_yearArray.push(checkbox.model_year);
+          plate_noArray.push(checkbox.plate_no);
+          setdrivername(checkbox.name);
+          setdriveremail(checkbox.email);
+        });
+        setdriverfrontlicense(privilagesArray);
+        setdriverbacklicense(backlicenseArray);
+        setregistrationdocument(registrationdocumentArray);
+        setdriveridcardfront(driveridcardfrontArray);
+        setdriveridcardback(driveridcardbackArray);
+        setvehicalinfo(vehicalinfoArray);
+        setmodel_year(drivermodel_yearArray);
+        setplate_no(plate_noArray);
+        setapidata(data.data);
+      } else {
+        // Handle the case when data.status is not true
+        // alert("Record not exists");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false); // Set loading to false when the data is fetched
+    }
+  }
 
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
@@ -107,7 +162,23 @@ function Driverdetail(props) {
                 <Card.Title as="h4">Driver detail</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
+        
                 <form class="addprpromoform">
+                {loading && (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: "100px",
+                      }}
+                    >
+                      <Spinner animation="border" />
+                    </div>
+                  )}
+                  {!loading && (
+                                        <>
+
                   <div class="form-group">
                     <label class="driver_imagelabel">Name</label>
                     <input
@@ -143,7 +214,6 @@ function Driverdetail(props) {
 
                     <div class="form-group">
                       <label class="driver_imagelabel">Model</label>
-                      {/* {drivermodel_year.map((value, index) => ( */}
                         <input
                           type="text"
                           class="form-control mb-2"
@@ -151,12 +221,10 @@ function Driverdetail(props) {
                           value={apidata?.model_year}
                           id="driver_name"
                         />
-                      {/* ))} */}
                     </div>
 
                     <div class="form-group">
                       <label class="driver_imagelabel">Plate No</label>
-                      {/* {plate_no.map((value, index) => ( */}
                         <input
                           type="text"
                           class="form-control mb-2"
@@ -164,7 +232,6 @@ function Driverdetail(props) {
                           value={apidata?.plate_no}
                           id="driver_name"
                         />
-                      {/* ))} */}
                     </div>
 
                   <div class="row">
@@ -227,6 +294,9 @@ function Driverdetail(props) {
                       </div>
                     </div>
                   </div>
+                  </>
+
+                     )}
                 </form>
               </Card.Body>
             </Card>
