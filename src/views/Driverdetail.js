@@ -29,7 +29,9 @@ function Driverdetail(props) {
   const params = window.location.search.substring(1);
   var pair = params.split("=");
   var id = pair[1];
-  console.log(id);
+  console.log("paramvalue",id);
+
+
   $.ajax({
     url: `${storeurl}admin_singledriverdetail`,
     type: "POST",
@@ -71,18 +73,18 @@ function Driverdetail(props) {
           setplate_no(plate_noArray);
         }
       } else {
-        alert("Record not exists");
+        // alert("Record not exists");
       }
       //console.log("asdasd234234", privilages);
     },
   });
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/driverdetail");
+    props.history.push("/admin/driverdetail/?id="+id);
     if (!authToken) {
       props.history.push("/login");
     }
-  }, []);
+  }, [id]);
   return (
     <>
       <Container fluid>
