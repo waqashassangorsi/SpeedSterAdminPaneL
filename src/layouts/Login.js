@@ -38,8 +38,8 @@ const initialState = {
 // const birds=store.getState();
 
 function Login(props) {
-  const [mypass, setmypass] = useState("");
-  const [myemail, setmyemail] = useState("");
+  const [mypass, setmypass] = useState("123");
+  const [myemail, setmyemail] = useState("hamzanoor729@gmail.com");
   const amount1 = useSelector((state) => state.amount1);
   const dispatch = useDispatch();
   const { loginData } = bindActionCreators(actionCreators, dispatch);
