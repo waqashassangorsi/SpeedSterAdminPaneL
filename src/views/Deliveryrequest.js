@@ -29,11 +29,12 @@ function Deliveryrequest(props) {
 
   console.log("allrecord", selectedDriverId)
 
-  const handleShowModal = (item) => {
-    var id = item.driverdetail.u_id;
-    console.log("checkitem", id)
-    history.push({
-      pathname: `/admin/deliverrequestdetail/`+id,
+  const handleShowModal = (tripid) => {
+    console.log("checkitem", tripid);
+    history.push("/admin/deliverrequestdetail/?id="+tripid);
+
+    // history.push({
+    //   pathname: `/admin/deliverrequestdetail/`+tripid,
       // state: {
       //   sendername: { name: item.name },
       //   senderphone: { phone: item.phone_no },
@@ -51,7 +52,7 @@ function Deliveryrequest(props) {
       //   deliverydate: { delivery_date: item.delivery_Date },
       //   packageprice: { package_price: item.price },
       // },
-    });
+    // });
   };
 
   useEffect(() => {
@@ -244,7 +245,7 @@ function Deliveryrequest(props) {
                           <span className="eye_font">
                             <i
                               className="fa fa-eye driver_detail"
-                              onClick={() => handleShowModal(item)}
+                              onClick={() => handleShowModal(item?.trip_id)}
                             ></i>
                           </span>
                         </td>
