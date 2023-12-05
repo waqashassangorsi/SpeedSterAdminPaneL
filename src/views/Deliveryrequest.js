@@ -164,7 +164,7 @@ function Deliveryrequest(props) {
 
                         <td>
                           <span>
-                            {item.status == "Pending" && (
+                            {/* {item.status == "Pending" && ( */}
                               <Button
                                 className="driver_detailbtn"
                                 onClick={() => openModal(item.trip_id)}
@@ -172,7 +172,7 @@ function Deliveryrequest(props) {
                               >
                                 Driver
                               </Button>
-                            )}
+                            {/* )} */}
                             <Modal
                               show={showModal}
                               onClose={() => setShowModal(false)}

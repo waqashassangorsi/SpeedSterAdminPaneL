@@ -15,9 +15,13 @@ import $ from "jquery";
 import "assets/js/custom.js";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import { storeurl } from "components/App/storeurl";
+
 function Typography(props) {
+
   const [endusers, setendusers] = useState([]);
   const history = useHistory();
+
   $(document).on("click", ".newdetail", function () {
     var customername = $(this).attr("data-customername");
     var dp = $(this).attr("data-dp");
@@ -41,6 +45,8 @@ function Typography(props) {
         });
         const data = await response.json();
         if (data.status == true) {
+          console.log("endusers===>",data)
+
           setendusers(data.data);
         }
       } catch (error) {
@@ -53,6 +59,11 @@ function Typography(props) {
       let table2 = $("#myTable").DataTable();
     }
   }, [endusers]);
+
+  console.log("endusers===>",endusers)
+
+
+
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
     props.history.push("/admin/typography");
