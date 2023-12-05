@@ -23,6 +23,7 @@ function Deliveryrequest(props) {
   const history = useHistory();
   const [selectedDriverId, setSelectedDriverId] = useState('');
   const [tripid, settripid] = useState('');
+  const [randomno, setrandomno] = useState('');
   console.log("allrecord", selectedDriverId)
   const handleShowModal = (item) => {
     console.log("checkitem", item.driverdetail.u_id)
@@ -83,7 +84,7 @@ function Deliveryrequest(props) {
     if (allrecord.length > 0) {
       $("#myTable").DataTable();
     }
-  }, []);
+  }, [randomno]);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
     props.history.push("/admin/deliverrequest");
@@ -106,11 +107,8 @@ function Deliveryrequest(props) {
       });
       const data = await response.json();
       if (data.status == true) {
-        setallrecord((prevRecords) =>
-          prevRecords.map((record) =>
-            record.trip_id === tripid ? { ...record, status: "Accepted" } : record
-          )
-        );
+        const randomNumber = Math.random();
+        setrandomno(randomNumber)
         console.log('Data saved successfully');
         setShowModal(false)
       } else {
