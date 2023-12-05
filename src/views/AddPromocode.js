@@ -28,7 +28,7 @@ function AddPromocode(props) {
           <Col md="12">
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
-                <Card.Title as="h4">Add Promocode1</Card.Title>
+                <Card.Title as="h4">Add Promocode</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
                 <form class="addprpromoform">
