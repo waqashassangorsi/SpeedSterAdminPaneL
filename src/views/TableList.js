@@ -47,11 +47,11 @@ function TableList(props) {
     }
   }, [alldrivers]);
   useEffect(() => {
-    // const authToken = localStorage.getItem("userid");
-    // props.history.push("/admin/table");
-    // if (!authToken) {
-    //   props.history.push("/login");
-    // }
+    const authToken = localStorage.getItem("userid");
+    props.history.push("/admin/table");
+    if (!authToken) {
+      props.history.push("/login");
+    }
   }, []);
   return (
     <>
