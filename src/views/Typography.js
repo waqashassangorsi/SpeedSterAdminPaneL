@@ -25,20 +25,20 @@ function Typography(props) {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
 
-  $(document).on("click", ".newdetail", function () {
-    var customername = $(this).attr("data-customername");
-    var dp = $(this).attr("data-dp");
-    var email = $(this).attr("data-email");
-    var phoneno = $(this).attr("data-phoneno");
+  // $(document).on("click", ".newdetail", function () {
+  //   var customername = $(this).attr("data-customername");
+  //   var dp = $(this).attr("data-dp");
+  //   var email = $(this).attr("data-email");
+  //   var phoneno = $(this).attr("data-phoneno");
 
-    history.push({
-      pathname: "/admin/typographydetail",
-      customername: { name: customername },
-      dp: { user_dp: dp },
-      email: { user_email: email },
-      phoneno: { user_phoneno: phoneno },
-    });
-  });
+  //   history.push({
+  //     pathname: "/admin/typographydetail",
+  //     customername: { name: customername },
+  //     dp: { user_dp: dp },
+  //     email: { user_email: email },
+  //     phoneno: { user_phoneno: phoneno },
+  //   });
+  // });
 
   useEffect(() => {
     async function totaluser() {
@@ -126,7 +126,7 @@ function Typography(props) {
                         <td className="border-0">{item.phone_no}</td>
                         <td className="border-0">{item.joining_date}</td>
                         <td className="border-0">
-                          <i
+                          <i  onClick={() =>  history.push("/admin/typographydetail/?id=" + item.u_id)}
                             class="fa fa-eye eye_fontawesome eye_fontnew newdetail tick_icon"
                             data-customername={item.name}
                             data-dp={item.dp}

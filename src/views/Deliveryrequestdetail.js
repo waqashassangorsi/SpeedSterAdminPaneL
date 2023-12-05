@@ -22,13 +22,23 @@ function Deliveryrequestdetail(props) {
   const droplocation = state?.droplocation?.drop_location;
   const delivery_date = state?.deliverydate?.delivery_date;
   const package_price = state?.packageprice?.package_price;
+
+
+  const params = window.location.search.substring(1);
+  var pair = params.split("=");
+  var id = pair[1];
+
+  console.log("ourfirstid",id)
+
+
+
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/deliverrequestdetail");
-    if (!authToken) {
-      props.history.push("/login");
-    }
-  }, []);
+    // props.history.push("/admin/deliverrequestdetail/"+id);
+    // if (!authToken) {
+    //   props.history.push("/login");
+    // }
+  }, [id]);
   return (
     <Container fluid>
       <Row>

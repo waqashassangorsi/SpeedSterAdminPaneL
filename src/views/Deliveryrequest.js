@@ -28,27 +28,29 @@ function Deliveryrequest(props) {
   const [loading, setLoading] = useState(true); // Add loading state
 
   console.log("allrecord", selectedDriverId)
+
   const handleShowModal = (item) => {
-    console.log("checkitem", item.driverdetail.u_id)
+    var id = item.driverdetail.u_id;
+    console.log("checkitem", id)
     history.push({
-      pathname: `/admin/deliverrequestdetail/3`,
-      state: {
-        sendername: { name: item.name },
-        senderphone: { phone: item.phone_no },
-        recivername: { reciver_name: item.receiver_name },
-        receivercontact: { reciver_contact: item.receiver_contact_no },
-        drivername: { driver_name: item?.driverdetail?.name || " " },
-        driverphone: { driver_phoneno: item?.driverdetail?.phone_no },
-        driveremail: { driver_email: item?.driverdetail?.email },
-        trackingno: { tracking_no: item.tracking_no },
-        deliverystatus: { delivery_status: item.status },
-        cancelreson: { cancel_reson: item.cancelreson },
-        paymentmode: { payment_mode: item.paymentmode },
-        pickuplocation: { pickup_location: item.pickup_location },
-        droplocation: { drop_location: item.drop_location },
-        deliverydate: { delivery_date: item.delivery_Date },
-        packageprice: { package_price: item.price },
-      },
+      pathname: `/admin/deliverrequestdetail/`+id,
+      // state: {
+      //   sendername: { name: item.name },
+      //   senderphone: { phone: item.phone_no },
+      //   recivername: { reciver_name: item.receiver_name },
+      //   receivercontact: { reciver_contact: item.receiver_contact_no },
+      //   drivername: { driver_name: item?.driverdetail?.name || " " },
+      //   driverphone: { driver_phoneno: item?.driverdetail?.phone_no },
+      //   driveremail: { driver_email: item?.driverdetail?.email },
+      //   trackingno: { tracking_no: item.tracking_no },
+      //   deliverystatus: { delivery_status: item.status },
+      //   cancelreson: { cancel_reson: item.cancelreson },
+      //   paymentmode: { payment_mode: item.paymentmode },
+      //   pickuplocation: { pickup_location: item.pickup_location },
+      //   droplocation: { drop_location: item.drop_location },
+      //   deliverydate: { delivery_date: item.delivery_Date },
+      //   packageprice: { package_price: item.price },
+      // },
     });
   };
 
