@@ -10,6 +10,8 @@ import {
   Row,
   Col,
   Table,
+  Spinner
+
 } from "react-bootstrap";
 import $ from "jquery";
 import "assets/js/custom.js";
@@ -28,6 +30,8 @@ function Pricing(props) {
     });
   });
   const [showpricing, setshowpricing] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     async function totaluser() {
       try {
@@ -40,6 +44,8 @@ function Pricing(props) {
         }
       } catch (error) {
         console.log(error);
+      }finally {
+        setLoading(false); // Set loading to false after fetching data
       }
     }
     totaluser();
@@ -73,6 +79,21 @@ function Pricing(props) {
                 <Card.Title as="h4">Package Pricing</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
+              {loading ? (
+                  // Show loader when loading is true
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100vh',
+                    }}
+                  >
+                    <Spinner animation="border"
+                      role="status"
+                      variant="danger" />
+                  </div>
+                ) : (
                 <Table className="table-hover table-striped" id="newexample9">
                   <thead>
                     <tr>
@@ -103,6 +124,7 @@ function Pricing(props) {
                     ))}
                   </tbody>
                 </Table>
+                )}
               </Card.Body>
             </Card>
           </Col>

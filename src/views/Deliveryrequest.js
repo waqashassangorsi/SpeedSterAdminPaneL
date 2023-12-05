@@ -8,6 +8,7 @@ import {
   Row,
   Col,
   Modal,
+  Spinner
 } from "react-bootstrap";
 import $ from "jquery";
 import "assets/js/custom.js";
@@ -23,6 +24,9 @@ function Deliveryrequest(props) {
   const history = useHistory();
   const [selectedDriverId, setSelectedDriverId] = useState('');
   const [tripid, settripid] = useState('');
+  const [randomno, setrandomno] = useState('');
+  const [loading, setLoading] = useState(true); // Add loading state
+
   console.log("allrecord", selectedDriverId)
 
   const handleShowModal = (item) => {
@@ -62,7 +66,10 @@ function Deliveryrequest(props) {
         }
       } catch (error) {
         console.log(error);
+      }finally {
+        setLoading(false); 
       }
+
     }
 
     async function totaldriver() {
@@ -85,7 +92,7 @@ function Deliveryrequest(props) {
     if (allrecord.length > 0) {
       $("#myTable").DataTable();
     }
-  }, []);
+  }, [randomno]);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
     props.history.push("/admin/deliverrequest");
@@ -108,11 +115,8 @@ function Deliveryrequest(props) {
       });
       const data = await response.json();
       if (data.status == true) {
-        setallrecord((prevRecords) =>
-          prevRecords.map((record) =>
-            record.trip_id === tripid ? { ...record, status: "Accepted" } : record
-          )
-        );
+        const randomNumber = Math.random();
+        setrandomno(randomNumber)
         console.log('Data saved successfully');
         setShowModal(false)
       } else {
@@ -133,6 +137,25 @@ function Deliveryrequest(props) {
       <Container fluid>
         <Row>
           <Col md="12">
+          {loading && (
+              // Show loader when loading is true
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100vh',
+                }}
+              >
+                <Spinner
+                  animation="border"
+                  role="status"
+                  variant="danger" 
+                >
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              </div>
+            )}
             <div class="col-sm-12 csv_btn">
               <button type="button" class="btn btn-primary addcsv_btn">
                 Export to CSV
@@ -168,7 +191,7 @@ function Deliveryrequest(props) {
 
                         <td>
                           <span>
-                            {/* {item.status == "Pending" && ( */}
+                           {item.status == "Pending" && ( 
                               <Button
                                 className="driver_detailbtn"
                                 onClick={() => openModal(item.trip_id)}
@@ -176,7 +199,7 @@ function Deliveryrequest(props) {
                               >
                                 Driver
                               </Button>
-                            {/* )} */}
+                             )}
                             <Modal
                               show={showModal}
                               onClose={() => setShowModal(false)}

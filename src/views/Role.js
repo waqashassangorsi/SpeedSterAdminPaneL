@@ -10,6 +10,8 @@ import {
   Row,
   Col,
   Table,
+  Spinner
+
 } from "react-bootstrap";
 import $ from "jquery";
 import "assets/js/custom.js";
@@ -20,6 +22,8 @@ import { storeurl } from "components/App/storeurl";
 function Role(props) {
   const history = useHistory();
   const [userrole, setuserrole] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   function handleClick() {
     history.push("/admin/addrole");
   }
@@ -45,6 +49,8 @@ function Role(props) {
         }
       } catch (error) {
         console.log(error);
+      }finally {
+        setLoading(false); // Set loading to false after fetching data
       }
     }
     totaluser();
@@ -85,6 +91,21 @@ function Role(props) {
                 <Card.Title as="h4">Role</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
+              {loading ? (
+                  // Show loader when loading is true
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100vh',
+                    }}
+                  >
+                    <Spinner animation="border"
+                      role="status"
+                      variant="danger" />
+                  </div>
+                ) : (
                 <Table className="table-hover table-striped" id="newexample4">
                   <thead>
                     <tr>
@@ -101,6 +122,7 @@ function Role(props) {
                     ))}
                   </tbody>
                 </Table>
+                )}
               </Card.Body>
             </Card>
           </Col>

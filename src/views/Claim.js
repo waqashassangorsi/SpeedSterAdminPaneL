@@ -11,6 +11,8 @@ import {
   Row,
   Col,
   Table,
+  Spinner
+
 } from "react-bootstrap";
 import $ from "jquery";
 import "assets/js/custom.js";
@@ -20,6 +22,8 @@ import "font-awesome/css/font-awesome.min.css";
 import { storeurl } from "components/App/storeurl";
 function Claim(props) {
   const [claimrecord, setclaimrecord] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const history = useHistory();
   function handleClick() {
     history.push("/admin/claimdetail");
@@ -72,6 +76,8 @@ function Claim(props) {
         }
       } catch (error) {
         console.log(error);
+      }finally {
+        setLoading(false); // Set loading to false after fetching data
       }
       //table5.draw();
     }
@@ -105,16 +111,27 @@ function Claim(props) {
                 Export to CSV
               </button>
             </div>
-            {/* <div class="col-sm-12 promocode_btn">
-							<button type="button" class="btn btn-primary addpromocode_btn">
-								Add User
-							</button>
-						</div> */}
+
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
                 <Card.Title as="h4">Claim</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
+              {loading ? (
+                  // Show loader when loading is true
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100vh',
+                    }}
+                  >
+                    <Spinner animation="border"
+                      role="status"
+                      variant="danger" />
+                  </div>
+                ) : (
                 <Table className="table-hover table-striped" id="newexample9">
                   <thead>
                     <tr>
@@ -171,6 +188,7 @@ function Claim(props) {
                       })}
                   </tbody>
                 </Table>
+                )}
               </Card.Body>
             </Card>
           </Col>

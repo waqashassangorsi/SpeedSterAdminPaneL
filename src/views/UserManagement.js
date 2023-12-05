@@ -11,6 +11,7 @@ import {
   Row,
   Col,
   Table,
+  Spinner
 } from "react-bootstrap";
 import $ from "jquery";
 import "assets/js/custom.js";
@@ -22,6 +23,7 @@ function UserManagement(props) {
   const [users, setusers] = useState([]);
   //const [allusers, setallusers] = useState([]);
   //const [userblock, setuserblock] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const history = useHistory();
   function handleClick() {
@@ -46,51 +48,13 @@ function UserManagement(props) {
         if (data.status == true) {
           setusers(data.data);
 
-          // var userdetail = data.data;
-          // var j = 1;
-          // for (var i = 0; i < userdetail.length; i++) {
-          // 	if (userdetail[j].user_status == 0) {
-          // 		var userstatus = "User";
-          // 	} else if (userdetail[j].user_status == 1) {
-          // 		var userstatus = "Admin";
-          // 	} else if (userdetail[j].user_status == 2) {
-          // 		var userstatus = "Employee";
-          // 	} else if (userdetail[j].user_status == 3) {
-          // 		var userstatus = "Driver";
-          // 	}
-          // 	var action =
-          // 		'<span class="eye_font"><i class="fa fa-pencil pencile_fontawesome edit_newuser" data-id=' +
-          // 		userdetail[j].u_id +
-          // 		' aria-hidden="true"></i></span>';
-          // 	if (userdetail[j].user_privilidge == 1) {
-          // 		action +=
-          // 			'<span class="tick_span_red"><i class="fa fa-check mynewtick" data-id=' +
-          // 			userdetail[j].u_id +
-          // 			' aria-hidden="true"></i></span>';
-          // 	} else if (userdetail[j].user_privilidge == 0) {
-          // 		action +=
-          // 			'<span class="tick_span"><i class="fa fa-check mynewtick" data-id=' +
-          // 			userdetail[j].u_id +
-          // 			' aria-hidden="true"></i></span>';
-          // 	}
-          // 	//content_html+='<tr><td>'+j+'</td><td>'+userdetail[i].name+'</td><td>'+userdetail[i].email+'</td><td>'+status+'</td><td>'+userdetail[i].joining_date+'</td></tr>';
-          // 	table5.row.add([
-          // 		j,
-          // 		userdetail[j].name,
-          // 		userdetail[j].email,
-          // 		userdetail[j].phone_no,
-          // 		userstatus,
-          // 		action,
-          // 	]);
-          // 	// table2.row.add([j,userdetail[i].name,userdetail[i].email,status,userdetail[i].joining_date]);
-          // 	j++;
-          // }
-          //$('#displaydata2').prepend(content_html);
+
         }
       } catch (error) {
         console.log(error);
+      }finally {
+        setLoading(false); // Set loading to false after fetching data
       }
-      //table5.draw();
     }
 
     totaluser();
@@ -98,10 +62,7 @@ function UserManagement(props) {
       $("#myTable").DataTable();
     }
 
-    // $(document).ready(function () {
-    // 	totaluser();
-    // 	$("#newexample5").DataTable();
-    // });
+
   }, [users]);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
@@ -136,6 +97,21 @@ function UserManagement(props) {
                 <Card.Title as="h4">User Management</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
+              {loading ? (
+                  // Show loader when loading is true
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100vh',
+                    }}
+                  >
+                    <Spinner animation="border"
+                      role="status"
+                      variant="danger" />
+                  </div>
+                ) : (
                 <Table className="table-hover table-striped" id="myTable">
                   <thead>
                     <tr>
@@ -158,10 +134,10 @@ function UserManagement(props) {
                           {item.user_status === "0"
                             ? "User"
                             : item.user_status === "1"
-                            ? "Admin"
-                            : item.user_status === "2"
-                            ? "Employee"
-                            : "Driver"}
+                              ? "Admin"
+                              : item.user_status === "2"
+                                ? "Employee"
+                                : "Driver"}
                         </td>
 
                         <td className="border-0">
@@ -185,6 +161,7 @@ function UserManagement(props) {
                     ))}
                   </tbody>
                 </Table>
+                )}
               </Card.Body>
             </Card>
           </Col>
