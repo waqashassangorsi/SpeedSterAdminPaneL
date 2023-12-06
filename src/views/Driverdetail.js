@@ -34,116 +34,68 @@ function Driverdetail(props) {
   const params = window.location.search.substring(1);
   var pair = params.split("=");
   var id = pair[1];
-  console.log("paramvalue",id);
-
-  // async function callapi(event) {
-
-  //   console.log("hellpakistan")
-  //   $.ajax({
-  //     url: `${storeurl}admin_singledriverdetail`,
-  //     type: "POST",
-  //     data: { id: id },
-  //     dataType: "json",
-  //     success: function (html) {
-  //       console.log("driverdetail", html);
-  //       if (html.status == true) {
-  //         setapidata(html.data);
-  //         if (html.data.length > 0) {
-  //           var newdatamy = html.data;
-  //           var privilagesArray = [];
-  //           var backlicenseArray = [];
-  //           var registrationdocumentArray = [];
-  //           var driveridcardfrontArray = [];
-  //           var driveridcardbackArray = [];
-  //           var vehicalinfoArray = [];
-  //           var drivermodel_yearArray = [];
-  //           var plate_noArray = [];
-  
-  //           newdatamy.forEach(function (checkbox) {
-  //             privilagesArray.push(checkbox.driving_license_front);
-  //             backlicenseArray.push(checkbox.driving_license_back);
-  //             registrationdocumentArray.push(checkbox.registration_document);
-  //             driveridcardfrontArray.push(checkbox.id_card_front);
-  //             driveridcardbackArray.push(checkbox.id_card_back);
-  //             vehicalinfoArray.push(checkbox.vehicle_info);
-  //             drivermodel_yearArray.push(checkbox.model_year);
-  //             plate_noArray.push(checkbox.plate_no);
-  //             setdrivername(checkbox.name);
-  //             setdriveremail(checkbox.email);
-  //           });
-  //           setdriverfrontlicense(privilagesArray);
-  //           setdriverbacklicense(backlicenseArray);
-  //           setregistrationdocument(registrationdocumentArray);
-  //           setdriveridcardfront(driveridcardfrontArray);
-  //           setdriveridcardback(driveridcardbackArray);
-  //           setvehicalinfo(vehicalinfoArray);
-  //           setmodel_year(drivermodel_yearArray);
-  //           setplate_no(plate_noArray);
-  //         }
-  //       } else {
-  //         // alert("Record not exists");
-  //       }
-  //       //console.log("asdasd234234", privilages);
-  //     },
-  //   });
-  // }
+  console.log("paramvalue", id);
   async function callapi(event) {
     console.log("hellpakistan");
-    try {
-      const response = await fetch(`${storeurl}admin_singledriverdetail`, {
-        method: "POST",
-        data: { id: id },
-        dataType: "json",
-      });
+    $.ajax({
+      url: `${storeurl}admin_singledriverdetail`,
+      type: "POST",
+      data: { id: id },
+      dataType: "json",
+      beforeSend: function () {
+        setLoading(true); // Set loading to true before making the request
+      },
+      success: function (html) {
+        console.log("driverdetail", html);
+        if (html.status === true) {
+          setapidata(html.data);
+          if (html.data.length > 0) {
+            var newdatamy = html.data;
+            var privilagesArray = [];
+            var backlicenseArray = [];
+            var registrationdocumentArray = [];
+            var driveridcardfrontArray = [];
+            var driveridcardbackArray = [];
+            var vehicalinfoArray = [];
+            var drivermodel_yearArray = [];
+            var plate_noArray = [];
 
-      const data = await response.json();
-      console.log("driverdetail", data);
-      if (data.status === true) {
-        var newdatamy = data.data;
-        var privilagesArray = [];
-        var backlicenseArray = [];
-        var registrationdocumentArray = [];
-        var driveridcardfrontArray = [];
-        var driveridcardbackArray = [];
-        var vehicalinfoArray = [];
-        var drivermodel_yearArray = [];
-        var plate_noArray = [];
-
-        newdatamy.forEach(function (checkbox) {
-          privilagesArray.push(checkbox.driving_license_front);
-          backlicenseArray.push(checkbox.driving_license_back);
-          registrationdocumentArray.push(checkbox.registration_document);
-          driveridcardfrontArray.push(checkbox.id_card_front);
-          driveridcardbackArray.push(checkbox.id_card_back);
-          vehicalinfoArray.push(checkbox.vehicle_info);
-          drivermodel_yearArray.push(checkbox.model_year);
-          plate_noArray.push(checkbox.plate_no);
-          setdrivername(checkbox.name);
-          setdriveremail(checkbox.email);
-        });
-        setdriverfrontlicense(privilagesArray);
-        setdriverbacklicense(backlicenseArray);
-        setregistrationdocument(registrationdocumentArray);
-        setdriveridcardfront(driveridcardfrontArray);
-        setdriveridcardback(driveridcardbackArray);
-        setvehicalinfo(vehicalinfoArray);
-        setmodel_year(drivermodel_yearArray);
-        setplate_no(plate_noArray);
-        setapidata(data.data);
-      } else {
-        // Handle the case when data.status is not true
-        // alert("Record not exists");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false); // Set loading to false when the data is fetched
-    }
+            newdatamy.forEach(function (checkbox) {
+              privilagesArray.push(checkbox.driving_license_front);
+              backlicenseArray.push(checkbox.driving_license_back);
+              registrationdocumentArray.push(checkbox.registration_document);
+              driveridcardfrontArray.push(checkbox.id_card_front);
+              driveridcardbackArray.push(checkbox.id_card_back);
+              vehicalinfoArray.push(checkbox.vehicle_info);
+              drivermodel_yearArray.push(checkbox.model_year);
+              plate_noArray.push(checkbox.plate_no);
+              setdrivername(checkbox.name);
+              setdriveremail(checkbox.email);
+            });
+            setdriverfrontlicense(privilagesArray);
+            setdriverbacklicense(backlicenseArray);
+            setregistrationdocument(registrationdocumentArray);
+            setdriveridcardfront(driveridcardfrontArray);
+            setdriveridcardback(driveridcardbackArray);
+            setvehicalinfo(vehicalinfoArray);
+            setmodel_year(drivermodel_yearArray);
+            setplate_no(plate_noArray);
+          }
+        } else {
+          // alert("Record not exists");
+        }
+      },
+      complete: function () {
+        setLoading(false); // Set loading to false after the request is complete
+      },
+    });
   }
+
+
 
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/driverdetail/?id="+id);
+    props.history.push("/admin/driverdetail/?id=" + id);
     if (!authToken) {
       props.history.push("/login");
     }
@@ -162,142 +114,144 @@ function Driverdetail(props) {
                 <Card.Title as="h4">Driver detail</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
-        
-                <form class="addprpromoform">
                 {loading && (
-                    <div
+                      <div
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100px",
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '100vh',
                       }}
                     >
-                      <Spinner animation="border" />
+                      <Spinner animation="border"
+                        role="status"
+                        variant="danger" />
                     </div>
-                  )}
-                  {!loading && (
-                                        <>
+                )}
+                {!loading && (
 
-                  <div class="form-group">
-                    <label class="driver_imagelabel">Name</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      readOnly
-                      value={apidata?.name}
-                      id="driver_name"
-                    />
-                  </div>
+                  <form class="addprpromoform">
 
-                  <div class="form-group">
-                    <label class="driver_imagelabel">Email</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      readOnly
-                      value={apidata?.email}
-                      id="driver_name"
-                    />
-                  </div>
+
+                    <div class="form-group">
+                      <label class="driver_imagelabel">Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        readOnly
+                        value={apidata?.name}
+                        id="driver_name"
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label class="driver_imagelabel">Email</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        readOnly
+                        value={apidata?.email}
+                        id="driver_name"
+                      />
+                    </div>
 
                     <div class="form-group">
                       <label class="driver_imagelabel">Vehical Info</label>
-                        <input
-                          type="text"
-                          class="form-control mb-2"
-                          readOnly
-                          value={apidata?.vehicle_info}
-                          id="driver_name"
-                        />
+                      <input
+                        type="text"
+                        class="form-control mb-2"
+                        readOnly
+                        value={apidata?.vehicle_info}
+                        id="driver_name"
+                      />
                     </div>
 
                     <div class="form-group">
                       <label class="driver_imagelabel">Model</label>
-                        <input
-                          type="text"
-                          class="form-control mb-2"
-                          readOnly
-                          value={apidata?.model_year}
-                          id="driver_name"
-                        />
+                      <input
+                        type="text"
+                        class="form-control mb-2"
+                        readOnly
+                        value={apidata?.model_year}
+                        id="driver_name"
+                      />
                     </div>
 
                     <div class="form-group">
                       <label class="driver_imagelabel">Plate No</label>
-                        <input
-                          type="text"
-                          class="form-control mb-2"
-                          readOnly
-                          value={apidata?.plate_no}
-                          id="driver_name"
-                        />
+                      <input
+                        type="text"
+                        class="form-control mb-2"
+                        readOnly
+                        value={apidata?.plate_no}
+                        id="driver_name"
+                      />
                     </div>
 
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label class="driver_imagelabel">
-                          Front Image of License
-                        </label>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="driver_imagelabel">
+                            Front Image of License
+                          </label>
 
                           <div class="col-sm-12">
-                              <a href={apidata?.driving_license_front} target="_blank">
-                                <img src={apidata?.driving_license_front} class="driver_licenceimg"></img>
-                              </a>
+                            <a href={apidata?.driving_license_front} target="_blank">
+                              <img src={apidata?.driving_license_front} class="driver_licenceimg"></img>
+                            </a>
                           </div>
-                        {apidata?.driving_license_front == "" && <p>No Image Found</p>}
+                          {apidata?.driving_license_front == "" && <p>No Image Found</p>}
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="driver_imagelabel">
+                            Back Image of License
+                          </label>
+                          <div class="col-sm-12">
+                            <a href={apidata?.driving_license_back} target="_blank">
+                              <img src={apidata?.driving_license_back} class="driver_licenceimg"></img>
+                            </a>
+                          </div>
+                          {apidata?.driving_license_back == "" && <p>No Image Found</p>}
+                        </div>
                       </div>
                     </div>
 
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label class="driver_imagelabel">
-                          Back Image of License
-                        </label>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="driver_imagelabel">
+                            Front Image of Id Card
+                          </label>
                           <div class="col-sm-12">
-                              <a href={apidata?.driving_license_back} target="_blank">
-                                <img src={apidata?.driving_license_back} class="driver_licenceimg"></img>
-                              </a>
+                            <a href={apidata?.id_card_front} target="_blank">
+                              <img src={apidata?.id_card_front} class="driver_licenceimg"></img>
+                            </a>
                           </div>
-                        {apidata?.driving_license_back == "" && <p>No Image Found</p>}
+                          {apidata?.id_card_front == "" && <p>No Image Found</p>}
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="driver_imagelabel">
+                            Back Image of Id Card
+                          </label>
+                          <div class="col-sm-12">
+                            <a href={apidata?.id_card_back} target="_blank">
+                              <img src={apidata?.id_card_back} class="driver_licenceimg"></img>
+                            </a>
+                          </div>
+                          {apidata?.id_card_back == "" && <p>No Image Found</p>}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label class="driver_imagelabel">
-                          Front Image of Id Card
-                        </label>
-                          <div class="col-sm-12">
-                              <a href={apidata?.id_card_front} target="_blank">
-                                <img src={apidata?.id_card_front} class="driver_licenceimg"></img>
-                              </a>
-                          </div>
-                        {apidata?.id_card_front  == "" && <p>No Image Found</p>}
-                      </div>
-                    </div>
+                  </form>
+                )}
 
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label class="driver_imagelabel">
-                          Back Image of Id Card
-                        </label>
-                          <div class="col-sm-12">
-                              <a href={apidata?.id_card_back } target="_blank">
-                                <img src={apidata?.id_card_back } class="driver_licenceimg"></img>
-                              </a>
-                          </div>
-                        {apidata?.id_card_back == "" && <p>No Image Found</p>}
-                      </div>
-                    </div>
-                  </div>
-                  </>
-
-                     )}
-                </form>
               </Card.Body>
             </Card>
           </Col>

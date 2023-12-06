@@ -87,7 +87,11 @@ function Sidebar({ color, image, routes }) {
         } else {
           enduser = "hide_enduser";
         }
-
+        if (newdata.some((item) => item.privilages === "rides")) {
+          rides = "show_rides";
+        } else {
+          rides = "hide_rides";
+        }
         if (newdata.some((item) => item.privilages === "promocode")) {
           promocode = "show_promocode";
         } else {
