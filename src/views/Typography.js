@@ -71,7 +71,6 @@ function Typography(props) {
 
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/typography");
     if (!authToken) {
       props.history.push("/login");
     }

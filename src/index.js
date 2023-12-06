@@ -18,7 +18,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/animate.min.css";
@@ -42,6 +42,7 @@ const App = () => {
 
   window.addEventListener("unload", function (event) {
     const currentUrl = window.location.href;
+
     console.log("indextes", currentUrl);
     window.location.href(currentUrl);
   });
@@ -51,12 +52,17 @@ const App = () => {
   //if (amount1 !== 0) {
   //console.log("amount1", amount1);
   element = (
-    <BrowserRouter>
-      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/dashboard" />
-      <Route path="/login" render={(props) => <Login {...props} />} />
-      <Redirect from="/" to="/login/login" />
-    </BrowserRouter>
+    // <BrowserRouter>
+    //   <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+    //   <Redirect from="/" to="/admin/dashboard" />
+    //   <Route path="/login" render={(props) => <Login {...props} />} />
+    //   <Redirect from="/" to="/login/login" />
+    // </BrowserRouter>
+
+    <Router>
+      <Route path="/admin" component={AdminLayout} />
+      <Route path="/login" component={Login} />
+    </Router>
   );
   //} else {
   //console.log("amount1", amount1);

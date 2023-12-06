@@ -87,7 +87,6 @@ function Transaction(props) {
   }, [transactionrecord]);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/transaction");
     if (!authToken) {
       props.history.push("/login");
     }

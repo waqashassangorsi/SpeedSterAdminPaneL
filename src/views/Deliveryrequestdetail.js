@@ -47,7 +47,6 @@ function Deliveryrequestdetail(props) {
     if(id==undefined){
 
     }else{
-      props.history.push("/admin/deliverrequestdetail/"+id);
       if (!authToken) {
         props.history.push("/login");
       }

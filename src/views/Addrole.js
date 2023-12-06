@@ -62,7 +62,6 @@ function Addrole(props) {
   };
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/addrole");
     if (!authToken) {
       props.history.push("/login");
     }

@@ -59,7 +59,6 @@ function Pricing(props) {
   };
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/pricing");
     if (!authToken) {
       props.history.push("/login");
     }
@@ -101,7 +100,7 @@ function Pricing(props) {
                       <th className="border-0">Item Name</th>
                       <th className="border-0">Price</th>
                       <th className="border-0">Weight</th>
-                      <th className="border-0">Action</th>
+                      {/* <th className="border-0">Action</th> */}
                     </tr>
                   </thead>
                   <tbody id="displaydata3">
@@ -111,7 +110,7 @@ function Pricing(props) {
                         <td>{element.name}</td>
                         <td>$ {element.amount_till}</td>
                         <td>{element.weight}</td>
-                        <td>
+                        {/* <td>
                           <span class="eye_font" style={edit_pencil}>
                             <i
                               class="fa fa-pencil pencile_fontawesome editeye_pencile"
@@ -119,7 +118,7 @@ function Pricing(props) {
                               data-id={element.package_id}
                             ></i>
                           </span>
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>

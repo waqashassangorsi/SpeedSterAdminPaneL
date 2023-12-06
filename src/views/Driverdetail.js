@@ -31,11 +31,8 @@ function Driverdetail(props) {
 
 
   const [privilages, setPrivilages] = useState([]);
-  const params = window.location.search.substring(1);
-  var pair = params.split("=");
-  var id = pair[1];
-  console.log("paramvalue", id);
-  async function callapi(event) {
+
+  async function callapi(id) {
     console.log("hellpakistan");
     $.ajax({
       url: `${storeurl}admin_singledriverdetail`,
@@ -94,13 +91,21 @@ function Driverdetail(props) {
 
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/driverdetail/?id=" + id);
     if (!authToken) {
       props.history.push("/login");
     }
 
-    callapi();
-  }, [id]);
+
+    const params = window.location.search.substring(1);
+    var pair = params.split("=");
+    var id = pair[1];
+    console.log("paramvalue", id);
+
+
+    
+
+    callapi(id);
+  }, []);
 
 
   return (

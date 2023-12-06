@@ -96,7 +96,6 @@ function Deliveryrequest(props) {
   }, [randomno]);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/deliverrequest");
     if (!authToken) {
       props.history.push("/login");
     }

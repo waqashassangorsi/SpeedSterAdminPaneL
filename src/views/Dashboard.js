@@ -25,7 +25,6 @@ function Dashboard(props) {
 
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/Dashboard");
     if (!authToken) {
       props.history.push("/login");
     }

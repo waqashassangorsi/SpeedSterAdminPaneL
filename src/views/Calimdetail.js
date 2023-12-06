@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useHistory } from "react-router-dom";
 // react-bootstrap components
 import {
@@ -25,20 +25,59 @@ function Calimdetail() {
     height: "250px",
   };
   const history = useHistory();
-  const customername = history.location.customername.customer_name;
-  const drivername = history.location.drivername.driver_name;
-  const customerphone = history.location.customerphone.customer_phone;
-  const driverphone = history.location.driverphone.driver_phone;
-  const tripcost = history.location.tripcost.trip_cost;
-  const claimfrom = history.location.claimfrom.claim_from;
-  const claimto = history.location.claimto.claim_to;
-  const dataimages = history.location.dataimages.data_images;
-  const dataid = history.location.dataid.data_id;
-  const datastatus = history.location.datastatus.data_status;
-  const datasubject = history.location.datasubject.data_subject;
-  const datamessage = history.location.datamessage.data_message;
-  const separatedArray = dataimages.split(",");
-  console.log("separatedArray", separatedArray);
+
+  // const dataimages = history.location.dataimages.data_images;
+  // const separatedArray = dataimages.split(",");
+  const [apidata, setapidata] = useState([]);
+
+
+  async function callapi(id) {
+    try {
+      const formData = new FormData();
+      formData.append("claim_id", id);
+      const response = await fetch(`${storeurl}adminclaim_detail`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.status == true) {
+        setapidata(data.data[0]);
+      }
+      console.log("logindata123", data);
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+
+    const params = window.location.search.substring(1);
+    var pair = params.split("=");
+    var id = pair[1];
+  
+    console.log("ourfirstid", id);
+
+
+    const authToken = localStorage.getItem("userid");
+    if(id==undefined){
+
+    }else{
+      if (!authToken) {
+        props.history.push("/login");
+      }
+  
+      callapi(id);
+    }
+
+  }, []);
+
+  console.log("apidata==>",apidata)
+
+
   function approveclaim() {
     var response = confirm("Are you sure you want to change the status?");
     if (response == true) {
@@ -105,47 +144,47 @@ function Calimdetail() {
                       <tbody>
                         <tr>
                           <td>Driver Name :</td>
-                          <td>{drivername}</td>
+                          <td>{apidata?.driverdata?.name}</td>
                         </tr>
 
                         <tr>
                           <td>Driver Phone :</td>
-                          <td>{driverphone}</td>
+                          <td>{apidata?.driverdata?.phone_no}</td>
                         </tr>
 
                         <tr>
                           <td>Customer Name :</td>
-                          <td>{customername}</td>
+                          <td>{apidata?.customerdata?.name}</td>
                         </tr>
 
                         <tr>
                           <td>Customer Phone :</td>
-                          <td>{customerphone}</td>
+                          <td>{apidata?.customerdata?.phone_no}</td>
                         </tr>
 
                         <tr>
                           <td>Trip Cost :</td>
-                          <td>${tripcost}</td>
+                          <td>${apidata?.price}</td>
                         </tr>
 
                         <tr>
                           <td>Calim from :</td>
-                          <td>{claimfrom}</td>
+                          <td>{"claimfrom"}</td>
                         </tr>
 
                         <tr>
                           <td>Calim to :</td>
-                          <td>{claimto}</td>
+                          <td>{"claimto"}</td>
                         </tr>
 
                         <tr>
                           <td>Subject :</td>
-                          <td>{datasubject}</td>
+                          <td>{apidata?.subject}</td>
                         </tr>
 
                         <tr>
                           <td>Message :</td>
-                          <td>{datamessage}</td>
+                          <td>{apidata?.message}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -153,8 +192,8 @@ function Calimdetail() {
                     <div class="mb-3">
                       <p>Picture Uploaded</p>
 
-                      {separatedArray &&
-                        separatedArray.map((separatedArray, index) => (
+                      {apidata?.calimimages &&
+                        apidata?.calimimages.map((separatedArray, index) => (
                           <img
                             src={separatedArray}
                             alt="..."

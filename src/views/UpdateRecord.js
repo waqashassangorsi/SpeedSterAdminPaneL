@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import {
   Badge,
   Button,
@@ -18,6 +18,10 @@ import { actionCreators } from "../state/index";
 function AddPromocode(props) {
   const amount = useSelector((state) => state.amount1);
   const dispatch = useDispatch();
+  const [userid, setuserid] = useState();
+  const [email, setemail] = useState();
+  
+
   const { loginData } = bindActionCreators(actionCreators, dispatch);
   console.log("loginData", amount.email);
   const handleEmailChange = (event) => {
@@ -26,10 +30,13 @@ function AddPromocode(props) {
   };
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/updaterecord");
+    const email1 = localStorage.getItem("email");
     if (!authToken) {
       props.history.push("/login");
     }
+    setuserid(authToken);
+    setemail(email1);
+
   }, []);
   return (
     <>
@@ -42,14 +49,14 @@ function AddPromocode(props) {
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
                 <form class="addprpromoform">
-                  <input type="hidden" value={amount.u_id} id="new_userid" />
+                  <input type="hidden" value={userid} id="new_userid" />
                   <div class="form-group">
                     <label for="exampleInputEmail1">Enter Email</label>
                     <input
                       type="text"
                       class="form-control"
                       id="new_useremail"
-                      value={amount.email}
+                      value={email}
                       onChange={handleEmailChange}
                       readOnly
                     />

@@ -63,6 +63,7 @@ $(document).ready(function () {
     const new_useremail = $("#new_useremail").val();
     const new_userpass = $("#new_userpass").val();
     const new_userid = $("#new_userid").val();
+
     $.ajax({
       url: `${storeurl}admin_updatesetting`,
       type: "POST",

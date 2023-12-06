@@ -64,7 +64,6 @@ function Enduserdetail(props) {
 
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/typographydetail/?id=" + id);
     if (!authToken) {
       props.history.push("/login");
     }

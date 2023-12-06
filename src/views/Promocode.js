@@ -54,22 +54,11 @@ function Promocode(props) {
     totaluser();
     if (showpromocode.length > 0) {
       let table4 = $("#newexample4").DataTable();
-      //table4.draw();
     }
-    //let table4 = $("#newexample4").DataTable();
-    //table4.draw();
-    // $(document).ready(function () {
-    // 	totaluser();
-    // 	$("#newexample4").DataTable();
-    // });
-    // $(document).ready(function () {
-    // 	totaluser();
-    // 	$("#myTable").DataTable();
-    // });
+
   }, [showpromocode]);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/promocode");
     if (!authToken) {
       props.history.push("/login");
     }

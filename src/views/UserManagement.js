@@ -66,7 +66,6 @@ function UserManagement(props) {
   }, [users]);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/usermanagement");
     if (!authToken) {
       props.history.push("/login");
     }

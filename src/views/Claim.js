@@ -25,42 +25,10 @@ function Claim(props) {
   const [loading, setLoading] = useState(true);
 
   const history = useHistory();
-  function handleClick() {
-    history.push("/admin/claimdetail");
-  }
 
-  $(document).on("click", ".mynewtick23", function () {
-    //  var id=$(this).attr('data-id');
-
-    var customername = $(this).attr("data-customername");
-    var drivername = $(this).attr("data-drivername");
-    var customerphone = $(this).attr("data-customerphone");
-    var driverphone = $(this).attr("data-driverphone");
-    var tripcost = $(this).attr("data-price");
-    var claimfrom = $(this).attr("data-claimfrom");
-    var claimto = $(this).attr("data-claimto");
-    var dataimages = $(this).attr("data-images");
-    var dataid = $(this).attr("data-id");
-    var datastatus = $(this).attr("data-status");
-    var datasubject = $(this).attr("data-subject");
-    var datamessage = $(this).attr("data-message");
-
-    history.push({
-      pathname: "/admin/claimdetail",
-      customername: { customer_name: customername },
-      drivername: { driver_name: drivername },
-      customerphone: { customer_phone: customerphone },
-      driverphone: { driver_phone: driverphone },
-      tripcost: { trip_cost: tripcost },
-      claimfrom: { claim_from: claimfrom },
-      claimto: { claim_to: claimto },
-      dataimages: { data_images: dataimages },
-      dataid: { data_id: dataid },
-      datastatus: { data_status: datastatus },
-      datasubject: { data_subject: datasubject },
-      datamessage: { data_message: datamessage },
-    });
-  });
+  const gonextscreen = (id) => {
+    history.push("/admin/claimdetail/?id="+id);
+  };
 
   useEffect(() => {
     async function totaluser() {
@@ -96,7 +64,6 @@ function Claim(props) {
   //console.log("users", userblock);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/claim");
     if (!authToken) {
       props.history.push("/login");
     }
@@ -159,6 +126,7 @@ function Claim(props) {
                             <td>{claimrecord.claim_status}</td>
                             <td>
                               <button
+                               onClick={() => gonextscreen(claimrecord.claim_id)}
                                 type="button"
                                 class="btn btn-primary mynewtick23"
                                 data-customername={

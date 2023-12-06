@@ -22,10 +22,14 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 function TableList(props) {
 
   const history = useHistory();
-  $(document).on("click", ".driver_detail", function () {
-    var id = $(this).attr("data-id");
-    history.push("/admin/driverdetail/?id=" + id);
-  });
+  // $(document).on("click", ".driver_detail", function () {
+  //   var id = $(this).attr("data-id");
+    
+  // });
+
+  const gonextscreen = (id) => {
+    history.push("/admin/driverdetail/?id="+id);
+  };
 
   const [alldrivers, setalldrivers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,7 +58,6 @@ function TableList(props) {
   }, [alldrivers]);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/table");
     if (!authToken) {
       props.history.push("/login");
     }
@@ -106,7 +109,7 @@ function TableList(props) {
                           <td className="border-0">{item.phone_no}</td>
                           <td className="border-0">{item.joining_date}</td>
                           <td className="border-0">
-                            <i
+                            <i onClick={() => gonextscreen(item.u_id)}
                               class="fa fa-eye driver_detail"
                               data-id={item.u_id}
                             ></i>

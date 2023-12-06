@@ -34,7 +34,6 @@ function Adduser(props) {
   }, []);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/adduser");
     if (!authToken) {
       props.history.push("/login");
     }

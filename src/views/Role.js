@@ -61,7 +61,6 @@ function Role(props) {
   }, [userrole]);
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/role");
     if (!authToken) {
       props.history.push("/login");
     }

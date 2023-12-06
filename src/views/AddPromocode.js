@@ -16,7 +16,6 @@ import $ from "jquery";
 function AddPromocode(props) {
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
-    props.history.push("/admin/addpromocode");
     if (!authToken) {
       props.history.push("/login");
     }

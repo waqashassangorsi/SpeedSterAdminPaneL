@@ -52,6 +52,7 @@ function Login(props) {
           if (data.data.u_id != "") {
             loginData(data.data);
             localStorage.setItem("userid", data.data.u_id);
+            localStorage.setItem("email", data.data.email);
             props.history.push("/admin/Dashboard");
           } else {
             alert("No Record Found");
