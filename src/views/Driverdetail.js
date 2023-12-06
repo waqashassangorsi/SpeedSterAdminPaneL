@@ -27,7 +27,7 @@ function Driverdetail(props) {
   const [drivermodel_year, setmodel_year] = useState([]);
   const [plate_no, setplate_no] = useState([]);
   const [apidata, setapidata] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(false); // Add loading state
 
 
   const [privilages, setPrivilages] = useState([]);
@@ -36,110 +36,58 @@ function Driverdetail(props) {
   var id = pair[1];
   console.log("paramvalue",id);
 
-  // async function callapi(event) {
-
-  //   console.log("hellpakistan")
-  //   $.ajax({
-  //     url: `${storeurl}admin_singledriverdetail`,
-  //     type: "POST",
-  //     data: { id: id },
-  //     dataType: "json",
-  //     success: function (html) {
-  //       console.log("driverdetail", html);
-  //       if (html.status == true) {
-  //         setapidata(html.data);
-  //         if (html.data.length > 0) {
-  //           var newdatamy = html.data;
-  //           var privilagesArray = [];
-  //           var backlicenseArray = [];
-  //           var registrationdocumentArray = [];
-  //           var driveridcardfrontArray = [];
-  //           var driveridcardbackArray = [];
-  //           var vehicalinfoArray = [];
-  //           var drivermodel_yearArray = [];
-  //           var plate_noArray = [];
-  
-  //           newdatamy.forEach(function (checkbox) {
-  //             privilagesArray.push(checkbox.driving_license_front);
-  //             backlicenseArray.push(checkbox.driving_license_back);
-  //             registrationdocumentArray.push(checkbox.registration_document);
-  //             driveridcardfrontArray.push(checkbox.id_card_front);
-  //             driveridcardbackArray.push(checkbox.id_card_back);
-  //             vehicalinfoArray.push(checkbox.vehicle_info);
-  //             drivermodel_yearArray.push(checkbox.model_year);
-  //             plate_noArray.push(checkbox.plate_no);
-  //             setdrivername(checkbox.name);
-  //             setdriveremail(checkbox.email);
-  //           });
-  //           setdriverfrontlicense(privilagesArray);
-  //           setdriverbacklicense(backlicenseArray);
-  //           setregistrationdocument(registrationdocumentArray);
-  //           setdriveridcardfront(driveridcardfrontArray);
-  //           setdriveridcardback(driveridcardbackArray);
-  //           setvehicalinfo(vehicalinfoArray);
-  //           setmodel_year(drivermodel_yearArray);
-  //           setplate_no(plate_noArray);
-  //         }
-  //       } else {
-  //         // alert("Record not exists");
-  //       }
-  //       //console.log("asdasd234234", privilages);
-  //     },
-  //   });
-  // }
   async function callapi(event) {
-    console.log("hellpakistan");
-    try {
-      const response = await fetch(`${storeurl}admin_singledriverdetail`, {
-        method: "POST",
-        data: { id: id },
-        dataType: "json",
-      });
 
-      const data = await response.json();
-      console.log("driverdetail", data);
-      if (data.status === true) {
-        var newdatamy = data.data;
-        var privilagesArray = [];
-        var backlicenseArray = [];
-        var registrationdocumentArray = [];
-        var driveridcardfrontArray = [];
-        var driveridcardbackArray = [];
-        var vehicalinfoArray = [];
-        var drivermodel_yearArray = [];
-        var plate_noArray = [];
-
-        newdatamy.forEach(function (checkbox) {
-          privilagesArray.push(checkbox.driving_license_front);
-          backlicenseArray.push(checkbox.driving_license_back);
-          registrationdocumentArray.push(checkbox.registration_document);
-          driveridcardfrontArray.push(checkbox.id_card_front);
-          driveridcardbackArray.push(checkbox.id_card_back);
-          vehicalinfoArray.push(checkbox.vehicle_info);
-          drivermodel_yearArray.push(checkbox.model_year);
-          plate_noArray.push(checkbox.plate_no);
-          setdrivername(checkbox.name);
-          setdriveremail(checkbox.email);
-        });
-        setdriverfrontlicense(privilagesArray);
-        setdriverbacklicense(backlicenseArray);
-        setregistrationdocument(registrationdocumentArray);
-        setdriveridcardfront(driveridcardfrontArray);
-        setdriveridcardback(driveridcardbackArray);
-        setvehicalinfo(vehicalinfoArray);
-        setmodel_year(drivermodel_yearArray);
-        setplate_no(plate_noArray);
-        setapidata(data.data);
-      } else {
-        // Handle the case when data.status is not true
-        // alert("Record not exists");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false); // Set loading to false when the data is fetched
-    }
+    console.log("hellpakistan")
+    $.ajax({
+      url: `${storeurl}admin_singledriverdetail`,
+      type: "POST",
+      data: { id: id },
+      dataType: "json",
+      success: function (html) {
+        console.log("driverdetail", html);
+        if (html.status == true) {
+          setapidata(html.data);
+          if (html.data.length > 0) {
+            var newdatamy = html.data;
+            var privilagesArray = [];
+            var backlicenseArray = [];
+            var registrationdocumentArray = [];
+            var driveridcardfrontArray = [];
+            var driveridcardbackArray = [];
+            var vehicalinfoArray = [];
+            var drivermodel_yearArray = [];
+            var plate_noArray = [];
+  
+            newdatamy.forEach(function (checkbox) {
+              privilagesArray.push(checkbox.driving_license_front);
+              backlicenseArray.push(checkbox.driving_license_back);
+              registrationdocumentArray.push(checkbox.registration_document);
+              driveridcardfrontArray.push(checkbox.id_card_front);
+              driveridcardbackArray.push(checkbox.id_card_back);
+              vehicalinfoArray.push(checkbox.vehicle_info);
+              drivermodel_yearArray.push(checkbox.model_year);
+              plate_noArray.push(checkbox.plate_no);
+              setdrivername(checkbox.name);
+              setdriveremail(checkbox.email);
+            });
+            setdriverfrontlicense(privilagesArray);
+            setdriverbacklicense(backlicenseArray);
+            setregistrationdocument(registrationdocumentArray);
+            setdriveridcardfront(driveridcardfrontArray);
+            setdriveridcardback(driveridcardbackArray);
+            setvehicalinfo(vehicalinfoArray);
+            setmodel_year(drivermodel_yearArray);
+            setplate_no(plate_noArray);
+          }
+        } else {
+          // alert("Record not exists");
+        }
+        //console.log("asdasd234234", privilages);
+      },
+    });
   }
+
 
   useEffect(() => {
     const authToken = localStorage.getItem("userid");
