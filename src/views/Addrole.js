@@ -209,7 +209,7 @@ function Addrole(props) {
                                 aria-hidden="true"
                               ></i>
                             </span>{" "}
-                            <span>Drivers1</span>
+                            <span>Drivers</span>
                           </div>
                         </td>
                         <td>
@@ -291,7 +291,7 @@ function Addrole(props) {
 
                       {/****** sixth row start *****/}
 
-                      <tr>
+                      {/* <tr>
                         <td class="dashboard_td5 table_hover">
                           <div onClick={handleClicksix}>
                             <span>
@@ -316,8 +316,8 @@ function Addrole(props) {
                             class="parentcheckbox_newval"
                           ></input>
                         </td>
-                      </tr>
-                      {showdashboardchildsix == true && (
+                      </tr> */}
+                      {/* {showdashboardchildsix == true && (
                         <>
                           <tr class="dashboard_collapse5 close6">
                             <td>
@@ -334,7 +334,7 @@ function Addrole(props) {
                             </td>
                           </tr>
                         </>
-                      )}
+                      )} */}
                       {/****** sixth row ends *****/}
 
                       {/****** seventh row start *****/}

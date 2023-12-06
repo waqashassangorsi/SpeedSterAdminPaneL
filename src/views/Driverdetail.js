@@ -27,7 +27,7 @@ function Driverdetail(props) {
   const [drivermodel_year, setmodel_year] = useState([]);
   const [plate_no, setplate_no] = useState([]);
   const [apidata, setapidata] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(false); // Add loading state
 
 
   const [privilages, setPrivilages] = useState([]);
@@ -90,7 +90,6 @@ function Driverdetail(props) {
       },
     });
   }
-
 
 
   useEffect(() => {
