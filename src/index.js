@@ -39,7 +39,15 @@ const App = () => {
   const amount1 = useSelector((state) => state.amount1);
   const dispatch = useDispatch();
   const { loginData } = bindActionCreators(actionCreators, dispatch);
+  // useEffect(() => {
+  //   // Retrieve values from local storage
+  //   const storedUserId = localStorage.getItem("userid");
 
+  //   // Do something with the values if needed
+  //   console.log("Stored UserId:", storedUserId);
+  //   console.log("Stored Email:", storedEmail);
+
+  // }, []);
   window.addEventListener("unload", function (event) {
     const currentUrl = window.location.href;
 

@@ -31,13 +31,13 @@ function Sidebar({ color, image, routes }) {
     history.push("/admin/pricing");
   });
 
-  // $(document).on("click", ".user_link", function () {
-  //   history.push("/admin/usermanagement");
-  // });
+  $(document).on("click", ".user_link", function () {
+    history.push("/admin/usermanagement");
+  });
 
-  // $(document).on("click", ".user_roles", function () {
-  //   history.push("/admin/role");
-  // });
+  $(document).on("click", ".user_roles", function () {
+    history.push("/admin/role");
+  });
 
   $(document).on("click", ".user_updaterecord", function () {
     history.push("/admin/updaterecord");
